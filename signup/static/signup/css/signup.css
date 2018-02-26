@@ -1,0 +1,111 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-image: url("/static/images/holzhintergrund.jpg");
+    font-family: "Roboto", "Verdana", "Arial", sans-serif;
+}
+
+#branding {
+    display: block;
+    width: 425px;
+    height: 145px;
+    margin-left: 10%;
+    margin-bottom: -10px;
+    position: relative;
+    text-align: center;
+}
+
+#branding #branding_logo {
+    text-align: center;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    padding: 1rem;
+    background-color: #ffcb04;
+    z-index: 2;
+}
+
+#branding #branding_region {
+    line-height: 30px;
+    text-align: center;
+    color: #ffcb04;
+    font-size: 18px;
+    background-color: #1d4899;
+    font-family: "Immenhausen", serif;
+    z-index: 2;
+    position: relative;
+}
+
+#branding::after {
+    z-index: 1;
+    background-image: url("/static/images/shadow.svg");
+    background-color: rgba(0, 0, 0, 0);
+    background-position: 50% 0%;
+    bottom: -20px;
+    background-attachment: scroll;
+    background-clip: border-box;
+    display: block;
+    height: 143px;
+    width: 457px;
+    content: "";
+    position: absolute;
+}
+
+main {
+    padding: 2rem 3rem;
+}
+
+h1 {
+    font-family: Immenhausen, serif;
+    color: #ffcb04;
+    background-color: rgba(56, 46, 35, 0.7);
+    width: 30%;
+    text-align: center;
+    padding: 0.5rem;
+}
+
+fieldset {
+    background-color: rgba(56, 46, 35, 0.7);
+    border-style: none;
+    padding-top: 3rem;
+    padding-left: 1rem;
+    position: relative;
+    margin: 1rem;
+}
+
+fieldset legend {
+    top: 0.5rem;
+    position: absolute;
+    color: #1d4899;
+    font-family: "Immenhausen", serif;
+    font-size: 18pt;
+    background-color: #ffcb04;
+    padding: 0.1rem 0.6rem;
+}
+
+fieldset label {
+    color: #ffcb04;
+}
+
+fieldset .help-inline {
+    color: white;
+    background-color: #f00000;
+}
+
+#buttonHolder {
+    float: right;
+}
+
+.btn {
+    background-color: #ffcb04;
+    color: #1d4899;
+    border: 0;
+    border-radius: 0;
+    font-size: 150%;
+    float: right;
+    padding: 0.2rem 1rem;
+    font-family: "Immenhausen", serif;
+}
+
+/*# sourceMappingURL=signup.css.map */
