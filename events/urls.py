@@ -3,5 +3,5 @@ from django.urls import path
 from events import views
 
 urlpatterns = [
-    path('', views.edit_event),
+    path('', views.get_event),
 ]
