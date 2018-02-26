@@ -2,7 +2,6 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, ButtonHolder, Submit
 from django import forms
 from django.db import IntegrityError
-from django.forms import DateInput
 from django.utils.crypto import get_random_string
 
 from signup.models import Participant
@@ -13,8 +12,19 @@ class EditParticipant(forms.ModelForm):
         model = Participant
         fields = ['forename', 'lastname', 'born', 'plz', 'location', 'group', 'mail', 'perks', 'additional',
                   'next_station', 'event']
-        widgets = {
-            'born': DateInput()
+
+        labels = {
+            'forename': 'Vorname',
+            'lastname': 'Nachname',
+            'born': 'Geburtsdatum',
+            'plz': 'Postleitzahl',
+            'location': 'Wohnort',
+            'group': 'Stamm',
+            'mail': 'Email Adresse',
+            'perks': 'Evtl Bahn Vergünstigungen',
+            'additional': 'Weitere Informationen',
+            'next_station': 'Nächster Bahnhof',
+            'event': 'Event'
         }
 
     def __init__(self, *args, **kwargs):
