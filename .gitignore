@@ -110,3 +110,6 @@ venv.bak/
 
 # Sqlite
 db.sqlite3
+
+# Temp
+.tmp
