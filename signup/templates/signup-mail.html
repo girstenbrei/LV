@@ -1,0 +1,21 @@
+<h1>
+    Anmeldung für {{ participant.forename }}
+</h1>
+<p>
+    Hier nochmal alle Daten für dich um überprüfen.
+</p>
+<table>
+    {% for key, value in participant.items %}
+        {% if value != "" %}
+            <tr>
+                <td>{{ key }}</td>
+                <td>{{ value }}</td>
+            </tr>
+        {% endif %}
+    {% endfor %}
+</table>
+<p>
+    Du hast einen Fehler entdeckt oder möchtest dich abmelden? Mit diesem Link kannst du, solange der Anmeldezeitraum
+    noch nicht abgelaufen ist, deine Daten editieren:
+    <a href="/{{ slug }}">Bearbeiten</a>
+</p>
