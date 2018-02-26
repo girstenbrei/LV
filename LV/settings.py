@@ -118,4 +118,4 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
-EMAIL_FILE_PATH = './tmp_mail'  # change this to a proper location
+EMAIL_FILE_PATH = './.tmp'  # change this to a proper location
