@@ -16,3 +16,4 @@ class Participant(models.Model):
     additional = models.TextField(blank=True)
     next_station = models.CharField(max_length=254)
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
+    slug = models.SlugField(unique=True)
