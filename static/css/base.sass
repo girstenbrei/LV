@@ -10,6 +10,16 @@ body
   padding: 0
   background-image: url("/static/images/holzhintergrund.jpg")
   font-family: $font_base
+  height: 100%
+
+.container
+  min-height: 100%
+  position: relative
+  padding-bottom: 10rem
+
+main
+  min-height: 100%
+  position: relative
 
 #branding
   display: block
@@ -93,3 +103,15 @@ fieldset
   float: right
   padding: .2rem 1rem
   font-family: $font_headings
+
+footer
+  padding: 1rem
+  background-color: $brown-layover
+  color: white
+  bottom: 0
+  position: absolute
+  width: 100%
+
+  h2
+    color: $primary-yellow
+    font-family: $font_headings

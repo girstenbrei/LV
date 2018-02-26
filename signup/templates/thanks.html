@@ -1,9 +1,12 @@
 {% extends  'base.html' %}
 
 {% block  main %}
-    <h2>Du bist angemeldet {{ name }}</h2>
-    <p>
-        Es wurde eine Mail an die von dir angegebene Mailadresse versandt. In dieser findest du einen Link, mit dem du
-        deine Anmeldung verwalten kannst, solange der Anmeldezeitraum noch offen ist.
-    </p>
+    <div class="container">
+        <h2>Du bist angemeldet {{ name }}</h2>
+        <p>
+            Es wurde eine Mail an die von dir angegebene Mailadresse versandt. In dieser findest du einen Link, mit dem
+            du
+            deine Anmeldung verwalten kannst, solange der Anmeldezeitraum noch offen ist.
+        </p>
+    </div>
 {% endblock %}

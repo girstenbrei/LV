@@ -3,6 +3,18 @@ body {
     padding: 0;
     background-image: url("/static/images/holzhintergrund.jpg");
     font-family: "Roboto", "Verdana", "Arial", sans-serif;
+    height: 100%;
+}
+
+.container {
+    min-height: 100%;
+    position: relative;
+    padding-bottom: 10rem;
+}
+
+main {
+    min-height: 100%;
+    position: relative;
 }
 
 #branding {
@@ -96,6 +108,20 @@ fieldset .help-inline {
     font-size: 150%;
     float: right;
     padding: 0.2rem 1rem;
+    font-family: "Immenhausen", serif;
+}
+
+footer {
+    padding: 1rem;
+    background-color: rgba(56, 46, 35, 0.7);
+    color: white;
+    bottom: 0;
+    position: absolute;
+    width: 100%;
+}
+
+footer h2 {
+    color: #ffcb04;
     font-family: "Immenhausen", serif;
 }
 
