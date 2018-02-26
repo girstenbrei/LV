@@ -1,10 +1,25 @@
 <!DOCTYPE html>
+{% load staticfiles %}
 <html lang="de">
 <head>
     <meta charset="UTF-8">
     <title>{{ title }}</title>
+    <link href="{% static 'css/base.css' %}" rel="stylesheet" type="text/css">
+    {#    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">#}
 </head>
 <body>
+
+<div id="branding">
+    <div id="branding_logo">
+        <img class="responsive-img" src="//cdn.pfadfinden.de/gfx/logos/bundeszeichen_1.png"
+             srcset="//cdn.pfadfinden.de/gfx/logos/bundeszeichen_1.png 1x, //cdn.pfadfinden.de/gfx/logos/bundeszeichen_1@2x.png 2x"
+             alt="Bund der Pfadfinderinnen und Pfadfinder" width="390" height="79">
+    </div>
+    <div id="branding_region">
+        Landesverband Bayern
+    </div>
+</div>
+
 <main>
     {% block  main %}
     {% endblock %}

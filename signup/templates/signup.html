@@ -2,9 +2,7 @@
 {% load crispy_forms_tags %}
 
 {% block main %}
-    <form name="{{ form.form_name }}" method="post" action=".">
+    <h1>Anmeldung</h1>
         {% csrf_token %}
-        {{ form|crispy }}
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+    {% crispy form %}
 {% endblock %}
