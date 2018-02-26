@@ -1,21 +1,19 @@
 # Create your views here.
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 from signup.forms import EditParticipant
+from signup.models import Participant
 
 
-def add_participant(request):
-    # if this is a POST request we need to process the form data
-    if request.method == 'POST':
-        # create a form instance and populate it with data from the request:
+def add_participant(request, slug=None):
+    if slug:
+        form = EditParticipant(instance=get_object_or_404(Participant, slug=slug))
+    elif request.method == 'POST':
         form = EditParticipant(request.POST)
-        # check whether it's valid:
         if form.is_valid():
             form.save()
             return HttpResponseRedirect('/')
-
-    # if a GET (or any other method) we'll create a blank form
     else:
         form = EditParticipant()
 
