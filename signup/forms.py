@@ -52,7 +52,7 @@ class EditParticipant(forms.ModelForm):
                 'additional',
             ),
             ButtonHolder(
-                Submit('submit', 'Submit')
+                Submit('submit', 'Anmelden')
             )
         )
 

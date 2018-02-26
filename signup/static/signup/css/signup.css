@@ -56,15 +56,6 @@ main {
     padding: 2rem 3rem;
 }
 
-h1 {
-    font-family: Immenhausen, serif;
-    color: #ffcb04;
-    background-color: rgba(56, 46, 35, 0.7);
-    width: 30%;
-    text-align: center;
-    padding: 0.5rem;
-}
-
 fieldset {
     background-color: rgba(56, 46, 35, 0.7);
     border-style: none;
@@ -97,7 +88,7 @@ fieldset .help-inline {
     float: right;
 }
 
-.btn {
+.btn-primary {
     background-color: #ffcb04;
     color: #1d4899;
     border: 0;
@@ -106,6 +97,17 @@ fieldset .help-inline {
     float: right;
     padding: 0.2rem 1rem;
     font-family: "Immenhausen", serif;
+}
+
+h1 {
+    font-family: "Immenhausen", serif;
+    color: #ffcb04;
+    background-color: rgba(56, 46, 35, 0.7);
+    width: 30%;
+    text-align: center;
+    padding: 0.5rem;
+    max-width: 255px;
+    min-width: 170px;
 }
 
 /*# sourceMappingURL=signup.css.map */
