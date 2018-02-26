@@ -9,7 +9,6 @@ from signup.models import Participant
 
 
 class EditParticipant(forms.ModelForm):
-    born = DateInput
     class Meta:
         model = Participant
         fields = ['forename', 'lastname', 'born', 'plz', 'location', 'group', 'mail', 'perks', 'additional',
