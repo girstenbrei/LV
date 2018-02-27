@@ -86,26 +86,48 @@ fieldset {
   float: right; }
 
 .btn-primary {
-  background-color: #ffcb04;
-  color: #1d4899;
+    background-color: #1d4899;
+    -o-transition: 0.15s;
+    -ms-transition: 0.15s;
+    -moz-transition: 0.15s;
+    -webkit-transition: 0.15s;
+    /* ...and now for the proper property */
+    transition: 0.15s;
+    color: #ffcb04;
+    -o-transition: 0.15s;
+    -ms-transition: 0.15s;
+    -moz-transition: 0.15s;
+    -webkit-transition: 0.15s;
+    /* ...and now for the proper property */
+    transition: 0.15s;
   border: 0;
   border-radius: 0;
-  font-size: 150%;
+    font-size: 200%;
   float: right;
   padding: 0.2rem 1rem;
-  font-family: "Immenhausen", serif; }
+    font-family: "Immenhausen", serif;
+    -webkit-box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22);
+    -moz-box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22);
+    box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22);
+}
+
+.btn-primary:hover {
+    background-color: #15346e;
+}
 
 footer {
   background-color: rgba(56, 46, 35, 0.7);
   height: 10rem;
   position: relative;
   margin-top: -10rem;
-  clear: both; }
+    clear: both;
+    padding: 1rem 10%;
+}
   footer h2 {
     color: #ffcb04;
     font-family: "Immenhausen", serif; }
 
-h1 {
+main h1 {
   font-family: "Immenhausen", serif;
   color: #ffcb04;
   background-color: rgba(56, 46, 35, 0.7);
@@ -114,5 +136,29 @@ h1 {
   padding: 0.5rem;
   max-width: 255px;
   min-width: 170px; }
+
+main h2 {
+    font-family: "Immenhausen", serif;
+    color: #1d4899;
+    background-color: #ffcb04;
+    padding: 0.5rem;
+    display: inline;
+    margin-bottom: 5rem;
+}
+
+main .content {
+    background-color: white;
+    -webkit-box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22);
+    -moz-box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22);
+    box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22);
+}
+
+main p {
+    padding: 1rem;
+}
+
+main .content {
+    padding: 2rem;
+}
 
 /*# sourceMappingURL=signup.css.map */

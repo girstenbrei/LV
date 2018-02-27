@@ -1,12 +1,17 @@
 {% extends  'base.html' %}
+{% load staticfiles %}
+
+{% block head %}
+    <link href="{% static 'signup/css/signup.css' %}" rel="stylesheet" type="text/css">
+{% endblock %}
 
 {% block  main %}
-    <div class="container">
+    <div class="content">
         <h2>Du bist angemeldet {{ name }}</h2>
         <p>
-            Es wurde eine Mail an die von dir angegebene Mailadresse versandt. In dieser findest du einen Link, mit dem
-            du
-            deine Anmeldung verwalten kannst, solange der Anmeldezeitraum noch offen ist.
+            Es wurde eine Mail an die von dir angegebene Mailadresse versandt. <br>
+            In dieser findest du einen Link, mit dem du deine Anmeldung verwalten kannst, solange der Anmeldezeitraum
+            noch offen ist.
         </p>
     </div>
 {% endblock %}
