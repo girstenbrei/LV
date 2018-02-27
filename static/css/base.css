@@ -19,6 +19,38 @@ main {
   overflow: auto;
   padding-bottom: 12rem; }
 
+main h1 {
+  font-family: "Immenhausen", serif;
+  color: #ffcb04;
+  background-color: rgba(56, 46, 35, 0.7);
+  width: 30%;
+  text-align: center;
+  padding: 0.5rem;
+  max-width: 255px;
+  min-width: 170px;
+}
+
+main table {
+  background-color: white;
+  margin: 2rem 0;
+  background-color: white;
+  -webkit-box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22);
+  -moz-box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22);
+  box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22);
+}
+
+main table tr:hover {
+  background-color: rgba(56, 46, 35, 0.1);
+}
+
+main table td {
+  padding: 0.5rem;
+}
+
+main table th, main table td {
+  border-bottom: 1px solid rgba(56, 46, 35, 0.2);
+}
+
 #branding {
   display: block;
   width: 425px;
@@ -91,17 +123,15 @@ fieldset {
   -ms-transition: 0.15s;
   -moz-transition: 0.15s;
   -webkit-transition: 0.15s;
-  /* ...and now for the proper property */
   transition: 0.15s;
   color: #ffcb04;
   -o-transition: 0.15s;
   -ms-transition: 0.15s;
   -moz-transition: 0.15s;
   -webkit-transition: 0.15s;
-  /* ...and now for the proper property */
   transition: 0.15s;
   border: 0;
-  border-radius: 0;
+  border-radius: 3px;
   font-size: 200%;
   float: right;
   padding: 0.2rem 1rem;
@@ -113,6 +143,34 @@ fieldset {
 
 .btn-primary:hover {
   background-color: #15346e;
+}
+
+.btn-secondary {
+  background-color: #ffcb04;
+  -o-transition: 0.15s;
+  -ms-transition: 0.15s;
+  -moz-transition: 0.15s;
+  -webkit-transition: 0.15s;
+  transition: 0.15s;
+  color: #1d4899;
+  -o-transition: 0.15s;
+  -ms-transition: 0.15s;
+  -moz-transition: 0.15s;
+  -webkit-transition: 0.15s;
+  transition: 0.15s;
+  border: 0;
+  border-radius: 3px;
+  font-size: 130%;
+  float: right;
+  padding: 0.2rem 1rem;
+  font-family: "Immenhausen", serif;
+  -webkit-box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22);
+  -moz-box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22);
+  box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22);
+}
+
+.btn-secondary:hover {
+  background-color: #d0a500;
 }
 
 footer {

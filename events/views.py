@@ -1,8 +1,10 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
-
 # Create your views here.
+from django.views.generic import ListView
+
 from events.forms import EditEvent
+from events.models import Event
 
 
 def get_event(request):
@@ -22,3 +24,8 @@ def get_event(request):
         form = EditEvent()
 
     return render(request, 'events/edit_event.html', {'form': form})
+
+
+class EventList(ListView):
+    model = Event
+    context_object_name = 'events'
