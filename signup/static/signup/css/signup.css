@@ -33,7 +33,6 @@ main h1 {
 main table {
     background-color: white;
     margin: 2rem 0;
-    background-color: white;
     -webkit-box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22);
     -moz-box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22);
     box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22);
@@ -62,7 +61,6 @@ main table th, main table td {
   #branding #branding_logo {
     text-align: center;
     box-sizing: border-box;
-    padding: 0;
     margin: 0;
     position: relative;
     padding: 1rem;
