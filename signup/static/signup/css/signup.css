@@ -164,13 +164,12 @@ fieldset {
     float: right;
     padding: 0.2rem 1rem;
     font-family: "Immenhausen", serif;
-    -webkit-box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22);
-    -moz-box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22);
-    box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22);
 }
 
 .btn-secondary:hover {
-    background-color: #d0a500;
+    -webkit-box-shadow: inset 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: inset 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: inset 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
 }
 
 footer {

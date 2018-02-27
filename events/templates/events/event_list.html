@@ -9,7 +9,7 @@
                 <td>{{ event.start_datetime }}</td>
                 <td>{{ event.end_datetime }}</td>
                 <td>{{ event.signup_to }}</td>
-                <td><a href="" class="btn-secondary">Anmelden</a></td>
+                <td><a href="{% url 'add_participant' %}?event={{ event.id }}" class="btn-secondary">Anmelden</a></td>
             </tr>
         {% endfor %}
     </table>

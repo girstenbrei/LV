@@ -20,35 +20,35 @@ main {
   padding-bottom: 12rem; }
 
 main h1 {
-  font-family: "Immenhausen", serif;
-  color: #ffcb04;
-  background-color: rgba(56, 46, 35, 0.7);
-  width: 30%;
-  text-align: center;
-  padding: 0.5rem;
-  max-width: 255px;
-  min-width: 170px;
+    font-family: "Immenhausen", serif;
+    color: #ffcb04;
+    background-color: rgba(56, 46, 35, 0.7);
+    width: 30%;
+    text-align: center;
+    padding: 0.5rem;
+    max-width: 255px;
+    min-width: 170px;
 }
 
 main table {
-  background-color: white;
-  margin: 2rem 0;
-  background-color: white;
-  -webkit-box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22);
-  -moz-box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22);
-  box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22);
+    background-color: white;
+    margin: 2rem 0;
+    background-color: white;
+    -webkit-box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22);
+    -moz-box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22);
+    box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22);
 }
 
 main table tr:hover {
-  background-color: rgba(56, 46, 35, 0.1);
+    background-color: rgba(56, 46, 35, 0.1);
 }
 
 main table td {
-  padding: 0.5rem;
+    padding: 0.5rem;
 }
 
 main table th, main table td {
-  border-bottom: 1px solid rgba(56, 46, 35, 0.2);
+    border-bottom: 1px solid rgba(56, 46, 35, 0.2);
 }
 
 #branding {
@@ -138,11 +138,11 @@ fieldset {
   font-family: "Immenhausen", serif;
   -webkit-box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22);
   -moz-box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22);
-  box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22);
+    box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22);
 }
 
 .btn-primary:hover {
-  background-color: #15346e;
+    background-color: #15346e;
 }
 
 .btn-secondary {
@@ -163,14 +163,13 @@ fieldset {
   font-size: 130%;
   float: right;
   padding: 0.2rem 1rem;
-  font-family: "Immenhausen", serif;
-  -webkit-box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22);
-  -moz-box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22);
-  box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22);
+    font-family: "Immenhausen", serif;
 }
 
 .btn-secondary:hover {
-  background-color: #d0a500;
+    -webkit-box-shadow: inset 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: inset 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: inset 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
 }
 
 footer {
@@ -179,7 +178,7 @@ footer {
   position: relative;
   margin-top: -10rem;
   clear: both;
-  padding: 1rem 10%;
+    padding: 1rem 10%;
 }
   footer h2 {
     color: #ffcb04;

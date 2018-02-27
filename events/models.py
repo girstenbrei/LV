@@ -9,6 +9,7 @@ class Event(models.Model):
     end_datetime = models.DateTimeField()
     signup_from = models.DateTimeField()
     signup_to = models.DateTimeField()
+    slug = models.SlugField(unique=True)
 
     def __str__(self):
         return "{} {}".format(self.name, self.start_datetime.year)

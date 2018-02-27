@@ -21,6 +21,11 @@ $base_transition: .15s
   -moz-box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22)
   box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22)
 
+=inner_shadow
+  -webkit-box-shadow: inset 0px 0px 5px 0px rgba(0, 0, 0, 0.75)
+  -moz-box-shadow: inset 0px 0px 5px 0px rgba(0, 0, 0, 0.75)
+  box-shadow: inset 0px 0px 5px 0px rgba(0, 0, 0, 0.75)
+
 *
   margin: 0
   padding: 0
@@ -167,10 +172,12 @@ fieldset
   float: right
   padding: .2rem 1rem
   font-family: $font_headings
-  +base_shadow
+//+base_shadow
 
 .btn-secondary:hover
-  background-color: darken($primary-yellow, 10%)
+  //background-color: darken($primary-yellow, 10%)
+  //color: lighten($primary-blue, 20%)
+  +inner_shadow
 
 footer
   background-color: $brown-layover
