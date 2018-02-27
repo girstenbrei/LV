@@ -28,7 +28,8 @@ def add_participant(request, slug=None):
             confirmationMail(form.cleaned_data, instance.slug)
             return HttpResponseRedirect(reverse('thanks', kwargs={'name': form.cleaned_data['forename']}))
     else:
-        form = EditParticipant()
+        event = request.GET.get('event', '')
+        form = EditParticipant(initial={'event': event})
 
     return render(request, 'signup.html', {'form': form})
 

@@ -10,7 +10,14 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
         $(function () {
-            $(".dateinput").datepicker().datepicker("option", "dateFormat", "yy-mm-dd");
+            $(".dateinput").datepicker({
+                changeMonth: true,
+                changeYear: true,
+                minDate: "-99Y",
+                maxDate: "-3Y",
+                defaultDate: "-15Y",
+                yearRange: "-99Y:-3Y"
+            }).datepicker("option", "dateFormat", "yy-mm-dd");
         });
     </script>
 {% endblock %}

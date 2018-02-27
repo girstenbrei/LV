@@ -9,6 +9,23 @@ $footer_height: 10rem
 
 $base_transition: .15s
 
+=base_transition
+  -o-transition: $base_transition
+  -ms-transition: $base_transition
+  -moz-transition: $base_transition
+  -webkit-transition: $base_transition
+  transition: $base_transition
+
+=base_shadow
+  -webkit-box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22)
+  -moz-box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22)
+  box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22)
+
+=inner_shadow
+  -webkit-box-shadow: inset 0px 0px 5px 0px rgba(0, 0, 0, 0.75)
+  -moz-box-shadow: inset 0px 0px 5px 0px rgba(0, 0, 0, 0.75)
+  box-shadow: inset 0px 0px 5px 0px rgba(0, 0, 0, 0.75)
+
 *
   margin: 0
   padding: 0
@@ -30,6 +47,30 @@ main
   overflow: auto
   padding-bottom: $footer_height+2rem
 
+  h1
+    font-family: $font_headings
+    color: $primary-yellow
+    background-color: $brown-layover
+    width: 30%
+    text-align: center
+    padding: .5rem
+    max-width: 255px
+    min-width: 170px
+
+  table
+    background-color: white
+    margin: 2rem 0
+    +base_shadow
+
+    tr:hover
+      background-color: transparentize($brown-layover, .6)
+
+    td
+      padding: .5rem
+
+    th, td
+      border-bottom: 1px solid transparentize($brown-layover, .5)
+
 #branding
   display: block
   width: 425px
@@ -42,7 +83,6 @@ main
   #branding_logo
     text-align: center
     box-sizing: border-box
-    padding: 0
     margin: 0
     position: relative
     padding: 1rem
@@ -103,32 +143,34 @@ fieldset
 
 .btn-primary
   background-color: $primary-blue
-  -o-transition: $base_transition
-  -ms-transition: $base_transition
-  -moz-transition: $base_transition
-  -webkit-transition: $base_transition
-  /* ...and now for the proper property */
-  transition: $base_transition
+  +base_transition
   color: $primary-yellow
-  -o-transition: $base_transition
-  -ms-transition: $base_transition
-  -moz-transition: $base_transition
-  -webkit-transition: $base_transition
-  /* ...and now for the proper property */
-  transition: $base_transition
+  +base_transition
   border: 0
-  border-radius: 0
+  border-radius: 3px
   font-size: 200%
   float: right
   padding: .2rem 1rem
   font-family: $font_headings
-  -webkit-box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22)
-  -moz-box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22)
-  box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22)
+  +base_shadow
 
 .btn-primary:hover
   background-color: darken($primary-blue, 10%)
-  //color: lighten($primary-yellow,10%)
+
+.btn-secondary
+  background-color: $primary-yellow
+  +base_transition
+  color: $primary_blue
+  +base_transition
+  border: 0
+  border-radius: 3px
+  font-size: 130%
+  float: right
+  padding: .2rem 1rem
+  font-family: $font_headings
+
+.btn-secondary:hover
+  +inner_shadow
 
 footer
   background-color: $brown-layover
