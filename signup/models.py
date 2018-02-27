@@ -17,3 +17,6 @@ class Participant(models.Model):
     next_station = models.CharField(max_length=254)
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
     slug = models.SlugField(unique=True)
+
+    def __str__(self):
+        return "{}, {}".format(self.forename, self.lastname)

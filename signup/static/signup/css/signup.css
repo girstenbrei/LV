@@ -1,0 +1,164 @@
+* {
+  margin: 0;
+  padding: 0; }
+
+html, body {
+  height: 100%; }
+
+#container {
+  min-height: 100%; }
+
+body {
+  background-image: url("/static/images/holzhintergrund.jpg");
+  font-family: "Roboto", "Verdana", "Arial", sans-serif; }
+
+main {
+  width: 80%;
+  padding-top: 2rem;
+  margin: 0 auto;
+  overflow: auto;
+  padding-bottom: 12rem; }
+
+#branding {
+  display: block;
+  width: 425px;
+  height: 145px;
+  margin-left: 10%;
+  margin-bottom: -10px;
+  position: relative;
+  text-align: center; }
+  #branding #branding_logo {
+    text-align: center;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    padding: 1rem;
+    background-color: #ffcb04;
+    z-index: 2; }
+  #branding #branding_region {
+    line-height: 30px;
+    text-align: center;
+    color: #ffcb04;
+    font-size: 18px;
+    background-color: #1d4899;
+    font-family: "Immenhausen", serif;
+    z-index: 2;
+    position: relative; }
+
+#branding::after {
+  z-index: 1;
+  background-image: url("/static/images/shadow.svg");
+  background-color: rgba(0, 0, 0, 0);
+  background-position: 50% 0%;
+  bottom: -20px;
+  background-attachment: scroll;
+  background-clip: border-box;
+  display: block;
+  height: 143px;
+  width: 457px;
+  content: "";
+  position: absolute; }
+
+fieldset {
+  background-color: rgba(56, 46, 35, 0.7);
+  border-style: none;
+  padding-top: 3rem;
+  padding-left: 1rem;
+  padding-bottom: 1rem;
+  position: relative;
+  margin: 1rem; }
+  fieldset legend {
+    top: 0.5rem;
+    position: absolute;
+    color: #1d4899;
+    font-family: "Immenhausen", serif;
+    font-size: 18pt;
+    background-color: #ffcb04;
+    padding: 0.1rem 0.6rem; }
+  fieldset label {
+    color: #ffcb04; }
+  fieldset .help-inline {
+    color: white;
+    background-color: #f00000; }
+
+#buttonHolder {
+  float: right; }
+
+.btn-primary {
+    background-color: #1d4899;
+    -o-transition: 0.15s;
+    -ms-transition: 0.15s;
+    -moz-transition: 0.15s;
+    -webkit-transition: 0.15s;
+    /* ...and now for the proper property */
+    transition: 0.15s;
+    color: #ffcb04;
+    -o-transition: 0.15s;
+    -ms-transition: 0.15s;
+    -moz-transition: 0.15s;
+    -webkit-transition: 0.15s;
+    /* ...and now for the proper property */
+    transition: 0.15s;
+  border: 0;
+  border-radius: 0;
+    font-size: 200%;
+  float: right;
+  padding: 0.2rem 1rem;
+    font-family: "Immenhausen", serif;
+    -webkit-box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22);
+    -moz-box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22);
+    box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22);
+}
+
+.btn-primary:hover {
+    background-color: #15346e;
+}
+
+footer {
+  background-color: rgba(56, 46, 35, 0.7);
+  height: 10rem;
+  position: relative;
+  margin-top: -10rem;
+    clear: both;
+    padding: 1rem 10%;
+}
+  footer h2 {
+    color: #ffcb04;
+    font-family: "Immenhausen", serif; }
+
+main h1 {
+  font-family: "Immenhausen", serif;
+  color: #ffcb04;
+  background-color: rgba(56, 46, 35, 0.7);
+  width: 30%;
+  text-align: center;
+  padding: 0.5rem;
+  max-width: 255px;
+  min-width: 170px; }
+
+main h2 {
+    font-family: "Immenhausen", serif;
+    color: #1d4899;
+    background-color: #ffcb04;
+    padding: 0.5rem;
+    display: inline;
+    margin-bottom: 5rem;
+}
+
+main .content {
+    background-color: white;
+    -webkit-box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22);
+    -moz-box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22);
+    box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22);
+}
+
+main p {
+    padding: 1rem;
+}
+
+main .content {
+    padding: 2rem;
+}
+
+/*# sourceMappingURL=signup.css.map */
