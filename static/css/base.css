@@ -33,9 +33,16 @@ main h1 {
 main table {
     background-color: white;
     margin: 2rem 0;
+    width: 100%;
     -webkit-box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22);
     -moz-box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22);
     box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22);
+}
+
+main table th {
+    font-family: "Immenhausen", serif;
+    font-size: 110%;
+    padding: 0.5rem;
 }
 
 main table tr:hover {

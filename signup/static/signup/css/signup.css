@@ -27,27 +27,34 @@ main h1 {
     text-align: center;
     padding: 0.5rem;
     max-width: 255px;
-    min-width: 170px;
+  min-width: 170px;
 }
 
 main table {
     background-color: white;
     margin: 2rem 0;
+  width: 100%;
     -webkit-box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22);
     -moz-box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22);
-    box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22);
+  box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22);
+}
+
+main table th {
+  font-family: "Immenhausen", serif;
+  font-size: 110%;
+  padding: 0.5rem;
 }
 
 main table tr:hover {
-    background-color: rgba(56, 46, 35, 0.1);
+  background-color: rgba(56, 46, 35, 0.1);
 }
 
 main table td {
-    padding: 0.5rem;
+  padding: 0.5rem;
 }
 
 main table th, main table td {
-    border-bottom: 1px solid rgba(56, 46, 35, 0.2);
+  border-bottom: 1px solid rgba(56, 46, 35, 0.2);
 }
 
 #branding {
@@ -116,58 +123,58 @@ fieldset {
   float: right; }
 
 .btn-primary {
-    background-color: #1d4899;
-    -o-transition: 0.15s;
-    -ms-transition: 0.15s;
-    -moz-transition: 0.15s;
-    -webkit-transition: 0.15s;
-    transition: 0.15s;
-    color: #ffcb04;
-    -o-transition: 0.15s;
-    -ms-transition: 0.15s;
-    -moz-transition: 0.15s;
-    -webkit-transition: 0.15s;
-    transition: 0.15s;
+  background-color: #1d4899;
+  -o-transition: 0.15s;
+  -ms-transition: 0.15s;
+  -moz-transition: 0.15s;
+  -webkit-transition: 0.15s;
+  transition: 0.15s;
+  color: #ffcb04;
+  -o-transition: 0.15s;
+  -ms-transition: 0.15s;
+  -moz-transition: 0.15s;
+  -webkit-transition: 0.15s;
+  transition: 0.15s;
   border: 0;
-    border-radius: 3px;
-    font-size: 200%;
+  border-radius: 3px;
+  font-size: 200%;
   float: right;
   padding: 0.2rem 1rem;
-    font-family: "Immenhausen", serif;
-    -webkit-box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22);
-    -moz-box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22);
-    box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22);
+  font-family: "Immenhausen", serif;
+  -webkit-box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22);
+  -moz-box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22);
+  box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22);
 }
 
 .btn-primary:hover {
-    background-color: #15346e;
+  background-color: #15346e;
 }
 
 .btn-secondary {
-    background-color: #ffcb04;
-    -o-transition: 0.15s;
-    -ms-transition: 0.15s;
-    -moz-transition: 0.15s;
-    -webkit-transition: 0.15s;
-    transition: 0.15s;
-    color: #1d4899;
-    -o-transition: 0.15s;
-    -ms-transition: 0.15s;
-    -moz-transition: 0.15s;
-    -webkit-transition: 0.15s;
-    transition: 0.15s;
-    border: 0;
-    border-radius: 3px;
-    font-size: 130%;
-    float: right;
-    padding: 0.2rem 1rem;
-    font-family: "Immenhausen", serif;
+  background-color: #ffcb04;
+  -o-transition: 0.15s;
+  -ms-transition: 0.15s;
+  -moz-transition: 0.15s;
+  -webkit-transition: 0.15s;
+  transition: 0.15s;
+  color: #1d4899;
+  -o-transition: 0.15s;
+  -ms-transition: 0.15s;
+  -moz-transition: 0.15s;
+  -webkit-transition: 0.15s;
+  transition: 0.15s;
+  border: 0;
+  border-radius: 3px;
+  font-size: 130%;
+  float: right;
+  padding: 0.2rem 1rem;
+  font-family: "Immenhausen", serif;
 }
 
 .btn-secondary:hover {
-    -webkit-box-shadow: inset 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
-    -moz-box-shadow: inset 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
-    box-shadow: inset 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: inset 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: inset 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: inset 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
 }
 
 footer {
@@ -175,32 +182,32 @@ footer {
   height: 10rem;
   position: relative;
   margin-top: -10rem;
-    clear: both;
-    padding: 1rem 10%;
+  clear: both;
+  padding: 1rem 10%;
 }
   footer h2 {
     color: #ffcb04;
     font-family: "Immenhausen", serif; }
 
 main h2 {
-    font-family: "Immenhausen", serif;
-    color: #1d4899;
-    background-color: #ffcb04;
-    padding: 0.5rem;
-    display: inline;
-    margin-bottom: 5rem;
+  font-family: "Immenhausen", serif;
+  color: #1d4899;
+  background-color: #ffcb04;
+  padding: 0.5rem;
+  display: inline;
+  margin-bottom: 5rem;
 }
 main .content {
-    background-color: white;
-    -webkit-box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22);
-    -moz-box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22);
-    box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22);
+  background-color: white;
+  -webkit-box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22);
+  -moz-box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22);
+  box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22);
 }
 main p {
-    padding: 1rem;
+  padding: 1rem;
 }
 main .content {
-    padding: 2rem;
+  padding: 2rem;
 }
 
 /*# sourceMappingURL=signup.css.map */
