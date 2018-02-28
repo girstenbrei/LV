@@ -21,10 +21,22 @@
         </div>
     </div>
 
+
     <main>
         {% block  main %}
         {% endblock %}
     </main>
+
+    <nav>
+        <ul>
+            <a href="{% url 'eventlist' %}">
+                <li>Events</li>
+            </a>
+            <a href="{% url 'add_participant' %}">
+                <li>Anmelden</li>
+            </a>
+        </ul>
+    </nav>
 </div>
 <footer>
     <h2>Bund der Pfadfinderinnen und Pfadfinder Landesverband Bayern e.V.</h2>

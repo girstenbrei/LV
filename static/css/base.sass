@@ -1,3 +1,5 @@
+@import 'reset'
+
 $primary-blue: #1d4899
 $primary-yellow: #ffcb04
 $brown-layover: rgba(56, 46, 35, 0.7)
@@ -143,6 +145,29 @@ fieldset
   .help-inline
     color: white
     background-color: #f00000
+
+nav
+  position: absolute
+  top: 200px
+  left: -75px
+  +base_transition
+  background-color: $primary-yellow
+  +base_shadow
+
+  li
+    padding: .5rem 2rem
+
+  a
+    color: $brown-layover
+    font-family: $font_headings
+    font-size: 120%
+    display: block
+
+  a:hover
+    color: darken($brown-layover, 30%)
+
+nav:hover
+  left: 0
 
 #buttonHolder
   float: right

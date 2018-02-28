@@ -1,0 +1,24 @@
+{% extends  'base.html' %}
+
+{% block main %}
+    <h1>{{ participant.forename }}</h1>
+    <table>
+        <tr>
+            <td>Vorname</td>
+            <td>{{ participant.forename }}</td>
+        </tr>
+        <tr>
+            <td>Nachname</td>
+            <td>{{ participant.lastname }}</td>
+        </tr>
+        <tr>
+            <td>Event</td>
+            <td>{{ participant.event }}</td>
+        </tr>
+    </table>
+
+    <ul>
+        <li><a href="#" class="btn-secondary">Anmeldung bestätigen</a></li>
+        <li><a href="#" class="btn-secondary">Bezahlung bestätigen</a></li>
+    </ul>
+{% endblock %}

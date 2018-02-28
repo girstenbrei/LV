@@ -1,3 +1,47 @@
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, main, summary {
+    display: block;
+}
+
+body {
+    line-height: 1;
+}
+
+ol, ul {
+    list-style: none;
+}
+
+blockquote, q {
+    quotes: none;
+}
+
+blockquote:before, blockquote:after {
+    content: "";
+    content: none;
+}
+
+q:before, q:after {
+    content: "";
+    content: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
 * {
   margin: 0;
   padding: 0; }
@@ -118,6 +162,40 @@ fieldset {
   fieldset .help-inline {
     color: white;
     background-color: #f00000; }
+
+nav {
+    position: absolute;
+    top: 200px;
+    left: -75px;
+    -o-transition: 0.15s;
+    -ms-transition: 0.15s;
+    -moz-transition: 0.15s;
+    -webkit-transition: 0.15s;
+    transition: 0.15s;
+    background-color: #ffcb04;
+    -webkit-box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22);
+    -moz-box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22);
+    box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22);
+}
+
+nav li {
+    padding: 0.5rem 2rem;
+}
+
+nav a {
+    color: rgba(56, 46, 35, 0.7);
+    font-family: "Immenhausen", serif;
+    font-size: 120%;
+    display: block;
+}
+
+nav a:hover {
+    color: rgba(0, 0, 0, 0.7);
+}
+
+nav:hover {
+    left: 0;
+}
 
 #buttonHolder {
   float: right; }

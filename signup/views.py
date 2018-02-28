@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.template.loader import render_to_string
 from django.urls import reverse
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 
 from events.models import Event
 from signup.forms import EditParticipant
@@ -48,3 +48,7 @@ class ListParticipants(ListView):
         event_id = self.request.GET.get('event', '')
         self.event = get_object_or_404(Event, id=event_id)
         return Participant.objects.filter(event=self.event)
+
+
+class ParticipantDetailView(DetailView):
+    model = Participant
