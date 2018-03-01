@@ -2,9 +2,11 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 # Create your views here.
 from django.views.generic import ListView
+from rest_framework import viewsets
 
 from events.forms import EditEvent
 from events.models import Event
+from events.serializers import EventSerializer
 
 
 def get_event(request):
@@ -29,3 +31,8 @@ def get_event(request):
 class EventList(ListView):
     model = Event
     context_object_name = 'events'
+
+
+class EventViewSet(viewsets.ModelViewSet):
+    queryset = Event.objects.all()
+    serializer_class = EventSerializer
