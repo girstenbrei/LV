@@ -1,0 +1,30 @@
+{% extends  'base.html' %}
+
+{% block main %}
+    {% verbatim %}
+    <h2>{{ name }}</h2>
+
+
+    {% endverbatim %}
+    <script>
+        var app = new Vue({
+            el: 'main',
+            data: {
+                name: ''
+            },
+            created: function () {
+                this.loadData();
+            },
+            methods: {
+                loadData: function () {
+                    this.name = 'Loading...'
+                    axios.get('/event/api/events/1')
+                        .then(function (response) {
+                            app.name = response.data.name
+                        })
+                }
+            }
+
+        })
+    </script>
+{% endblock %}

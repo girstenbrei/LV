@@ -36,3 +36,7 @@ class EventList(ListView):
 class EventViewSet(viewsets.ModelViewSet):
     queryset = Event.objects.all()
     serializer_class = EventSerializer
+
+
+def edit_event(request, pk):
+    return render(request, 'events/api_edit_event.html')
