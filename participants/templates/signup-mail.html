@@ -2,7 +2,7 @@
     Anmeldung für {{ participant.forename }}
 </h1>
 <p>
-    Hier nochmal alle Daten für dich um überprüfen.
+    Hier nochmal alle Daten für dich zum überprüfen.
 </p>
 <table>
     {% for key, value in participant.items %}
@@ -17,5 +17,5 @@
 <p>
     Du hast einen Fehler entdeckt oder möchtest dich abmelden? Mit diesem Link kannst du, solange der Anmeldezeitraum
     noch nicht abgelaufen ist, deine Daten editieren:
-    <a href="/{{ slug }}">Bearbeiten</a>
+    <a href="{{ host }}{{ slug }}">Bearbeiten</a>
 </p>
