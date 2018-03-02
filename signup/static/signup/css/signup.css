@@ -222,27 +222,27 @@ nav:hover {
 
 .btn-secondary {
   background-color: #ffcb04;
-  -o-transition: 0.15s;
-  -ms-transition: 0.15s;
-  -moz-transition: 0.15s;
-  -webkit-transition: 0.15s;
-  transition: 0.15s;
   color: #1d4899;
   -o-transition: 0.15s;
   -ms-transition: 0.15s;
   -moz-transition: 0.15s;
   -webkit-transition: 0.15s;
   transition: 0.15s;
-  border: 0;
   border-radius: 3px;
   font-size: 130%;
   padding: 0.2rem 1rem;
-  font-family: "Immenhausen", serif; }
+  font-family: "Immenhausen", serif;
+  border: 1px solid #1d4899;
+  -o-transition: 0.15s;
+  -ms-transition: 0.15s;
+  -moz-transition: 0.15s;
+  -webkit-transition: 0.15s;
+  transition: 0.15s; }
 
 .btn-secondary:hover {
-  -webkit-box-shadow: inset 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
-  -moz-box-shadow: inset 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
-  box-shadow: inset 0px 0px 5px 0px rgba(0, 0, 0, 0.75); }
+  color: #4176db;
+  border-color: #4176db;
+  background-color: #ffd637; }
 
 footer {
   background-color: rgba(56, 46, 35, 0.7);

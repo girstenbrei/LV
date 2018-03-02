@@ -10,7 +10,6 @@
         {#    <p>Ort: {{ event.location }}</p>#}
         <h2>Beschreibung</h2>
         <p>{{ event.description }}</p>
-        <
         <p>Anmelden bis <strong>{{ event.signup_to }}</strong></p>
     </div>
     <a href="{% url 'add_participant' %}?event={{ event.id }}" class="btn-secondary buttonHolder">Anmelden</a>

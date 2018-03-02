@@ -215,18 +215,19 @@ nav:hover
 
 .btn-secondary
   background-color: $primary-yellow
-  +base_transition
   color: $primary_blue
   +base_transition
-  border: 0
   border-radius: 3px
   font-size: 130%
-  //float: right
   padding: .2rem 1rem
   font-family: $font_headings
+  border: 1px solid $primary-blue
+  +base_transition
 
 .btn-secondary:hover
-  +inner_shadow
+  color: lighten($primary-blue, 20%)
+  border-color: lighten($primary-blue, 20%)
+  background-color: lighten($primary-yellow, 10%)
 
 footer
   background-color: $brown-layover
