@@ -1,6 +1,7 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 # Create your views here.
+from django.urls import reverse
 from django.views.generic import ListView, DetailView
 
 from events.forms import EditEvent
@@ -17,7 +18,7 @@ def get_event(request):
             # process the data in form.cleaned_data as required
             # ...
             # redirect to a new URL:
-            return HttpResponseRedirect('/thanks/')
+            return HttpResponseRedirect(reverse('eventlist'))
 
     # if a GET (or any other method) we'll create a blank form
     else:
