@@ -58,8 +58,34 @@ main
     padding: .5rem
     max-width: 255px
     min-width: 170px
+    font-size: 200%
+    display: inline-block
 
-  table
+  h2
+    font-family: $font_headings
+    color: $primary-blue
+    background-color: $primary-yellow
+    text-align: center
+    padding: .5rem
+    margin: .5rem
+    display: inline-block
+    font-size: 150%
+
+  .content
+    background-color: white
+    +base_shadow
+    padding-bottom: 1rem
+
+    p
+      margin: .5rem
+      margin-bottom: 2rem
+
+    strong
+      font-weight: bold
+      font-size: 105%
+      color: $primary-blue
+
+  table, .content
     background-color: white
     margin: 2rem 0
     width: 100%
@@ -169,7 +195,7 @@ nav
 nav:hover
   left: 0
 
-#buttonHolder
+.buttonHolder
   float: right
 
 .btn-primary
@@ -180,7 +206,6 @@ nav:hover
   border: 0
   border-radius: 3px
   font-size: 200%
-  float: right
   padding: .2rem 1rem
   font-family: $font_headings
   +base_shadow

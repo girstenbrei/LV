@@ -1,0 +1,17 @@
+{% extends  'base.html' %}
+
+{% block main %}
+    <h1>{{ event.name }}</h1>
+    <a href="{% url 'add_participant' %}?event={{ event.id }}" class="btn-secondary buttonHolder">Anmelden</a>
+
+    <div class="content">
+        <h2>Datum</h2>
+        <p>Vom <strong>{{ event.start_datetime }}</strong> bis <strong>{{ event.end_datetime }}</strong></p>
+        {#    <p>Ort: {{ event.location }}</p>#}
+        <h2>Beschreibung</h2>
+        <p>{{ event.description }}</p>
+        <
+        <p>Anmelden bis <strong>{{ event.signup_to }}</strong></p>
+    </div>
+    <a href="{% url 'add_participant' %}?event={{ event.id }}" class="btn-secondary buttonHolder">Anmelden</a>
+{% endblock %}
