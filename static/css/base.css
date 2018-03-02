@@ -1,3 +1,38 @@
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline; }
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, main, summary {
+  display: block; }
+
+body {
+  line-height: 1; }
+
+ol, ul {
+  list-style: none; }
+
+blockquote, q {
+  quotes: none; }
+
+blockquote:before, blockquote:after {
+  content: "";
+  content: none; }
+
+q:before, q:after {
+  content: "";
+  content: none; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+a {
+  text-decoration: none; }
+
 * {
   margin: 0;
   padding: 0; }
@@ -18,37 +53,56 @@ main {
   margin: 0 auto;
   overflow: auto;
   padding-bottom: 12rem; }
-
-main h1 {
+  main h1, main h2, main h3, main h4, main .btn-tertiary {
     font-family: "Immenhausen", serif;
-    color: #ffcb04;
-    background-color: rgba(56, 46, 35, 0.7);
-    width: 30%;
     text-align: center;
     padding: 0.5rem;
-    max-width: 255px;
-    min-width: 170px;
-}
-
-main table {
+    margin: 0.5rem 0;
+    display: inline-block; }
+  main h1 {
+    color: #ffcb04;
+    background-color: rgba(56, 46, 35, 0.7);
+    min-width: 30%;
+    font-size: 200%; }
+  main h2 {
+    color: #1d4899;
+    background-color: #ffcb04;
+    font-size: 150%; }
+  main h3 {
+    font-size: 120%;
+    display: block; }
+  main .content {
     background-color: white;
-    margin: 2rem 0;
     -webkit-box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22);
     -moz-box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22);
     box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22);
-}
-
-main table tr:hover {
-    background-color: rgba(56, 46, 35, 0.1);
-}
-
-main table td {
-    padding: 0.5rem;
-}
-
-main table th, main table td {
-    border-bottom: 1px solid rgba(56, 46, 35, 0.2);
-}
+    padding: 1rem;
+    overflow: visible; }
+    main .content p {
+      margin: 0.5rem;
+      margin-bottom: 2rem; }
+    main .content strong {
+      font-weight: bold;
+      font-size: 105%;
+      color: #1d4899; }
+  main table {
+    background-color: white;
+    margin: 2rem 0;
+    width: 100%;
+    -webkit-box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22);
+    -moz-box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22);
+    box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22); }
+    main table th {
+      font-family: "Immenhausen", serif;
+      font-size: 110%;
+      padding: 0.5rem; }
+    main table tr:hover {
+      background-color: rgba(56, 46, 35, 0.1); }
+    main table td {
+      padding: 0.5rem;
+      vertical-align: middle; }
+    main table th, main table td {
+      border-bottom: 1px solid rgba(56, 46, 35, 0.2); }
 
 #branding {
   display: block;
@@ -112,7 +166,33 @@ fieldset {
     color: white;
     background-color: #f00000; }
 
-#buttonHolder {
+nav {
+  position: absolute;
+  top: 200px;
+  left: -75px;
+  -o-transition: 0.15s;
+  -ms-transition: 0.15s;
+  -moz-transition: 0.15s;
+  -webkit-transition: 0.15s;
+  transition: 0.15s;
+  background-color: #ffcb04;
+  -webkit-box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22);
+  -moz-box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22);
+  box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22); }
+  nav li {
+    padding: 0.5rem 2rem; }
+  nav a {
+    color: rgba(56, 46, 35, 0.7);
+    font-family: "Immenhausen", serif;
+    font-size: 120%;
+    display: block; }
+  nav a:hover {
+    color: rgba(0, 0, 0, 0.7); }
+
+nav:hover {
+  left: 0; }
+
+.buttonHolder {
   float: right; }
 
 .btn-primary {
@@ -131,44 +211,58 @@ fieldset {
   border: 0;
   border-radius: 3px;
   font-size: 200%;
-  float: right;
   padding: 0.2rem 1rem;
   font-family: "Immenhausen", serif;
   -webkit-box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22);
   -moz-box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22);
-    box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22);
-}
+  box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22); }
 
 .btn-primary:hover {
-    background-color: #15346e;
-}
+  background-color: #15346e; }
 
 .btn-secondary {
   background-color: #ffcb04;
-  -o-transition: 0.15s;
-  -ms-transition: 0.15s;
-  -moz-transition: 0.15s;
-  -webkit-transition: 0.15s;
-  transition: 0.15s;
   color: #1d4899;
   -o-transition: 0.15s;
   -ms-transition: 0.15s;
   -moz-transition: 0.15s;
   -webkit-transition: 0.15s;
   transition: 0.15s;
-  border: 0;
   border-radius: 3px;
   font-size: 130%;
-  float: right;
   padding: 0.2rem 1rem;
-    font-family: "Immenhausen", serif;
-}
+  font-family: "Immenhausen", serif;
+  border: 1px solid #1d4899;
+  -o-transition: 0.15s;
+  -ms-transition: 0.15s;
+  -moz-transition: 0.15s;
+  -webkit-transition: 0.15s;
+  transition: 0.15s;
+  vertical-align: middle; }
 
 .btn-secondary:hover {
-    -webkit-box-shadow: inset 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
-    -moz-box-shadow: inset 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
-    box-shadow: inset 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
-}
+  color: #4176db;
+  border-color: #4176db;
+  background-color: #ffd637; }
+
+.btn-tertiary {
+  border: dashed 1px #ffcb04;
+  border-radius: 3px;
+  font-size: 120%;
+  display: block;
+  color: #1d4899;
+  -o-transition: 0.15s;
+  -ms-transition: 0.15s;
+  -moz-transition: 0.15s;
+  -webkit-transition: 0.15s;
+  transition: 0.15s; }
+
+.btn-tertiary:hover {
+  background-color: white;
+  color: #4176db; }
+
+a, a:visited {
+  color: #1d4899; }
 
 footer {
   background-color: rgba(56, 46, 35, 0.7);
@@ -176,8 +270,7 @@ footer {
   position: relative;
   margin-top: -10rem;
   clear: both;
-    padding: 1rem 10%;
-}
+  padding: 1rem 10%; }
   footer h2 {
     color: #ffcb04;
     font-family: "Immenhausen", serif; }

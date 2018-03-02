@@ -1,3 +1,5 @@
+@import 'reset'
+
 $primary-blue: #1d4899
 $primary-yellow: #ffcb04
 $brown-layover: rgba(56, 46, 35, 0.7)
@@ -47,26 +49,62 @@ main
   overflow: auto
   padding-bottom: $footer_height+2rem
 
-  h1
+  h1, h2, h3, h4, .btn-tertiary
     font-family: $font_headings
-    color: $primary-yellow
-    background-color: $brown-layover
-    width: 30%
     text-align: center
     padding: .5rem
-    max-width: 255px
-    min-width: 170px
+    margin: .5rem 0
+    display: inline-block
+
+  h1
+    color: $primary-yellow
+    background-color: $brown-layover
+    min-width: 30%
+    font-size: 200%
+
+  h2
+    color: $primary-blue
+    background-color: $primary-yellow
+    font-size: 150%
+
+  h3
+    font-size: 120%
+    display: block
+
+  .content
+    background-color: white
+    +base_shadow
+    //padding-bottom: 1rem
+    padding: 1rem
+    //max-width: 100%
+    overflow: visible
+
+    p
+      margin: .5rem
+      margin-bottom: 2rem
+
+    strong
+      font-weight: bold
+      font-size: 105%
+      color: $primary-blue
 
   table
     background-color: white
     margin: 2rem 0
+    width: 100%
     +base_shadow
+
+    th
+      font-family: $font_headings
+      font-size: 110%
+      padding: .5rem
 
     tr:hover
       background-color: transparentize($brown-layover, .6)
 
     td
       padding: .5rem
+      vertical-align: middle
 
     th, td
       border-bottom: 1px solid transparentize($brown-layover, .5)
@@ -138,7 +176,30 @@ fieldset
     color: white
     background-color: #f00000
 
-#buttonHolder
+nav
+  position: absolute
+  top: 200px
+  left: -75px
+  +base_transition
+  background-color: $primary-yellow
+  +base_shadow
+
+  li
+    padding: .5rem 2rem
+
+  a
+    color: $brown-layover
+    font-family: $font_headings
+    font-size: 120%
+    display: block
+
+  a:hover
+    color: darken($brown-layover, 30%)
+
+nav:hover
+  left: 0
+
+.buttonHolder
   float: right
 
 .btn-primary
@@ -149,7 +210,6 @@ fieldset
   border: 0
   border-radius: 3px
   font-size: 200%
-  float: right
   padding: .2rem 1rem
   font-family: $font_headings
   +base_shadow
@@ -159,18 +219,35 @@ fieldset
 
 .btn-secondary
   background-color: $primary-yellow
-  +base_transition
   color: $primary_blue
   +base_transition
-  border: 0
   border-radius: 3px
   font-size: 130%
-  float: right
   padding: .2rem 1rem
   font-family: $font_headings
+  border: 1px solid $primary-blue
+  +base_transition
+  vertical-align: middle
 
 .btn-secondary:hover
-  +inner_shadow
+  color: lighten($primary-blue, 20%)
+  border-color: lighten($primary-blue, 20%)
+  background-color: lighten($primary-yellow, 10%)
+
+.btn-tertiary
+  border: dashed 1px $primary-yellow
+  border-radius: 3px
+  font-size: 120%
+  display: block
+  color: $primary-blue
+  +base_transition
+
+.btn-tertiary:hover
+  background-color: white
+  color: lighten($primary-blue, 20%)
+
+a, a:visited
+  color: $primary-blue
 
 footer
   background-color: $brown-layover
