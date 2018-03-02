@@ -49,11 +49,11 @@ main
   overflow: auto
   padding-bottom: $footer_height+2rem
 
-  h1, h2, h3, h4
+  h1, h2, h3, h4, .btn-tertiary
     font-family: $font_headings
     text-align: center
     padding: .5rem
-    margin: .5rem
+    margin: .5rem 0
     display: inline-block
 
   h1
@@ -74,7 +74,10 @@ main
   .content
     background-color: white
     +base_shadow
-    padding-bottom: 1rem
+    //padding-bottom: 1rem
+    padding: 1rem
+    //max-width: 100%
+    overflow: visible
 
     p
       margin: .5rem
@@ -85,7 +88,7 @@ main
       font-size: 105%
       color: $primary-blue
 
-  table, .content
+  table
     background-color: white
     margin: 2rem 0
     width: 100%
@@ -234,9 +237,14 @@ nav:hover
 .btn-tertiary
   border: dashed 1px $primary-yellow
   border-radius: 3px
+  font-size: 120%
+  display: block
+  color: $primary-blue
+  +base_transition
 
 .btn-tertiary:hover
   background-color: white
+  color: lighten($primary-blue, 20%)
 
 a, a:visited
   color: $primary-blue

@@ -5,7 +5,7 @@
     <a href="{% url 'add_participant' %}?event={{ event.id }}" class="btn-secondary buttonHolder">Anmelden</a>
 
     <div class="content">
-        <h2>Datum</h2>
+        <h2>Datum</h2><a href="{% url 'list_participants'  %}?event={{ event.id }}" class="btn-tertiary" style="float: right">Anmeldestand</a>
         <p>Vom <strong>{{ event.start_datetime }}</strong> bis <strong>{{ event.end_datetime }}</strong></p>
         {#    <p>Ort: {{ event.location }}</p>#}
         <h2>Beschreibung</h2>
