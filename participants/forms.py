@@ -4,7 +4,7 @@ from django import forms
 from django.db import IntegrityError
 from django.utils.crypto import get_random_string
 
-from signup.models import Participant
+from participants.models import Participant
 
 
 class EditParticipant(forms.ModelForm):

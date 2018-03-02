@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'livereload',
     'crispy_forms',
     'events',
-    'signup',
+    'participants',
 ]
 
 MIDDLEWARE = [

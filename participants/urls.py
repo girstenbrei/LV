@@ -1,6 +1,6 @@
 from django.urls import path
 
-from signup import views
+from participants import views
 
 urlpatterns = [
     path('', views.add_participant, name='add_participant'),

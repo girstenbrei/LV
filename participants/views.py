@@ -7,8 +7,8 @@ from django.urls import reverse
 from django.views.generic import ListView, DetailView
 
 from events.models import Event
-from signup.forms import EditParticipant
-from signup.models import Participant
+from participants.forms import EditParticipant
+from participants.models import Participant
 
 
 def confirmationMail(participant, slug):
