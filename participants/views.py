@@ -1,5 +1,6 @@
 # Create your views here.
-from django.core.mail import EmailMessage
+from django.conf import settings
+from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.template.loader import render_to_string
@@ -15,9 +16,13 @@ def confirmationMail(host, participant, slug):
     subject = 'Bestätigung Anmeldung Event'
     reverse_slug = reverse('signup_slug', kwargs={'slug': slug})
     body = render_to_string('signup-mail.html', {'participant': participant, 'slug': reverse_slug, 'host': host})
-    mail_addr = participant['mail']
-    mail = EmailMessage(subject=subject, body=body, to=[mail_addr])
-    mail.send()
+    send_mail(
+        subject=subject,
+        recipient_list=[participant['mail']],
+        from_email=settings.EMAIL_FROM,
+        message="",
+        html_message=body
+    )
 
 
 def add_participant(request, slug=None):
