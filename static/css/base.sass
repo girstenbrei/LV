@@ -49,27 +49,27 @@ main
   overflow: auto
   padding-bottom: $footer_height+2rem
 
-  h1
+  h1, h2, h3, h4
     font-family: $font_headings
-    color: $primary-yellow
-    background-color: $brown-layover
-    width: 30%
-    text-align: center
-    padding: .5rem
-    max-width: 255px
-    min-width: 170px
-    font-size: 200%
-    display: inline-block
-
-  h2
-    font-family: $font_headings
-    color: $primary-blue
-    background-color: $primary-yellow
     text-align: center
     padding: .5rem
     margin: .5rem
     display: inline-block
+
+  h1
+    color: $primary-yellow
+    background-color: $brown-layover
+    min-width: 30%
+    font-size: 200%
+
+  h2
+    color: $primary-blue
+    background-color: $primary-yellow
     font-size: 150%
+
+  h3
+    font-size: 120%
+    display: block
 
   .content
     background-color: white
@@ -230,6 +230,16 @@ nav:hover
   color: lighten($primary-blue, 20%)
   border-color: lighten($primary-blue, 20%)
   background-color: lighten($primary-yellow, 10%)
+
+.btn-tertiary
+  border: dashed 1px $primary-yellow
+  border-radius: 3px
+
+.btn-tertiary:hover
+  background-color: white
+
+a, a:visited
+  color: $primary-blue
 
 footer
   background-color: $brown-layover

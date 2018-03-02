@@ -14,7 +14,7 @@
         </thead>
         {% for event in events %}
             <tr>
-                <td><a href="{% url 'event_detail' event.slug %}">{{ event.name }}</a></td>
+                <td><a href="{% url 'event_detail' event.slug %}"><h3 class="btn-tertiary">{{ event.name }}</h3></a></td>
                 <td>{{ event.start_datetime }}</td>
                 <td>{{ event.end_datetime }}</td>
                 <td>{{ event.signup_to }}</td>

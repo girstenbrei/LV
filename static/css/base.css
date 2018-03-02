@@ -53,26 +53,24 @@ main {
   margin: 0 auto;
   overflow: auto;
   padding-bottom: 12rem; }
-  main h1 {
+  main h1, main h2, main h3, main h4 {
     font-family: "Immenhausen", serif;
-    color: #ffcb04;
-    background-color: rgba(56, 46, 35, 0.7);
-    width: 30%;
-    text-align: center;
-    padding: 0.5rem;
-    max-width: 255px;
-    min-width: 170px;
-    font-size: 200%;
-    display: inline-block; }
-  main h2 {
-    font-family: "Immenhausen", serif;
-    color: #1d4899;
-    background-color: #ffcb04;
     text-align: center;
     padding: 0.5rem;
     margin: 0.5rem;
-    display: inline-block;
+    display: inline-block; }
+  main h1 {
+    color: #ffcb04;
+    background-color: rgba(56, 46, 35, 0.7);
+    min-width: 30%;
+    font-size: 200%; }
+  main h2 {
+    color: #1d4899;
+    background-color: #ffcb04;
     font-size: 150%; }
+  main h3 {
+    font-size: 120%;
+    display: block; }
   main .content {
     background-color: white;
     -webkit-box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22);
@@ -245,6 +243,16 @@ nav:hover {
   color: #4176db;
   border-color: #4176db;
   background-color: #ffd637; }
+
+.btn-tertiary {
+  border: dashed 1px #ffcb04;
+  border-radius: 3px; }
+
+.btn-tertiary:hover {
+  background-color: white; }
+
+a, a:visited {
+  color: #1d4899; }
 
 footer {
   background-color: rgba(56, 46, 35, 0.7);
