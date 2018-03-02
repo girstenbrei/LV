@@ -1,7 +1,15 @@
-<h1>
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Anmeldung für {{ participant.forename }}</title>
+</head>
+<body>
+<h1 style="font-family: Immenhausen, serif; color: #1d4899">
     Anmeldung für {{ participant.forename }}
 </h1>
 <p>
+    Du hast dich für {{ participant.event.name }} angemeldet. <br>
     Hier nochmal alle Daten für dich zum überprüfen.
 </p>
 <table>
@@ -17,5 +25,7 @@
 <p>
     Du hast einen Fehler entdeckt oder möchtest dich abmelden? Mit diesem Link kannst du, solange der Anmeldezeitraum
     noch nicht abgelaufen ist, deine Daten editieren:
-    <a href="{{ host }}{{ slug }}">Bearbeiten</a>
+    <a href="{{ host }}{{ slug }}">Bearbeiten: '{{ host }}{{ slug }}'</a>
 </p>
+</body>
+</html>

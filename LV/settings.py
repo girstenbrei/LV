@@ -125,6 +125,7 @@ STATICFILES_DIRS = [
 
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 EMAIL_FILE_PATH = './.tmp'  # change this to a proper location
+EMAIL_FROM = 'webmaster@cloud.action-online.de'
 
 if DEBUG:
     INTERNAL_IPS = ('127.0.0.1', 'localhost',)

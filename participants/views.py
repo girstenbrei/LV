@@ -1,5 +1,6 @@
 # Create your views here.
-from django.core.mail import EmailMessage
+from django.conf import settings
+from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.template.loader import render_to_string
@@ -11,13 +12,17 @@ from participants.forms import EditParticipant
 from participants.models import Participant
 
 
-def confirmationMail(host, participant, slug):
-    subject = 'Bestätigung Anmeldung Event'
+def confirmationMail(host, participant, slug, event_name):
+    subject = 'Bestätigung Anmeldung {}'.format(event_name)
     reverse_slug = reverse('signup_slug', kwargs={'slug': slug})
     body = render_to_string('signup-mail.html', {'participant': participant, 'slug': reverse_slug, 'host': host})
-    mail_addr = participant['mail']
-    mail = EmailMessage(subject=subject, body=body, to=[mail_addr])
-    mail.send()
+    send_mail(
+        subject=subject,
+        recipient_list=[participant['mail']],
+        from_email=settings.EMAIL_FROM,
+        message="",
+        html_message=body
+    )
 
 
 def add_participant(request, slug=None):
@@ -27,7 +32,7 @@ def add_participant(request, slug=None):
         form = EditParticipant(request.POST)
         if form.is_valid():
             instance = form.save()
-            confirmationMail(request.get_host(), form.cleaned_data, instance.slug)
+            confirmationMail(request.get_host(), form.cleaned_data, instance.slug, instance.event.name)
             return HttpResponseRedirect(reverse('thanks', kwargs={'name': form.cleaned_data['forename']}))
     else:
         event = request.GET.get('event', '')
@@ -52,3 +57,18 @@ class ListParticipants(ListView):
 
 class ParticipantDetailView(DetailView):
     model = Participant
+
+
+def test_mail(request):
+    context = {
+        'participant': {
+            'forename': "Alex",
+            'lastname': 'Jones',
+            'born': 'jep',
+            'plz': '81377',
+            'event': {
+                'name': 'Testevent'
+            }
+        }
+    }
+    return render(request, 'signup-mail.html', context)
