@@ -100,7 +100,8 @@ main {
     main table tr:hover, main .content tr:hover {
       background-color: rgba(56, 46, 35, 0.1); }
     main table td, main .content td {
-      padding: 0.5rem; }
+      padding: 0.5rem;
+      vertical-align: middle; }
     main table th, main table td, main .content th, main .content td {
       border-bottom: 1px solid rgba(56, 46, 35, 0.2); }
 
@@ -237,7 +238,8 @@ nav:hover {
   -ms-transition: 0.15s;
   -moz-transition: 0.15s;
   -webkit-transition: 0.15s;
-  transition: 0.15s; }
+  transition: 0.15s;
+  vertical-align: middle; }
 
 .btn-secondary:hover {
   color: #4176db;
