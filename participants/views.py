@@ -57,3 +57,18 @@ class ListParticipants(ListView):
 
 class ParticipantDetailView(DetailView):
     model = Participant
+
+
+def test_mail(request):
+    context = {
+        'participant': {
+            'forename': "Alex",
+            'lastname': 'Jones',
+            'born': 'jep',
+            'plz': '81377',
+            'event': {
+                'name': 'Testevent'
+            }
+        }
+    }
+    return render(request, 'signup-mail.html', context)
