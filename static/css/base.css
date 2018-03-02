@@ -77,7 +77,8 @@ main {
     -moz-box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22);
     box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22);
     padding: 1rem;
-    overflow: visible; }
+    overflow: visible;
+    margin-bottom: 2rem; }
     main .content p {
       margin: 0.5rem;
       margin-bottom: 2rem; }

@@ -7,14 +7,14 @@ from django.urls import reverse
 from django.views.generic import ListView, DetailView
 
 from events.models import Event
-from signup.forms import EditParticipant
-from signup.models import Participant
+from participants.forms import EditParticipant
+from participants.models import Participant
 
 
-def confirmationMail(participant, slug):
+def confirmationMail(host, participant, slug):
     subject = 'Bestätigung Anmeldung Event'
     reverse_slug = reverse('signup_slug', kwargs={'slug': slug})
-    body = render_to_string('signup-mail.html', {'participant': participant, 'slug': reverse_slug})
+    body = render_to_string('signup-mail.html', {'participant': participant, 'slug': reverse_slug, 'host': host})
     mail_addr = participant['mail']
     mail = EmailMessage(subject=subject, body=body, to=[mail_addr])
     mail.send()
@@ -27,7 +27,7 @@ def add_participant(request, slug=None):
         form = EditParticipant(request.POST)
         if form.is_valid():
             instance = form.save()
-            confirmationMail(form.cleaned_data, instance.slug)
+            confirmationMail(request.get_host(), form.cleaned_data, instance.slug)
             return HttpResponseRedirect(reverse('thanks', kwargs={'name': form.cleaned_data['forename']}))
     else:
         event = request.GET.get('event', '')
