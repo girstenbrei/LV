@@ -15,10 +15,38 @@
             <td>Event</td>
             <td>{{ participant.event }}</td>
         </tr>
+        <tr>
+            <td>Geboren</td>
+            <td>{{ participant.born }}</td>
+        </tr>
+        <tr>
+            <td>Addresse</td>
+            <td>{{ participant.location }}, {{ participant.plz }}</td>
+        </tr>
+        <tr>
+            <td>Stamm</td>
+            <td>{{ participant.group }}</td>
+        </tr>
+        <tr>
+            <td>Mail</td>
+            <td>{{ participant.mail }}</td>
+        </tr>
+        <tr>
+            <td>Vergünstigungen</td>
+            <td>{{ participant.perks }}</td>
+        </tr>
+        <tr>
+            <td>Zusätzliche Information</td>
+            <td>{{ participant.additional }}</td>
+        </tr>
+        <tr>
+            <td>Nächste Bahnstation</td>
+            <td>{{ participant.next_station }}</td>
+        </tr>
     </table>
 
-    <ul id="buttonHolder">
-        <li><a href="#" class="btn-secondary">Anmeldung bestätigen</a></li>
-        <li><a href="#" class="btn-secondary">Bezahlung bestätigen</a></li>
-    </ul>
+    {#    <ul class="buttonHolder">#}
+    {#        <li><a href="#" class="btn-secondary">Anmeldung bestätigen</a></li>#}
+    {#        <li><a href="#" class="btn-secondary">Bezahlung bestätigen</a></li>#}
+    {#    </ul>#}
 {% endblock %}

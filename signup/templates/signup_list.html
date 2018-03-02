@@ -18,7 +18,7 @@
                 <td>{{ participant.lastname }}</td>
                 <td>{{ participant.born }}</td>
                 <td>{{ participant.mail }}</td>
-                <td><a href="#" class="btn-secondary">Details</a></td>
+                <td><a href="{% url 'participant_detail' participant.id %}" class="btn-secondary">Details</a></td>
             </tr>
         {% endfor %}
     </table>
