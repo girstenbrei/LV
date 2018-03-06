@@ -6,10 +6,13 @@ from events.forms import EditEvent
 from events.models import Event
 
 
+# class EventAdd(AddView)
+
 class EventView(CreateView):
     model = Event
     form_class = EditEvent
     success_url = reverse_lazy('event_list')
+    template_name = 'events/add_event.html'
 
 
 class EventList(ListView):

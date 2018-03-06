@@ -1,5 +1,5 @@
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Fieldset, ButtonHolder, Submit
+from crispy_forms.layout import Layout, Fieldset, ButtonHolder, Submit, HTML
 from django import forms
 from django.template.defaultfilters import slugify
 
@@ -25,6 +25,12 @@ class EditEvent(forms.ModelForm):
                 'Anmeldezeitraum',
                 'signup_from',
                 'signup_to'
+            ), HTML(
+                '<my-fieldset v-for="n in range"></my-fieldset>'
+            ), ButtonHolder(
+                HTML(
+                    '<input class="btn btn-secondary" id="button-id-add-questions" name="add-questions" type="button" value="Add set of Questions" v-on:click="add_questionset">')
+                #   Button('add-questions', 'Add set of Questions', css_class='btn-secondary')
             ), ButtonHolder(
                 Submit('submit', 'Erstellen')
             )

@@ -1,0 +1,37 @@
+{% extends  'base.html' %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+{% block main %}
+    {% verbatim %}
+    <h1>{{ title }}</h1>
+    {% endverbatim %}
+    {% crispy form %}
+{% endblock %}
+
+{% block bottom %}
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script type="x-template" id="my-fieldset">
+        <fieldset>
+            <h1>Test</h1>
+        </fieldset>
+    </script>
+    <script>
+        Vue.component('my-fieldset', {
+            template: '#my-fieldset'
+        });
+        var app = new Vue({
+            el: 'main',
+            data: {
+                title: 'Add Event',
+                range: 0,
+            },
+            methods: {
+                add_questionset: function (event) {
+                    this.range += 1;
+                }
+            }
+        });
+
+    </script>
+{% endblock %}

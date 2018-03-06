@@ -194,7 +194,11 @@ nav:hover {
   left: 0; }
 
 .buttonHolder {
-  float: right; }
+    float: right;
+    display: block;
+    clear: both;
+    margin: 1rem;
+}
 
 .btn-primary {
   background-color: #1d4899;
