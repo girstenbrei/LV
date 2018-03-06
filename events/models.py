@@ -48,7 +48,7 @@ class Question(models.Model):
         (MAILANSWER, 'E-Mail'),
     )
 
-    type = models.CharField(choices=ANSWER_TYPES)
+    type = models.CharField(max_length=8, choices=ANSWER_TYPES)
 
 
 class Answer(models.Model):
