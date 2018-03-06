@@ -6,37 +6,41 @@
     {% verbatim %}
     <h1>{{ title }}</h1>
     <form method="post" target="#">
-        <fieldset v-for="fieldset in event_info">
+        <fieldset v-for="(fieldset, fs_index) in event_info" :key="fieldset.id">
             <legend>{{ fieldset.legend }}</legend>
-            <div v-for="input in fieldset.fields">
-                <label v-bind:class="[{ requiredField : input.required }, 'control-label']">{{ input.label }}<span
-                        v-if="input.required">*</span></label>
-                <input v-if="input.type !== 'textarea'" v-bind:type="input.type" v-bind:class="input.class"
+            <div v-for="(input, index) in fieldset.fields" :key="input.id">
+                <label v-bind:class="[{ requiredField : input.required }, '']">
+                    {{ input.label }}
+                    <span v-if="input.required">*</span>
+                </label>
+                <input v-if="input.type !== 'textarea'"
+                       v-bind:type="input.type"
+                       v-bind:class="input.class"
                        v-bind:required="input.required">
-                <textarea v-else-if="input.type === 'textarea'" v-bind:type="input.type" v-bind:class="input.class"
-                          v-bind:required="input.required"></textarea>
+                <textarea v-else-if="input.type === 'textarea'"
+                          v-bind:type="input.type"
+                          v-bind:class="input.class"
+                          v-bind:required="input.required">
+                </textarea>
+                <select v-if="input.additional_question">
+                    <option value="shees">sheesh</option>
+                    <option value="shees2">sheesh2</option>
+                </select>
+                <button v-if="input.additional_question" v-on:click="del_question(fs_index, index)">X</button>
             </div>
+            <button v-if="fieldset.additional" class="btn-secondary" v-on:click="add_question(fieldset.legend)"
+                    v-bind:id="'fs_' + fieldset.legend">+
+            </button>
         </fieldset>
+        <button v-on:click="add_questionset()" class="btn-secondary">Add Question Set</button>
+        <input type="submit" class="btn-primary">
     </form>
     {% endverbatim %}
-    {#    {% crispy form %}#}
 {% endblock %}
 
 {% block bottom %}
-    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-    {% verbatim %}
-    <script type="text/x-template" id="my-fieldset">
-        <fieldset>
-            <legend>{{ app.name }}</legend>
-            <input v-for="question in app.qrange" type="text" name="Shiat">
-            <a class="btn-tertiary" v-on:click="app.add_question()">Add Question</a>
-        </fieldset>
-    </script>
-    {% endverbatim %}
+    <script src="{% static 'js/vue.js' %}"></script>
     <script>
-        Vue.component('my-fieldset', {
-            template: '#my-fieldset'
-        });
         var app = new Vue({
             el: 'main',
             data: {
@@ -58,19 +62,41 @@
                         ]
                     }
                 ],
-                range: 0,
-                qrange: 0,
-                name: "Something",
+                generated_questionsets: 0,
+                generated_questions: 0,
             },
             methods: {
-                add_questionset: function (event) {
-                    this.range += 1
+                add_questionset: function () {
+                    to_push = {
+                        id: this.generated_questionsets,
+                        legend: this.event_info.length,
+                        additional: true,
+                        fields: [
+                            {label: 'Title', required: true, type: 'text'},
+                            {label: 'Name', required: true, type: 'text', additional_question: true},
+                        ]
+                    }
+                    this.event_info.push(to_push)
+                    this.generated_questionsets++
                 },
-                add_question: function (event) {
-                    this.qrange += 1
+                add_question: function (fieldset_id) {
+                    fieldset = this.event_info[fieldset_id]
+                    fieldset.fields.push(
+                        {
+                            label: 'Name',
+                            required: true,
+                            type: 'text',
+                            additional_question: true,
+                            id: this.generated_questions
+                        },
+                    )
+                    this.generated_questions++
                 },
+                del_question: function (fieldset_id, question_id) {
+                    fieldset = this.event_info[fieldset_id]
+                    Vue.delete(fieldset.fields, question_id)
+                }
             }
         });
-        app.add_questionset()
     </script>
 {% endblock %}
