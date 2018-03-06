@@ -1,7 +1,8 @@
 from django.db import models
 
+from participants.models import Participant
 
-# Create your models here.
+
 class Event(models.Model):
     name = models.CharField(max_length=256)
     description = models.TextField()
@@ -13,3 +14,22 @@ class Event(models.Model):
 
     def __str__(self):
         return "{} {}".format(self.name, self.start_datetime.year)
+
+
+class SignUp(models.Model):
+    event = models.ForeignKey(Event)
+    participant = models.ForeignKey(Participant)
+
+
+class QuestionSet(models.Model):
+    event = models.ForeignKey(Event)
+
+
+class Question(models.Model):
+    text = models.TextField()
+    set = models.ForeignKey(QuestionSet)
+
+
+class Answer(models.Model):
+    text = models.TextField()
+    question = models.ForeignKey(Question)

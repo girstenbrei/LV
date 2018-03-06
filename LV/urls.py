@@ -25,9 +25,9 @@ urlpatterns = [
     path('', RedirectView.as_view(url='participants/', permanent=False), name='index'),
 ]
 
-if settings.DEBUG:
-    import debug_toolbar
-
-    urlpatterns = [
-                      path(r'^__debug__/', include(debug_toolbar.urls)),
-                  ] + urlpatterns
+# if settings.DEBUG:
+#     import debug_toolbar
+#
+#     urlpatterns = [
+#                       path(r'^__debug__/', include(debug_toolbar.urls)),
+#                   ] + urlpatterns
