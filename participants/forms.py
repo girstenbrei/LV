@@ -11,7 +11,7 @@ class EditParticipant(forms.ModelForm):
     class Meta:
         model = Participant
         fields = ['forename', 'lastname', 'born', 'plz', 'location', 'group', 'mail', 'perks', 'additional',
-                  'next_station', 'event']
+                  'next_station']
 
         labels = {
             'forename': 'Vorname',
@@ -24,7 +24,6 @@ class EditParticipant(forms.ModelForm):
             'perks': 'Evtl Bahn Vergünstigungen',
             'additional': 'Weitere Informationen',
             'next_station': 'Nächster Bahnhof',
-            'event': 'Event'
         }
 
     def __init__(self, *args, **kwargs):
@@ -32,9 +31,6 @@ class EditParticipant(forms.ModelForm):
         self.helper = FormHelper()
         self.helper.layout = Layout(
             Fieldset(
-                'Event',
-                'event'
-            ), Fieldset(
                 'Persönliche Informationen',
                 'forename',
                 'lastname',

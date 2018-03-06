@@ -17,19 +17,24 @@ class Event(models.Model):
 
 
 class SignUp(models.Model):
-    event = models.ForeignKey(Event)
-    participant = models.ForeignKey(Participant)
+    event = models.ForeignKey(Event, on_delete=models.CASCADE)
+    participant = models.ForeignKey(Participant, on_delete=models.CASCADE)
 
 
 class QuestionSet(models.Model):
-    event = models.ForeignKey(Event)
+    event = models.ForeignKey(Event, on_delete=models.CASCADE)
+    label = models.TextField(max_length=126)
+
+    def __str__(self):
+        return self.label
 
 
 class Question(models.Model):
     text = models.TextField()
-    set = models.ForeignKey(QuestionSet)
+    set = models.ForeignKey(QuestionSet, on_delete=models.CASCADE)
 
 
 class Answer(models.Model):
     text = models.TextField()
-    question = models.ForeignKey(Question)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    signup = models.ForeignKey(SignUp, on_delete=models.CASCADE)
