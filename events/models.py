@@ -26,6 +26,16 @@ class QuestionSet(models.Model):
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
     label = models.TextField(max_length=126)
 
+    DIRECTQ = 'DIR'
+    MAILQ = 'MAL'
+
+    TARGET_TYPES = (
+        (DIRECTQ, 'Direct'),
+        (MAILQ, 'E-Mail')
+    )
+
+    target = models.CharField(max_length=8, choices=TARGET_TYPES, default=DIRECTQ)
+
     def __str__(self):
         return self.label
 
