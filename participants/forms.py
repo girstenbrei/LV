@@ -25,7 +25,6 @@ class EditParticipant(forms.ModelForm):
                 'Persönliche Informationen',
                 'forename',
                 'lastname',
-                'born',
             ),
             ButtonHolder(
                 Submit('submit', 'Anmelden')
