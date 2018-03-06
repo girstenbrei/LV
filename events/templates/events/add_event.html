@@ -5,17 +5,34 @@
 {% block main %}
     {% verbatim %}
     <h1>{{ title }}</h1>
+    <form method="post" target="#">
+        <fieldset v-for="fieldset in event_info">
+            <legend>{{ fieldset.legend }}</legend>
+            <div v-for="input in fieldset.fields">
+                <label v-bind:class="[{ requiredField : input.required }, 'control-label']">{{ input.label }}<span
+                        v-if="input.required">*</span></label>
+                <input v-if="input.type !== 'textarea'" v-bind:type="input.type" v-bind:class="input.class"
+                       v-bind:required="input.required">
+                <textarea v-else-if="input.type === 'textarea'" v-bind:type="input.type" v-bind:class="input.class"
+                          v-bind:required="input.required"></textarea>
+            </div>
+        </fieldset>
+    </form>
     {% endverbatim %}
-    {% crispy form %}
+    {#    {% crispy form %}#}
 {% endblock %}
 
 {% block bottom %}
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-    <script type="x-template" id="my-fieldset">
+    {% verbatim %}
+    <script type="text/x-template" id="my-fieldset">
         <fieldset>
-            <h1>Test</h1>
+            <legend>{{ app.name }}</legend>
+            <input v-for="question in app.qrange" type="text" name="Shiat">
+            <a class="btn-tertiary" v-on:click="app.add_question()">Add Question</a>
         </fieldset>
     </script>
+    {% endverbatim %}
     <script>
         Vue.component('my-fieldset', {
             template: '#my-fieldset'
@@ -24,14 +41,36 @@
             el: 'main',
             data: {
                 title: 'Add Event',
+                event_info: [
+                    {
+                        legend: 'Event',
+                        fields: [
+                            {label: 'Name', required: true, type: 'text', class: 'control-label'},
+                            {label: 'Beschreibung', required: true, type: 'textarea'},
+                            {label: 'Start', required: true, type: 'text', class: 'datetimeinput'},
+                            {label: 'Ende', required: true, type: 'text', class: 'datetimeinput'},
+                        ]
+                    }, {
+                        legend: 'Anmeldezeitraum',
+                        fields: [
+                            {label: 'Von', required: true, type: 'text'},
+                            {label: 'Bis', required: true, type: 'text'},
+                        ]
+                    }
+                ],
                 range: 0,
+                qrange: 0,
+                name: "Something",
             },
             methods: {
                 add_questionset: function (event) {
-                    this.range += 1;
-                }
+                    this.range += 1
+                },
+                add_question: function (event) {
+                    this.qrange += 1
+                },
             }
         });
-
+        app.add_questionset()
     </script>
 {% endblock %}

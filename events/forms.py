@@ -29,7 +29,7 @@ class EditEvent(forms.ModelForm):
                 '<my-fieldset v-for="n in range"></my-fieldset>'
             ), ButtonHolder(
                 HTML(
-                    '<input class="btn btn-secondary" id="button-id-add-questions" name="add-questions" type="button" value="Add set of Questions" v-on:click="add_questionset">')
+                    '<input class="btn btn-secondary" id="button-id-add-questions" name="add-questions" type="button" value="Add set of Questions" v-on:click="add_questionset()">')
                 #   Button('add-questions', 'Add set of Questions', css_class='btn-secondary')
             ), ButtonHolder(
                 Submit('submit', 'Erstellen')
