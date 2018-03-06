@@ -10,20 +10,11 @@ from participants.models import Participant
 class EditParticipant(forms.ModelForm):
     class Meta:
         model = Participant
-        fields = ['forename', 'lastname', 'born', 'plz', 'location', 'group', 'mail', 'perks', 'additional',
-                  'next_station']
+        fields = '__all__'
 
         labels = {
             'forename': 'Vorname',
             'lastname': 'Nachname',
-            'born': 'Geburtsdatum',
-            'plz': 'Postleitzahl',
-            'location': 'Wohnort',
-            'group': 'Stamm',
-            'mail': 'Email Adresse',
-            'perks': 'Evtl Bahn Vergünstigungen',
-            'additional': 'Weitere Informationen',
-            'next_station': 'Nächster Bahnhof',
         }
 
     def __init__(self, *args, **kwargs):
@@ -35,17 +26,6 @@ class EditParticipant(forms.ModelForm):
                 'forename',
                 'lastname',
                 'born',
-            ), Fieldset(
-                'Kontaktinformation',
-                'location',
-                'plz',
-                'group',
-                'next_station',
-                'mail',
-            ), Fieldset(
-                'Zusätzliche Informationen',
-                'perks',
-                'additional',
             ),
             ButtonHolder(
                 Submit('submit', 'Anmelden')
