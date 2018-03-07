@@ -7,7 +7,9 @@
     <h1>{{ title }}</h1>
     <form method="post" target="#">
         <fieldset v-for="(fieldset, fs_index) in event_info" :key="fieldset.id">
-            <legend>{{ fieldset.legend }}</legend>
+            <legend v-if="fieldset.additional">{{ fieldset.fields[0].value ? fieldset.fields[0].value : fieldset.id }}
+            </legend>
+            <legend v-else>{{ fieldset.legend }}</legend>
             <button type="button" class="btn-secondary" v-if="fieldset.additional"
                     v-on:click="del_questionset(fs_index)">X
             </button>
