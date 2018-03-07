@@ -8,7 +8,9 @@
     <form method="post" target="#">
         <fieldset v-for="(fieldset, fs_index) in event_info" :key="fieldset.id">
             <legend>{{ fieldset.legend }}</legend>
-            <button class="btn-secondary" v-if="fieldset.additional" v-on:click="del_questionset(fs_index)">X</button>
+            <button type="button" class="btn-secondary" v-if="fieldset.additional"
+                    v-on:click="del_questionset(fs_index)">X
+            </button>
             <div v-for="(input, index) in fieldset.fields" :key="input.id">
                 <label v-bind:class="[{ requiredField : input.required }, '']">
                     {{ input.label }}
@@ -27,11 +29,14 @@
                     <option v-for="possible in possible_fields" v-bind:value="possible.value">{{ possible.name }}
                     </option>
                 </select>
-                <button v-if="input.additional_question" v-on:click="del_question(fs_index, index)">X</button>
+                <button type="button" v-if="input.additional_question" v-on:click="del_question(fs_index, index)">X
+                </button>
             </div>
-            <button v-if="fieldset.additional" class="btn-secondary" v-on:click="add_question(fs_index)">+</button>
+            <button type="button" v-if="fieldset.additional" class="btn-secondary" v-on:click="add_question(fs_index)">
+                +
+            </button>
         </fieldset>
-        <button v-on:click="add_questionset()" class="btn-secondary">Add Question Set</button>
+        <button type="button" v-on:click="add_questionset()" class="btn-secondary">Add Question Set</button>
         <input type="submit" class="btn-primary">
     </form>
     {% endverbatim %}
