@@ -9,7 +9,7 @@
     {% verbatim %}
     <h1>{{ title }}</h1>
     <form method="post" target="#">
-        <fieldset v-for="(fieldset, fs_index) in event_info" :key="fieldset.id">
+        <fieldset v-for="(fieldset, fs_index) in event_info" :key="fieldset.id" v-bind="fieldset.html_fields">
             <legend v-if="fieldset.additional">{{ fieldset.fields[0].value ? fieldset.fields[0].value : fieldset.id }}
             </legend>
             <legend v-else>{{ fieldset.legend }}</legend>
@@ -55,8 +55,12 @@
                 +
             </button>
         </fieldset>
-        <button type="button" v-on:click="add_questionset()" class="btn-secondary">Add Question Set</button>
-        <input type="submit" class="btn-primary">
+        <div class="buttonHolder">
+            <button id="qsadd" type="button" v-on:click="add_questionset()" class="btn btn-secondary">Add Question Set
+            </button>
+            <br>
+            <input id="sub" type="submit" class="btn btn-primary">
+        </div>
     </form>
     {% endverbatim %}
 {% endblock %}
@@ -79,6 +83,9 @@
                         ]
                     }, {
                         legend: 'Anmeldezeitraum',
+                        html_fields: {
+                            class: 'row2'
+                        },
                         fields: [
                             {label: 'Von', html_fields: {required: true, type: 'text'}},
                             {label: 'Bis', html_fields: {required: true, type: 'text'}},

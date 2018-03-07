@@ -48,17 +48,17 @@ body {
   font-family: "Roboto", "Verdana", "Arial", sans-serif;
   display: grid;
   grid-gap: 1rem;
-  grid-template-columns: repeat(12, 1fr);
-  grid-template-rows: auto auto 1fr 10rem;
-  grid-template-areas: ". header header header header . . . . . . ." "nav nav title title title . . . . . . ." "nav nav main main main main main main main main main ." "footer footer footer footer footer footer footer footer footer footer footer footer"; }
+    grid-template-columns: 1fr 1fr 4fr 8fr 2fr;
+    grid-template-rows: auto 1fr 10rem;
+    grid-template-areas: ". header header . ." "nav nav main main ." "footer footer footer footer footer";
+}
   body header {
     grid-area: header; }
   body #container {
     display: contents; }
 
 main {
-  display: contents;
-  padding-top: 2rem;
+    grid-area: main;
   margin: 0 auto; }
   main h1, main h2, main h3, main h4, main .btn-tertiary {
     font-family: "Immenhausen", serif;
@@ -140,7 +140,6 @@ main {
 
 nav {
   grid-area: nav;
-  max-height: 100%;
   -o-transition: 0.15s;
   -ms-transition: 0.15s;
   -moz-transition: 0.15s;
@@ -149,14 +148,19 @@ nav {
   background-color: #ffcb04;
   -webkit-box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22);
   -moz-box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22);
-  box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22); }
+    box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22);
+    margin-bottom: auto;
+    margin-top: 2rem;
+}
   nav li {
-    padding: 0.5rem 2rem; }
+      padding: 0.5rem 2rem;
+      height: auto;
+  }
   nav a {
     color: rgba(56, 46, 35, 0.7);
     font-family: "Immenhausen", serif;
-    font-size: 120%;
-    display: block; }
+      font-size: 120%;
+  }
   nav a:hover {
     color: rgba(0, 0, 0, 0.7); }
 

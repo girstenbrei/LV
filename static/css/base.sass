@@ -16,9 +16,9 @@ body
   font-family: $font_base
   display: grid
   grid-gap: 1rem
-  grid-template-columns: repeat(12, 1fr)
-  grid-template-rows: auto auto 1fr $footer_height
-  grid-template-areas: '. header header header header . . . . . . .''nav nav title title title . . . . . . .''nav nav main main main main main main main main main .''footer footer footer footer footer footer footer footer footer footer footer footer'
+  grid-template-columns: 1fr 1fr 4fr 8fr 2fr
+  grid-template-rows: auto 1fr $footer_height
+  grid-template-areas: '. header header . .''nav nav main main .''footer footer footer footer footer'
 
   header
     grid-area: header
@@ -27,8 +27,8 @@ body
     display: contents
 
 main
-  display: contents
-  padding-top: 2rem
+  grid-area: main
+  //padding-top: 2rem
   margin: 0 auto
 
   h1, h2, h3, h4, .btn-tertiary
@@ -40,7 +40,6 @@ main
   h1
     color: $primary-yellow
     background-color: $brown-layover
-    //min-width: 30%
     font-size: 200%
     grid-area: title
 
@@ -122,22 +121,21 @@ main
 
 nav
   grid-area: nav
-  max-height: 100%
-  //position: absolute
-  //top: 200px
-  //left: -75px
   +base_transition
   background-color: $primary-yellow
   +base_shadow
+  margin-bottom: auto
+  margin-top: 2rem
 
   li
     padding: .5rem 2rem
+    height: auto
 
   a
     color: $brown-layover
     font-family: $font_headings
     font-size: 120%
-    display: block
+  //display: block
 
   a:hover
     color: darken($brown-layover, 30%)
@@ -204,11 +202,6 @@ a, a:visited
 footer
   background-color: $brown-layover
   height: $footer_height
-  //position: relative
-  //margin-top: -$footer_height
-  //clear: both
-  //padding: 1rem 10%
-  //padding-bottom: 0
   grid-area: footer
 
   h2
