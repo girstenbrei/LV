@@ -18,21 +18,30 @@
                     {{ input.label }}
                     <span v-if="input.html_fields.required">*</span>
                 </label>
-                <input v-if="input.type !== 'textarea'"
+                <textarea v-if="input.type === 'textarea'"
+                          v-bind="input.html_fields"
+                          v-model="input.value"
+                ></textarea>
+                <template v-else-if="input.html_fields.type === 'select'">
+                    <select v-bind="input.html_fields"
+                            v-model="input.value">
+                        <option v-for="option in input.options" v-bind:value="option.value">{{ option.name }}</option>
+                    </select>
+                    <input v-if="input.value === 'MAL'" type="text" required="required"
+                           placeholder="Welche Mail sollen Teilnehmer eintragen?">
+                </template>
+                <input v-else
                        v-bind="input.html_fields"
                        v-model="input.value"
                 >
-                <textarea v-else-if="input.type === 'textarea'"
-                          v-bind="input.html_fields"
-                          v-model="input.value"
-                >
-                </textarea>
-                <select v-if="input.additional_question" v-model="input.type_value">
-                    <option v-for="possible in possible_fields" v-bind:value="possible.value">{{ possible.name }}
-                    </option>
-                </select>
-                <button type="button" v-if="input.additional_question" v-on:click="del_question(fs_index, index)">X
-                </button>
+                <template v-if="input.additional_question">
+                    <select v-model="input.type_value">
+                        <option v-for="possible in possible_fields" v-bind:value="possible.value">{{ possible.name }}
+                        </option>
+                    </select>
+                    <button type="button" v-on:click="del_question(fs_index, index)">X
+                    </button>
+                </template>
             </div>
             <button type="button" v-if="fieldset.additional" class="btn-secondary" v-on:click="add_question(fs_index)">
                 +
@@ -91,7 +100,12 @@
                             },
                             {
                                 label: 'Target',
-                                html_fields: {required: true, type: 'text', placeholder: 'The sets title'}
+                                html_fields: {required: true, type: 'select', placeholder: 'The sets title'},
+                                options: [
+                                    {name: 'Direct', value: 'DIR'},
+                                    {name: 'Mail', value: 'MAL'},
+                                ],
+                                value: 'DIR'
                             },
                         ]
                     };
