@@ -24,8 +24,8 @@
                           v-bind:required="input.required">
                 </textarea>
                 <select v-if="input.additional_question">
-                    <option value="shees">sheesh</option>
-                    <option value="shees2">sheesh2</option>
+                    <option v-for="possible in possible_fields" v-bind:value="possible.value">{{ possible.name }}
+                    </option>
                 </select>
                 <button v-if="input.additional_question" v-on:click="del_question(fs_index, index)">X</button>
             </div>
@@ -63,6 +63,13 @@
                 ],
                 generated_questionsets: 0,
                 generated_questions: 0,
+                possible_fields: [
+                    {name: 'Characters', value: 'CHR'},
+                    {name: 'Text', value: 'TXT'},
+                    {name: 'Date', value: 'DAT'},
+                    {name: 'Time', value: 'TME'},
+                    {name: 'E-Mail', value: 'MAL'},
+                ]
             },
             methods: {
                 add_questionset: function () {
