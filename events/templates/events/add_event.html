@@ -16,18 +16,14 @@
             <div v-for="(input, index) in fieldset.fields" :key="input.id">
                 <label v-bind:class="[{ requiredField : input.required }, '']">
                     {{ input.label }}
-                    <span v-if="input.required">*</span>
+                    <span v-if="input.html_fields.required">*</span>
                 </label>
                 <input v-if="input.type !== 'textarea'"
-                       v-bind:type="input.type"
-                       v-bind:class="input.class"
-                       v-bind:required="input.required"
+                       v-bind="input.html_fields"
                        v-model="input.value"
                 >
                 <textarea v-else-if="input.type === 'textarea'"
-                          v-bind:type="input.type"
-                          v-bind:class="input.class"
-                          v-bind:required="input.required"
+                          v-bind="input.html_fields"
                           v-model="input.value"
                 >
                 </textarea>
@@ -59,16 +55,16 @@
                     {
                         legend: 'Event',
                         fields: [
-                            {label: 'Name', required: true, type: 'text', class: 'control-label'},
-                            {label: 'Beschreibung', required: true, type: 'textarea'},
-                            {label: 'Start', required: true, type: 'text', class: 'datetimeinput'},
-                            {label: 'Ende', required: true, type: 'text', class: 'datetimeinput'},
+                            {label: 'Name', html_fields: {required: true, type: 'text', class: 'control-label'}},
+                            {label: 'Beschreibung', html_fields: {required: true}, type: 'textarea'},
+                            {label: 'Start', html_fields: {required: true, type: 'text', class: 'datetimeinput'}},
+                            {label: 'Ende', html_fields: {required: true, type: 'text', class: 'datetimeinput'}},
                         ]
                     }, {
                         legend: 'Anmeldezeitraum',
                         fields: [
-                            {label: 'Von', required: true, type: 'text'},
-                            {label: 'Bis', required: true, type: 'text'},
+                            {label: 'Von', html_fields: {required: true, type: 'text'}},
+                            {label: 'Bis', html_fields: {required: true, type: 'text'}},
                         ]
                     }
                 ],
@@ -89,7 +85,14 @@
                         legend: this.generated_questionsets,
                         additional: true,
                         fields: [
-                            {label: 'Title', required: true, type: 'text'},
+                            {
+                                label: 'Title',
+                                html_fields: {required: true, type: 'text', placeholder: 'The sets title'}
+                            },
+                            {
+                                label: 'Target',
+                                html_fields: {required: true, type: 'text', placeholder: 'The sets title'}
+                            },
                         ]
                     };
                     this.event_info.push(to_push);
@@ -101,12 +104,14 @@
                     fieldset.fields.push(
                         {
                             label: 'Name',
-                            required: true,
-                            type: 'text',
                             additional_question: true,
+                            html_fields: {
+                                required: true,
+                                type: 'text',
+                            },
                             id: this.generated_questions,
                             type_value: 'CHR',
-                            valu: '',
+                            value: '',
                         },
                     );
                     this.generated_questions++
