@@ -1,6 +1,9 @@
 {% extends  'base.html' %}
 {% load staticfiles %}
-{% load crispy_forms_tags %}
+
+{% block head %}
+    <link href="{% static 'events/css/events.css' %}" rel="stylesheet" type="text/css">
+{% endblock %}
 
 {% block main %}
     {% verbatim %}
@@ -13,21 +16,26 @@
             <button type="button" class="btn-secondary" v-if="fieldset.additional"
                     v-on:click="del_questionset(fs_index)">X
             </button>
-            <div v-for="(input, index) in fieldset.fields" :key="input.id">
-                <label v-bind:class="[{ requiredField : input.required }, '']">
+            <div v-for="(input, index) in fieldset.fields">
+                <label v-bind:class="[{ requiredField : input.required }, '']" :key="input.id">
                     {{ input.label }}
-                    <span v-if="input.html_fields.required">*</span>
+                    <span v-if="input.html_fields.required" :key="input.id">*</span>
                 </label>
                 <textarea v-if="input.type === 'textarea'"
                           v-bind="input.html_fields"
                           v-model="input.value"
+                          :key="input.id"
                 ></textarea>
                 <template v-else-if="input.html_fields.type === 'select'">
                     <select v-bind="input.html_fields"
-                            v-model="input.value">
-                        <option v-for="option in input.options" v-bind:value="option.value">{{ option.name }}</option>
+                            v-model="input.value"
+                            :key="input.id"
+                    >
+                        <option v-for="option in input.options" v-bind:value="option.value" :key="input.id">{{
+                            option.name }}
+                        </option>
                     </select>
-                    <input v-if="input.value === 'MAL'" type="text" required="required"
+                    <input v-if="input.value === 'MAL'" type="text" required="required" :key="input.id"
                            placeholder="Welche Mail sollen Teilnehmer eintragen?">
                 </template>
                 <input v-else

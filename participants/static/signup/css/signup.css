@@ -45,25 +45,31 @@ html, body {
 
 body {
   background-image: url("/static/images/holzhintergrund.jpg");
-  font-family: "Roboto", "Verdana", "Arial", sans-serif; }
+  font-family: "Roboto", "Verdana", "Arial", sans-serif;
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: auto auto 1fr 10rem;
+  grid-template-areas: ". header header header header . . . . . . ." "nav nav title title title . . . . . . ." "nav nav main main main main main main main main main ." "footer footer footer footer footer footer footer footer footer footer footer footer"; }
+  body header {
+    grid-area: header; }
+  body #container {
+    display: contents; }
 
 main {
-  width: 80%;
+  display: contents;
   padding-top: 2rem;
-  margin: 0 auto;
-  overflow: auto;
-  padding-bottom: 12rem; }
+  margin: 0 auto; }
   main h1, main h2, main h3, main h4, main .btn-tertiary {
     font-family: "Immenhausen", serif;
     text-align: center;
     padding: 0.5rem;
-    margin: 0.5rem 0;
-    display: inline-block; }
+    margin: 0.5rem 0; }
   main h1 {
     color: #ffcb04;
     background-color: rgba(56, 46, 35, 0.7);
-    min-width: 30%;
-    font-size: 200%; }
+    font-size: 200%;
+    grid-area: title; }
   main h2 {
     color: #1d4899;
     background-color: #ffcb04;
@@ -106,21 +112,23 @@ main {
       border-bottom: 1px solid rgba(56, 46, 35, 0.2); }
 
 #branding {
+  width: 100%;
+  text-align: center;
+  background: rgba(0, 0, 0, 0) url("/static/images/shadow.svg") no-repeat scroll 50% 0%;
+  background-clip: border-box;
   display: block;
-  width: 425px;
-  height: 145px;
-  margin-left: 10%;
-  margin-bottom: -10px;
-  position: relative;
-  text-align: center; }
+  height: 20%;
+  content: "";
+  position: relative; }
   #branding #branding_logo {
     text-align: center;
-    box-sizing: border-box;
-    margin: 0;
-    position: relative;
+    overflow: hidden;
     padding: 1rem;
     background-color: #ffcb04;
     z-index: 2; }
+    #branding #branding_logo img {
+      z-index: 3;
+      max-width: 100%; }
   #branding #branding_region {
     line-height: 30px;
     text-align: center;
@@ -128,49 +136,11 @@ main {
     font-size: 18px;
     background-color: #1d4899;
     font-family: "Immenhausen", serif;
-    z-index: 2;
-    position: relative; }
-
-#branding::after {
-  z-index: 1;
-  background-image: url("/static/images/shadow.svg");
-  background-color: rgba(0, 0, 0, 0);
-  background-position: 50% 0%;
-  bottom: -20px;
-  background-attachment: scroll;
-  background-clip: border-box;
-  display: block;
-  height: 143px;
-  width: 457px;
-  content: "";
-  position: absolute; }
-
-fieldset {
-  background-color: rgba(56, 46, 35, 0.7);
-  border-style: none;
-  padding-top: 3rem;
-  padding-left: 1rem;
-  padding-bottom: 1rem;
-  position: relative;
-  margin: 1rem; }
-  fieldset legend {
-    top: 0.5rem;
-    position: absolute;
-    color: #1d4899;
-    font-family: "Immenhausen", serif;
-    font-size: 18pt;
-    background-color: #ffcb04;
-    padding: 0.1rem 0.6rem; }
-  fieldset label {
-    color: #ffcb04; }
-  fieldset .help-inline {
-    color: white;
-    background-color: #f00000; }
+    z-index: 2; }
 
 nav {
-  position: absolute;
-  top: 200px;
-  left: -75px;
+  grid-area: nav;
+  max-height: 100%;
   -o-transition: 0.15s;
   -ms-transition: 0.15s;
   -moz-transition: 0.15s;
@@ -194,11 +164,10 @@ nav:hover {
   left: 0; }
 
 .buttonHolder {
-    float: right;
-    display: block;
-    clear: both;
-    margin: 1rem;
-}
+  float: right;
+  display: block;
+  clear: both;
+  margin: 1rem; }
 
 .btn-primary {
   background-color: #1d4899;
@@ -266,16 +235,16 @@ nav:hover {
   background-color: white;
   color: #4176db; }
 
+.btn-danger {
+  background-color: red; }
+
 a, a:visited {
   color: #1d4899; }
 
 footer {
   background-color: rgba(56, 46, 35, 0.7);
   height: 10rem;
-  position: relative;
-  margin-top: -10rem;
-  clear: both;
-  padding: 1rem 10%; }
+  grid-area: footer; }
   footer h2 {
     color: #ffcb04;
     font-family: "Immenhausen", serif; }

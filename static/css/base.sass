@@ -1,32 +1,5 @@
 @import 'reset'
-
-$primary-blue: #1d4899
-$primary-yellow: #ffcb04
-$brown-layover: rgba(56, 46, 35, 0.7)
-
-$font_base: "Roboto", "Verdana", "Arial", sans-serif
-$font_headings: "Immenhausen", serif
-
-$footer_height: 10rem
-
-$base_transition: .15s
-
-=base_transition
-  -o-transition: $base_transition
-  -ms-transition: $base_transition
-  -moz-transition: $base_transition
-  -webkit-transition: $base_transition
-  transition: $base_transition
-
-=base_shadow
-  -webkit-box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22)
-  -moz-box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22)
-  box-shadow: 9px 6px 18px 0px rgba(0, 0, 0, 0.22)
-
-=inner_shadow
-  -webkit-box-shadow: inset 0px 0px 5px 0px rgba(0, 0, 0, 0.75)
-  -moz-box-shadow: inset 0px 0px 5px 0px rgba(0, 0, 0, 0.75)
-  box-shadow: inset 0px 0px 5px 0px rgba(0, 0, 0, 0.75)
+@import 'variables'
 
 *
   margin: 0
@@ -41,26 +14,35 @@ html, body
 body
   background-image: url("/static/images/holzhintergrund.jpg")
   font-family: $font_base
+  display: grid
+  grid-gap: 1rem
+  grid-template-columns: repeat(12, 1fr)
+  grid-template-rows: auto auto 1fr $footer_height
+  grid-template-areas: '. header header header header . . . . . . .''nav nav title title title . . . . . . .''nav nav main main main main main main main main main .''footer footer footer footer footer footer footer footer footer footer footer footer'
+
+  header
+    grid-area: header
+
+  #container
+    display: contents
 
 main
-  width: 80%
+  display: contents
   padding-top: 2rem
   margin: 0 auto
-  overflow: auto
-  padding-bottom: $footer_height+2rem
 
   h1, h2, h3, h4, .btn-tertiary
     font-family: $font_headings
     text-align: center
     padding: .5rem
     margin: .5rem 0
-    display: inline-block
 
   h1
     color: $primary-yellow
     background-color: $brown-layover
-    min-width: 30%
+    //min-width: 30%
     font-size: 200%
+    grid-area: title
 
   h2
     color: $primary-blue
@@ -109,22 +91,25 @@ main
       border-bottom: 1px solid transparentize($brown-layover, .5)
 
 #branding
-  display: block
-  width: 425px
-  height: 145px
-  margin-left: 10%
-  margin-bottom: -10px
-  position: relative
+  width: 100%
   text-align: center
+  background: rgba(0, 0, 0, 0) url("/static/images/shadow.svg") no-repeat scroll 50% 0%
+  background-clip: border-box
+  display: block
+  height: 20%
+  content: ""
+  position: relative
 
   #branding_logo
     text-align: center
-    box-sizing: border-box
-    margin: 0
-    position: relative
+    overflow: hidden
     padding: 1rem
     background-color: $primary-yellow
     z-index: 2
+
+    img
+      z-index: 3
+      max-width: 100%
 
   #branding_region
     line-height: 30px
@@ -134,51 +119,13 @@ main
     background-color: $primary-blue
     font-family: $font_headings
     z-index: 2
-    position: relative
-
-#branding::after
-  z-index: 1
-  background-image: url("/static/images/shadow.svg")
-  background-color: rgba(0, 0, 0, 0)
-  background-position: 50% 0%
-  bottom: -20px
-  background-attachment: scroll
-  background-clip: border-box
-  display: block
-  height: 143px
-  width: 457px
-  content: ""
-  position: absolute
-
-fieldset
-  background-color: $brown-layover
-  border-style: none
-  padding-top: 3rem
-  padding-left: 1rem
-  padding-bottom: 1rem
-  position: relative
-  margin: 1rem
-
-  legend
-    top: .5rem
-    position: absolute
-    color: $primary-blue
-    font-family: $font_headings
-    font-size: 18pt
-    background-color: $primary-yellow
-    padding: .1rem .6rem
-
-  label
-    color: $primary-yellow
-
-  .help-inline
-    color: white
-    background-color: #f00000
 
 nav
-  position: absolute
-  top: 200px
-  left: -75px
+  grid-area: nav
+  max-height: 100%
+  //position: absolute
+  //top: 200px
+  //left: -75px
   +base_transition
   background-color: $primary-yellow
   +base_shadow
@@ -248,16 +195,21 @@ nav:hover
   background-color: white
   color: lighten($primary-blue, 20%)
 
+.btn-danger
+  background-color: red
+
 a, a:visited
   color: $primary-blue
 
 footer
   background-color: $brown-layover
   height: $footer_height
-  position: relative
-  margin-top: -$footer_height
-  clear: both
-  padding: 1rem 10%
+  //position: relative
+  //margin-top: -$footer_height
+  //clear: both
+  //padding: 1rem 10%
+  //padding-bottom: 0
+  grid-area: footer
 
   h2
     color: $primary-yellow

@@ -1,0 +1,56 @@
+@import "../../../../static/css/variables"
+//
+//main
+//  display: grid
+//  grid-template-rows:
+
+
+  h1
+    grid-column-end: span 2
+
+form
+  grid-area: main
+
+fieldset
+  //display: grid
+  //grid-template-columns: 1fr 1fr 1fr 1fr
+  //grid-template-rows: 200px 200px
+  //grid-gap: .5rem
+  padding: 1rem
+  background-color: $brown-layover
+  border-style: none
+  align-items: center
+  //padding-top: 1rem
+  //padding-left: 1rem
+  //padding-bottom: 1rem
+  //position: relative
+  //margin: 1rem
+
+  //div
+  //  display: grid
+  //  grid-template-columns: 1fr 1fr 1fr 1fr
+  div
+    display: contents
+
+  legend
+    top: .5rem
+    color: $primary-blue
+    font-family: $font_headings
+    font-size: 18pt
+    background-color: $primary-yellow
+    padding: .1rem .6rem
+
+  label
+    color: $primary-yellow
+  //grid-column-end: span 1
+  //grid-column: 1
+
+  input, textarea, select
+    //grid-column-end: span 1
+    padding: 4px 5px
+    border: 1px solid #dadada
+    border-radius: 2px
+
+  input:focus, textarea:focus, select:focus
+    border-color: $light-blue
+    box-shadow: inset 0 0 3px $light-blue
