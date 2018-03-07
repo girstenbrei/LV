@@ -59,7 +59,9 @@ body {
 
 main {
     grid-area: main;
-  margin: 0 auto; }
+    margin: 0 auto;
+    width: 100%;
+}
   main h1, main h2, main h3, main h4, main .btn-tertiary {
     font-family: "Immenhausen", serif;
     text-align: center;
@@ -171,9 +173,15 @@ nav:hover {
   float: right;
   display: block;
   clear: both;
-  margin: 1rem; }
+    margin: 1rem 0;
+}
 
 .btn-primary {
+    display: inline-block;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    user-select: none;
   background-color: #1d4899;
   -o-transition: 0.15s;
   -ms-transition: 0.15s;
@@ -199,6 +207,11 @@ nav:hover {
   background-color: #15346e; }
 
 .btn-secondary {
+    display: inline-block;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    user-select: none;
   background-color: #ffcb04;
   color: #1d4899;
   -o-transition: 0.15s;
@@ -224,10 +237,14 @@ nav:hover {
   background-color: #ffd637; }
 
 .btn-tertiary {
+    display: inline-block;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    user-select: none;
   border: dashed 1px #ffcb04;
   border-radius: 3px;
   font-size: 120%;
-  display: block;
   color: #1d4899;
   -o-transition: 0.15s;
   -ms-transition: 0.15s;
@@ -240,7 +257,10 @@ nav:hover {
   color: #4176db; }
 
 .btn-danger {
-  background-color: red; }
+    background-color: red;
+    border: 1px solid darkred;
+    color: white;
+}
 
 a, a:visited {
   color: #1d4899; }

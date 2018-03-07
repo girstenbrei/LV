@@ -30,6 +30,7 @@ main
   grid-area: main
   //padding-top: 2rem
   margin: 0 auto
+  width: 100%
 
   h1, h2, h3, h4, .btn-tertiary
     font-family: $font_headings
@@ -147,9 +148,17 @@ nav:hover
   float: right
   display: block
   clear: both
-  margin: 1rem
+  margin: 1rem 0
+
+=btn
+  display: inline-block
+  text-align: center
+  white-space: nowrap
+  vertical-align: middle
+  user-select: none
 
 .btn-primary
+  +btn
   background-color: $primary-blue
   +base_transition
   color: $primary-yellow
@@ -162,9 +171,11 @@ nav:hover
   +base_shadow
 
 .btn-primary:hover
+
   background-color: darken($primary-blue, 10%)
 
 .btn-secondary
+  +btn
   background-color: $primary-yellow
   color: $primary_blue
   +base_transition
@@ -182,10 +193,10 @@ nav:hover
   background-color: lighten($primary-yellow, 10%)
 
 .btn-tertiary
+  +btn
   border: dashed 1px $primary-yellow
   border-radius: 3px
   font-size: 120%
-  display: block
   color: $primary-blue
   +base_transition
 
@@ -195,6 +206,8 @@ nav:hover
 
 .btn-danger
   background-color: red
+  border: 1px solid darkred
+  color: white
 
 a, a:visited
   color: $primary-blue

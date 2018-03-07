@@ -13,7 +13,7 @@
             <legend v-if="fieldset.additional">{{ fieldset.fields[0].value ? fieldset.fields[0].value : fieldset.id }}
             </legend>
             <legend v-else>{{ fieldset.legend }}</legend>
-            <button type="button" class="btn-secondary" v-if="fieldset.additional"
+            <button type="button" class="btn-danger fs_del" v-if="fieldset.additional"
                     v-on:click="del_questionset(fs_index)">X
             </button>
             <div v-for="(input, index) in fieldset.fields">
@@ -47,7 +47,7 @@
                         <option v-for="possible in possible_fields" v-bind:value="possible.value">{{ possible.name }}
                         </option>
                     </select>
-                    <button type="button" v-on:click="del_question(fs_index, index)">X
+                    <button class="btn-danger" type="button" v-on:click="del_question(fs_index, index)">X
                     </button>
                 </template>
             </div>

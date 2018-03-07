@@ -4,10 +4,18 @@ h1
   display: inline-block
 
 form
-  display: contents
+//display: contents
+//width: 100%
 
 fieldset
+  display: grid
+  grid-template-columns: repeat(4, 1fr)
+  //grid-template-rows: repeat(auto-fill, minmax(200px , 1fr))
+  //grid-template-areas: 'label in addition x'
+  grid-gap: .5rem
   padding: 1rem
+  //width: 100%
+
   background-color: $brown-layover
   border-style: none
   align-items: center
@@ -17,17 +25,20 @@ fieldset
     display: contents
 
   legend
-    top: .5rem
+    //top: .5rem
     color: $primary-blue
     font-family: $font_headings
     font-size: 18pt
     background-color: $primary-yellow
     padding: .1rem .6rem
+    display: inline-block
 
   label
+    grid-column: 1 / 2
     color: $primary-yellow
 
   input, textarea, select
+    grid-column-end: span 1
     padding: 4px 5px
     border: 1px solid #dadada
     border-radius: 2px
@@ -43,3 +54,8 @@ fieldset
 .btn-primary
   margin: 2rem 0px
   float: right
+
+.fs_del
+  font-size: 130%
+  font-weight: bold
+  display: inline-block
