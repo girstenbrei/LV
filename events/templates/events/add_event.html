@@ -19,13 +19,17 @@
                 <input v-if="input.type !== 'textarea'"
                        v-bind:type="input.type"
                        v-bind:class="input.class"
-                       v-bind:required="input.required">
+                       v-bind:required="input.required"
+                       v-model="input.value"
+                >
                 <textarea v-else-if="input.type === 'textarea'"
                           v-bind:type="input.type"
                           v-bind:class="input.class"
-                          v-bind:required="input.required">
+                          v-bind:required="input.required"
+                          v-model="input.value"
+                >
                 </textarea>
-                <select v-if="input.additional_question">
+                <select v-if="input.additional_question" v-model="input.type_value">
                     <option v-for="possible in possible_fields" v-bind:value="possible.value">{{ possible.name }}
                     </option>
                 </select>
@@ -66,7 +70,7 @@
                         ]
                     }
                 ],
-                generated_questionsets: 0,
+                generated_questionsets: 2,
                 generated_questions: 0,
                 possible_fields: [
                     {name: 'Characters', value: 'CHR'},
@@ -80,15 +84,15 @@
                 add_questionset: function () {
                     to_push = {
                         id: this.generated_questionsets,
-                        legend: this.event_info.length,
+                        legend: this.generated_questionsets,
                         additional: true,
                         fields: [
                             {label: 'Title', required: true, type: 'text'},
-                            {label: 'Name', required: true, type: 'text', additional_question: true},
                         ]
                     }
                     this.event_info.push(to_push)
                     this.generated_questionsets++
+                    this.add_question(to_push.id)
                 },
                 add_question: function (fieldset_id) {
                     fieldset = this.event_info[fieldset_id]
@@ -98,7 +102,9 @@
                             required: true,
                             type: 'text',
                             additional_question: true,
-                            id: this.generated_questions
+                            id: this.generated_questions,
+                            type_value: 'CHR',
+                            valu: '',
                         },
                     )
                     this.generated_questions++
