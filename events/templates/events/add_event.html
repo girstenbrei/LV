@@ -89,13 +89,13 @@
                         fields: [
                             {label: 'Title', required: true, type: 'text'},
                         ]
-                    }
-                    this.event_info.push(to_push)
-                    this.generated_questionsets++
-                    this.add_question(to_push.id)
+                    };
+                    this.event_info.push(to_push);
+                    this.generated_questionsets++;
+                    this.add_question(to_push.id);
                 },
                 add_question: function (fieldset_id) {
-                    fieldset = this.event_info[fieldset_id]
+                    fieldset = this.event_info[fieldset_id];
                     fieldset.fields.push(
                         {
                             label: 'Name',
@@ -106,15 +106,15 @@
                             type_value: 'CHR',
                             valu: '',
                         },
-                    )
+                    );
                     this.generated_questions++
                 },
                 del_question: function (fieldset_id, question_id) {
-                    fieldset = this.event_info[fieldset_id]
-                    Vue.delete(fieldset.fields, question_id)
+                    fieldset = this.event_info[fieldset_id];
+                    Vue.delete(fieldset.fields, question_id);
                 },
                 del_questionset: function (fieldset_id) {
-                    Vue.delete(this.event_info, fieldset_id)
+                    Vue.delete(this.event_info, fieldset_id);
                 }
             }
         });
