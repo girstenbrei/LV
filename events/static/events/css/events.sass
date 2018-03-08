@@ -24,14 +24,18 @@ fieldset
   div
     display: contents
 
-  legend
-    //top: .5rem
-    color: $primary-blue
-    font-family: $font_headings
-    font-size: 18pt
-    background-color: $primary-yellow
-    padding: .1rem .6rem
-    display: inline-block
+  .legend
+    h2
+      color: $primary-blue
+      font-family: $font_headings
+      font-size: 18pt
+      background-color: $primary-yellow
+      padding: .1rem .6rem
+      //display: inline-block
+      text-align: center
+      grid-column: 1 / 3
+      justify-self: left
+      min-width: 45%
 
   label
     grid-column: 1 / 2
@@ -59,3 +63,6 @@ fieldset
   font-size: 130%
   font-weight: bold
   display: inline-block
+  grid-column-start: 4
+  justify-self: right
+  min-width: 50%

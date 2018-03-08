@@ -205,9 +205,14 @@ nav:hover
   color: lighten($primary-blue, 20%)
 
 .btn-danger
-  background-color: red
-  border: 1px solid darkred
+  background-color: #d40600
+  +base_transition
+  border: 1px solid #860b07
+  border-radius: 3px
   color: white
+
+.btn-danger:hover
+  background-color: lighten(#d40600, 20%)
 
 a, a:visited
   color: $primary-blue

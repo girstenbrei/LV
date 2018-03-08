@@ -257,9 +257,19 @@ nav:hover {
   color: #4176db; }
 
 .btn-danger {
-    background-color: red;
-    border: 1px solid darkred;
+    background-color: #d40600;
+    -o-transition: 0.15s;
+    -ms-transition: 0.15s;
+    -moz-transition: 0.15s;
+    -webkit-transition: 0.15s;
+    transition: 0.15s;
+    border: 1px solid #860b07;
+    border-radius: 3px;
     color: white;
+}
+
+.btn-danger:hover {
+    background-color: #ff413b;
 }
 
 a, a:visited {
