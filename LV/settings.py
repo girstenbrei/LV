@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'crispy_forms',
     'events',
     'participants',
+
+    'django_extensions'
 ]
 
 MIDDLEWARE = [
