@@ -56,6 +56,7 @@ class AnswerPossibility(models.Model):
 class Question(models.Model):
     text = models.TextField()
     set = models.ForeignKey(QuestionSet, on_delete=models.CASCADE)
+    required = models.BooleanField()
 
     CHARANSWER = 'CHR'
     TEXTANSWER = 'TXT'
