@@ -63,6 +63,8 @@ class Question(models.Model):
     DATEANSWER = 'DAT'
     TIMEANSWER = 'TME'
     MAILANSWER = 'MAL'
+    SINGLECHOICEANSWER = 'SLQ'
+    MULTICHOICEANSWER = 'MLQ'
 
     ANSWER_TYPES = (
         (CHARANSWER, 'Characters'),
@@ -70,6 +72,8 @@ class Question(models.Model):
         (DATEANSWER, 'Date'),
         (TIMEANSWER, 'Time'),
         (MAILANSWER, 'E-Mail'),
+        (SINGLECHOICEANSWER, 'Single-Choice'),
+        (MULTICHOICEANSWER, 'Multiple Choice'),
     )
 
     type = models.CharField(max_length=8, choices=ANSWER_TYPES)
