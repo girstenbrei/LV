@@ -102,9 +102,14 @@ class MailAnswer(Answer):
     mail = models.EmailField()
 
 
-class SingleChoiceAnswer(Answer):
-    choice =
+class ChoiceAnswer(Answer):
+    choice = models.CharField()
 
+    class Meta:
+        abstract = True
 
-class MultiChoiceAnswer(Answer):
+class SingleChoiceAnswer(ChoiceAnswer):
+    pass
+
+class MultiChoiceAnswer(ChoiceAnswer):
     pass
