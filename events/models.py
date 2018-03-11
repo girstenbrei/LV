@@ -12,6 +12,8 @@ class Event(models.Model):
     signup_to = models.DateTimeField()
     slug = models.SlugField(unique=True)
 
+    question_sets = models.ManyToManyField('QuestionSet', through='EventQuestionsSetRelation', )
+
     def __str__(self):
         return "{} {}".format(self.name, self.start_datetime.year)
 
@@ -22,8 +24,13 @@ class SignUp(models.Model):
     participant = models.ForeignKey(Participant, on_delete=models.CASCADE)
 
 
+class EventQuestionsSetRelation(models.Model):
+    event = models.ForeignKey('Event', on_delete=models.CASCADE)
+    question_set = models.ForeignKey('QuestionSet', on_delete=models.CASCADE)
+    order = models.PositiveSmallIntegerField()
+
+
 class QuestionSet(models.Model):
-    event = models.ForeignKey(Event, on_delete=models.CASCADE)
     label = models.TextField(max_length=126)
 
     DIRECTQ = 'DIR'
