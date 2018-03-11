@@ -32,6 +32,7 @@ class EventQuestionsSetRelation(models.Model):
 
 class QuestionSet(models.Model):
     label = models.TextField(max_length=126)
+    description = models.TextField()
 
     DIRECTQ = 'DIR'
     MAILQ = 'MAL'
@@ -45,6 +46,11 @@ class QuestionSet(models.Model):
 
     def __str__(self):
         return self.label
+
+
+class AnswerPossibility(models.Model):
+    order = models.PositiveSmallIntegerField()
+    text = models.CharField()
 
 
 class Question(models.Model):
@@ -94,3 +100,11 @@ class TimeAnswer(Answer):
 
 class MailAnswer(Answer):
     mail = models.EmailField()
+
+
+class SingleChoiceAnswer(Answer):
+    choice =
+
+
+class MultiChoiceAnswer(Answer):
+    pass
