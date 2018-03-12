@@ -22,6 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('participants/', include('participants.urls')),
     path('event/', include('events.urls')),
+    path('', include('events.api_urls')),
     path('', RedirectView.as_view(url='participants/', permanent=False), name='index'),
 ]
 

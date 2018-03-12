@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'events',
     'participants',
+    'rest_framework',
 
     'django_extensions'
 ]

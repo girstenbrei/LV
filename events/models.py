@@ -1,15 +1,19 @@
 from django.db import models
+from django.template.defaultfilters import slugify
 
 from participants.models import Participant
+
+from datetime import datetime
+import dateutil.parser
 
 
 class Event(models.Model):
     name = models.CharField(max_length=256)
-    description = models.TextField()
+    description = models.TextField(blank=True)
     start_datetime = models.DateTimeField()
     end_datetime = models.DateTimeField()
     signup_from = models.DateTimeField()
-    signup_to = models.DateTimeField()
+    signup_to = models.DateTimeField(null=True)
     slug = models.SlugField(unique=True)
 
     question_sets = models.ManyToManyField('QuestionSet', through='EventQuestionsSetRelation', )
@@ -17,11 +21,25 @@ class Event(models.Model):
     def __str__(self):
         return "{} {}".format(self.name, self.start_datetime.year)
 
+    def _get_unique_slug(self):
+        slug = slugify("{} {}".format(self.name, dateutil.parser.parse(self.start_datetime).year))
+        unique_slug = slug
+        num = 1
+        while Event.objects.filter(slug=unique_slug).exists():
+            unique_slug = '{}-{}'.format(slug, num)
+            num += 1
+        return unique_slug
+
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            self.slug = self._get_unique_slug()
+        super().save()
+
 
 class SignUp(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
-    participant = models.ForeignKey(Participant, on_delete=models.CASCADE)
+    participant = models.ForeignKey(Participant, on_delete=models.CASCADE, null=True)
 
 
 class EventQuestionsSetRelation(models.Model):
@@ -32,7 +50,7 @@ class EventQuestionsSetRelation(models.Model):
 
 class QuestionSet(models.Model):
     label = models.TextField(max_length=126)
-    description = models.TextField()
+    description = models.TextField(blank=True)
 
     DIRECTQ = 'DIR'
     MAILQ = 'MAL'
@@ -50,12 +68,56 @@ class QuestionSet(models.Model):
 
 class AnswerPossibility(models.Model):
     order = models.PositiveSmallIntegerField()
-    text = models.CharField()
+    text = models.CharField(max_length=254)
+
+
+class Answer(models.Model):
+    question = models.ForeignKey('Question', on_delete=models.CASCADE)
+    signup = models.ForeignKey('SignUp', on_delete=models.CASCADE)
+
+    class Meta:
+        abstract = True
+
+
+class CharAnswer(Answer):
+    MAX_LENGTH = 254
+
+    text = models.CharField(max_length=MAX_LENGTH)
+
+
+class TextAnswer(Answer):
+    MAX_LENGTH = 2046
+    text = models.TextField(max_length=MAX_LENGTH)
+
+
+class DateAnswer(Answer):
+    date = models.DateField()
+
+
+class TimeAnswer(Answer):
+    time = models.TimeField()
+
+
+class MailAnswer(Answer):
+    mail = models.EmailField()
+
+
+class ChoiceAnswer(Answer):
+    choice = models.CharField(max_length=254)
+
+    class Meta:
+        abstract = True
+
+class SingleChoiceAnswer(ChoiceAnswer):
+    pass
+
+class MultiChoiceAnswer(ChoiceAnswer):
+    pass
 
 
 class Question(models.Model):
     text = models.TextField()
-    set = models.ForeignKey(QuestionSet, on_delete=models.CASCADE)
+    set = models.ForeignKey(QuestionSet, on_delete=models.CASCADE, related_name='questions')
     required = models.BooleanField()
 
     CHARANSWER = 'CHR'
@@ -76,45 +138,22 @@ class Question(models.Model):
         (MULTICHOICEANSWER, 'Multiple Choice'),
     )
 
+    FIELD_MAPPING = {
+        CHARANSWER: CharAnswer,
+        TEXTANSWER: TextAnswer,
+        DATEANSWER: DateAnswer,
+        TIMEANSWER: TimeAnswer,
+        MAILANSWER: MailAnswer,
+        SINGLECHOICEANSWER: SingleChoiceAnswer,
+        MULTICHOICEANSWER: MultiChoiceAnswer,
+    }
+
     type = models.CharField(max_length=8, choices=ANSWER_TYPES)
 
-
-class Answer(models.Model):
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
-    signup = models.ForeignKey(SignUp, on_delete=models.CASCADE)
-
-    class Meta:
-        abstract = True
+    @classmethod
+    def get_answer_field(cls, field_code):
+        return cls.FIELD_MAPPING.get(field_code, None)
 
 
-class CharAnswer(Answer):
-    text = models.CharField(max_length=254)
 
 
-class TextAnswer(Answer):
-    text = models.TextField(max_length=2046)
-
-
-class DateAnswer(Answer):
-    date = models.DateField()
-
-
-class TimeAnswer(Answer):
-    time = models.TimeField()
-
-
-class MailAnswer(Answer):
-    mail = models.EmailField()
-
-
-class ChoiceAnswer(Answer):
-    choice = models.CharField()
-
-    class Meta:
-        abstract = True
-
-class SingleChoiceAnswer(ChoiceAnswer):
-    pass
-
-class MultiChoiceAnswer(ChoiceAnswer):
-    pass
