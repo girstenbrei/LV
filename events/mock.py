@@ -116,4 +116,37 @@ create_event_json = """
 }
 """
 
+create_event_json_2 = """
+{
+    "name": "API Event 2",
+    "signup_to": "2018-01-01 10:10",
+    "question_sets": [
 
+	{
+            "id": 1
+        },
+
+	{
+            "description": "Wir möchten die Küche planen",
+            "questions": [
+                {
+                    "type": "CHR",
+                    "text": "Wie viel esse ich? (1=wenig...5=viel)",
+                    "required": false
+                },
+                {
+                    "type": "CHR",
+                    "text": "Ich esse Fleisch",
+                    "required": true
+                }
+            ],
+            "label": "Essgewohnheiten"
+        }
+
+	],
+    "description": "test 2",
+    "start_datetime": "2018-01-01 10:10",
+    "signup_from": "2018-01-01 10:10",
+    "end_datetime": "2018-01-01 10:10"
+}
+"""
