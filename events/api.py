@@ -1,7 +1,9 @@
 from django.db import transaction
-from rest_framework import serializers, viewsets
-from rest_framework.decorators import list_route, detail_route
+from rest_framework import serializers, viewsets, mixins
+from rest_framework.decorators import list_route, detail_route, permission_classes
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from rest_framework.viewsets import GenericViewSet
 
 from .models import SignUp, Event, CharAnswer, TextAnswer, Question, Answer, QuestionSet, EventQuestionsSetRelation
 
@@ -38,7 +40,7 @@ class SignUpSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = SignUp
-        fields = ('id', 'timestamp', 'event', 'participant', 'charanswer_set', 'textanswer_set', 'dateanswer_set',
+        fields = ('id', 'timestamp', 'event', 'user', 'charanswer_set', 'textanswer_set', 'dateanswer_set',
                   'timeanswer_set', 'mailanswer_set',)
 
 
@@ -83,7 +85,9 @@ def valid_dynamic_field(json_field, value):
     return True
 
 
-class EventViewSet(viewsets.ModelViewSet):
+class EventViewSet(mixins.RetrieveModelMixin,
+                   mixins.ListModelMixin,
+                   GenericViewSet):
     """
     A viewset for viewing and editing signups
     """
@@ -95,9 +99,34 @@ class EventViewSet(viewsets.ModelViewSet):
 
         event = self.get_object()
 
+        # Check authenticated
+        if request.successful_authenticator is None and event.signup_type == Event.SIGNUP_TYPE_AUTH:
+            return Response({'state': 'You have to be authenticated to signup to this event'}, status=403)
+
+        user = request.user if request.successful_authenticator else None
+
         if request.method == 'GET':
+
+            if user:
+                # get the last signup of the user for this event
+                old_signup = user.signup_set.filter(event=event).first()
+                # ToDo: refactor the database scheme to allow polymorphism on question and answer
+                old_answers = old_signup.charanswer_set.all()
+
+                def get_prefilled_value(question_pk):
+                    answer = old_answers.filter(question__pk=question_pk)
+                    if answer.exists():
+                        return answer.first().text
+                    else:
+                        return None
+            else:
+                def get_prefilled_value(question_pk):
+                    return None
+
             data = dict()
             data['event'] = event.id
+            data['change_signup_after_submit'] = event.change_signup_after_submit
+            data['multiple_signups_per_person'] = event.multiple_signups_per_person
             data['question_sets'] = []
 
             for question_set in event.eventquestionssetrelation_set.all():
@@ -112,15 +141,30 @@ class EventViewSet(viewsets.ModelViewSet):
                         "text": question.text,
                         "type": question.type,
                         "required": question.required,
-                        'value': ''
+                        'value': get_prefilled_value(question.pk)
                     })
 
             return Response(data)
 
         elif request.method == 'POST':
+
             with transaction.atomic():
                 # ToDo: add the participant logic
-                signup = SignUp.objects.create(event=event)
+
+                if user:
+                    # get the last signup of the user for this event
+                    old_signup = user.signup_set.filter(event=event)
+
+                    if old_signup.exists() and (not event.change_signup_after_submit or event.multiple_signups_per_person):
+                        return Response({'state': 'No multiple signups or update of submission allowed'}, status=403)
+
+                    if old_signup.exists() and event.change_signup_after_submit:
+                        # you can update your submission
+                        signup = old_signup.first()
+                    else:
+                        signup = SignUp.objects.create(event=event, user=user)
+                else:
+                    signup = SignUp.objects.create(event=event, user=user)
 
                 for i, question_set in enumerate(event.eventquestionssetrelation_set.all()):
                     for ii, question in enumerate(question_set.question_set.questions.all()):
@@ -154,6 +198,7 @@ class EventViewSet(viewsets.ModelViewSet):
         return Response({'state': 'unsupported method'}, status=405)
 
     @list_route(methods=['GET', 'POST'])
+    @permission_classes((IsAuthenticated,))
     def new(self, request):
 
         if request.method == 'GET':

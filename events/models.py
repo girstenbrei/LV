@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 from django.template.defaultfilters import slugify
 
@@ -16,13 +17,33 @@ class Event(models.Model):
     signup_to = models.DateTimeField(null=True)
     slug = models.SlugField(unique=True)
 
+    SIGNUP_TYPE_PUBLIC = 'pub'
+    SIGNUP_TYPE_AUTH = 'aut'
+
+    SIGNUP_TYPES = (
+        (SIGNUP_TYPE_PUBLIC, 'Public'),
+        (SIGNUP_TYPE_AUTH, 'Authenticated')
+    )
+
+    signup_type = models.CharField(max_length=3, choices=SIGNUP_TYPES, default=SIGNUP_TYPE_AUTH)
+
+    # the two of them could be mutual exclusive?
+    change_signup_after_submit = models.BooleanField(default=True)
+    multiple_signups_per_person = models.BooleanField(default=False)
+
+
+
     question_sets = models.ManyToManyField('QuestionSet', through='EventQuestionsSetRelation', )
 
     def __str__(self):
         return "{} {}".format(self.name, self.start_datetime.year)
 
     def _get_unique_slug(self):
-        slug = slugify("{} {}".format(self.name, dateutil.parser.parse(self.start_datetime).year))
+        try:
+            year = self.start_datetime.year
+        except AssertionError:
+            year = dateutil.parser.parse(self.start_datetime).year
+        slug = slugify("{} {}".format(self.name, year))
         unique_slug = slug
         num = 1
         while Event.objects.filter(slug=unique_slug).exists():
@@ -39,7 +60,12 @@ class Event(models.Model):
 class SignUp(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
-    participant = models.ForeignKey(Participant, on_delete=models.CASCADE, null=True)
+
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        null=True
+    )
 
 
 class EventQuestionsSetRelation(models.Model):

@@ -158,3 +158,10 @@ EMAIL_FROM = 'webmaster@cloud.action-online.de'
 #     DEBUG_TOOLBAR_CONFIG = {
 #         'INTERCEPT_REDIRECTS': False,
 #     }
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    )
+}
