@@ -53,14 +53,8 @@ def add_dummy_data():
         set=que_set_2
     )
 
-    part = Participant.objects.create(
-        forename="Baden",
-        lastname="Powell"
-    )
-
     signup = SignUp.objects.create(
-        event=e,
-        participant=part
+        event=e
     )
 
     a1 = CharAnswer.objects.create(

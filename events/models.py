@@ -1,10 +1,6 @@
 from django.conf import settings
 from django.db import models
 from django.template.defaultfilters import slugify
-
-from participants.models import Participant
-
-from datetime import datetime
 import dateutil.parser
 
 
@@ -31,8 +27,6 @@ class Event(models.Model):
     change_signup_after_submit = models.BooleanField(default=True)
     multiple_signups_per_person = models.BooleanField(default=False)
 
-
-
     question_sets = models.ManyToManyField('QuestionSet', through='EventQuestionsSetRelation', )
 
     def __str__(self):
@@ -41,7 +35,7 @@ class Event(models.Model):
     def _get_unique_slug(self):
         try:
             year = self.start_datetime.year
-        except AssertionError:
+        except AttributeError:
             year = dateutil.parser.parse(self.start_datetime).year
         slug = slugify("{} {}".format(self.name, year))
         unique_slug = slug
@@ -101,8 +95,16 @@ class Answer(models.Model):
     question = models.ForeignKey('Question', on_delete=models.CASCADE)
     signup = models.ForeignKey('SignUp', on_delete=models.CASCADE)
 
-    class Meta:
-        abstract = True
+    def get_child_class(self):
+        AnswerClass = Question.get_answer_field(self.question.type)
+        model_name = AnswerClass._meta.model_name
+        return getattr(self, model_name)
+
+    def get_serialized_value(self):
+        raise NotImplementedError
+
+    def set_serialized_value(self, value):
+        raise NotImplementedError
 
 
 class CharAnswer(Answer):
@@ -110,35 +112,72 @@ class CharAnswer(Answer):
 
     text = models.CharField(max_length=MAX_LENGTH)
 
+    def get_serialized_value(self):
+        return self.text
+
+    def set_serialized_value(self, value):
+        self.text = value
+
 
 class TextAnswer(Answer):
     MAX_LENGTH = 2046
     text = models.TextField(max_length=MAX_LENGTH)
 
+    def get_serialized_value(self):
+        return self.text
+
+    def set_serialized_value(self, value):
+        self.text = value
+
 
 class DateAnswer(Answer):
     date = models.DateField()
+
+    def get_serialized_value(self):
+        return self.date
+
+    def set_serialized_value(self, value):
+        self.date = value
 
 
 class TimeAnswer(Answer):
     time = models.TimeField()
 
+    def get_serialized_value(self):
+        return self.time
+
+    def set_serialized_value(self, value):
+        self.time = value
+
 
 class MailAnswer(Answer):
     mail = models.EmailField()
 
+    def get_serialized_value(self):
+        return self.mail
 
-class ChoiceAnswer(Answer):
+    def set_serialized_value(self, value):
+        self.mail = value
+
+
+class SingleChoiceAnswer(Answer):
     choice = models.CharField(max_length=254)
 
-    class Meta:
-        abstract = True
+    def get_serialized_value(self):
+        return self.choice
 
-class SingleChoiceAnswer(ChoiceAnswer):
-    pass
+    def set_serialized_value(self, value):
+        self.choice = value
 
-class MultiChoiceAnswer(ChoiceAnswer):
-    pass
+
+class MultiChoiceAnswer(Answer):
+    choices = models.CharField(max_length=254)
+
+    def get_serialized_value(self):
+        return self.choices
+
+    def set_serialized_value(self, value):
+        self.choices = value
 
 
 class Question(models.Model):

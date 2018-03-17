@@ -40,8 +40,7 @@ class SignUpSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = SignUp
-        fields = ('id', 'timestamp', 'event', 'user', 'charanswer_set', 'textanswer_set', 'dateanswer_set',
-                  'timeanswer_set', 'mailanswer_set',)
+        fields = ('id', 'timestamp', 'event', 'user', 'answer_set', )
 
 
 class SignUpViewSet(viewsets.ModelViewSet):
@@ -107,21 +106,24 @@ class EventViewSet(mixins.RetrieveModelMixin,
 
         if request.method == 'GET':
 
+            def get_prefilled_value(question_pk):
+                return None
+
             if user:
                 # get the last signup of the user for this event
                 old_signup = user.signup_set.filter(event=event).first()
-                # ToDo: refactor the database scheme to allow polymorphism on question and answer
-                old_answers = old_signup.charanswer_set.all()
 
-                def get_prefilled_value(question_pk):
-                    answer = old_answers.filter(question__pk=question_pk)
-                    if answer.exists():
-                        return answer.first().text
-                    else:
-                        return None
-            else:
-                def get_prefilled_value(question_pk):
-                    return None
+                if old_signup:
+                    old_answers = old_signup.answer_set.all()
+
+                    def get_prefilled_value(question_pk):
+                        answers = old_answers.filter(question__pk=question_pk)
+                        if answers.exists():
+                            answer = answers.first()
+                            concrete_answer = answer.get_child_class()
+                            return concrete_answer.get_serialized_value()
+                        else:
+                            return None
 
             data = dict()
             data['event'] = event.id
@@ -161,6 +163,8 @@ class EventViewSet(mixins.RetrieveModelMixin,
                     if old_signup.exists() and event.change_signup_after_submit:
                         # you can update your submission
                         signup = old_signup.first()
+                        # delete old answers
+                        signup.answer_set.all().delete()
                     else:
                         signup = SignUp.objects.create(event=event, user=user)
                 else:
@@ -175,22 +179,10 @@ class EventViewSet(mixins.RetrieveModelMixin,
 
                         AnswerClass = Question.get_answer_field(question.type)
                         answer = AnswerClass()
-
-                        # don't build a mapping because we might want custom logic
-                        if question.type in (Question.CHARANSWER, Question.TEXTANSWER):
-                            answer.text = new_value
-                        elif question.type == Question.DATEANSWER:
-                            answer.date = new_value
-                        elif question.type == Question.TIMEANSWER:
-                            answer.time = new_value
-                        elif question.type == Question.MAILANSWER:
-                            answer.mail = new_value
-                        elif question.type == Question.MAILANSWER:
-                            answer.mail = new_value
-                        # ToDo: add choice fields
-
                         answer.question = question
                         answer.signup = signup
+                        answer.set_serialized_value(new_value)
+                        answer.full_clean()
                         answer.save()
 
             return Response({'state': 'ok'})
