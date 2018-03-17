@@ -160,6 +160,7 @@ class EventViewSet(mixins.RetrieveModelMixin,
                         "text": question.text,
                         "type": question.type,
                         "required": question.required,
+                        "choices": question.choices,
                         'value': get_prefilled_value(question.pk)
                     })
 
@@ -233,6 +234,7 @@ class EventViewSet(mixins.RetrieveModelMixin,
                     data['available_question_sets'][-1]['questions'].append({
                         "text": question.text,
                         "type": question.type,
+                        "choices": question.choices,
                         "required": question.required
                     })
 
@@ -248,6 +250,9 @@ class EventViewSet(mixins.RetrieveModelMixin,
                 event.end_datetime = request.data.get('end_datetime')
                 event.signup_from = request.data.get('signup_from')
                 event.signup_to = request.data.get('signup_to')
+                event.signup_type = request.data.get('signup_type')
+                event.change_signup_after_submit = request.data.get('change_signup_after_submit')
+                event.multiple_signups_per_person = request.data.get('multiple_signups_per_person')
                 event.save()
 
                 for i, question_set in enumerate(request.data['question_sets']):
@@ -273,6 +278,7 @@ class EventViewSet(mixins.RetrieveModelMixin,
                                 text=question.get('text'),
                                 type=question.get('type'),
                                 required=question.get('required'),
+                                choices=question.get('choices', ''),
                                 set=new_question_set
                             )
 

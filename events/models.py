@@ -86,11 +86,6 @@ class QuestionSet(models.Model):
         return self.label
 
 
-class AnswerPossibility(models.Model):
-    order = models.PositiveSmallIntegerField()
-    text = models.CharField(max_length=254)
-
-
 class Answer(models.Model):
     question = models.ForeignKey('Question', on_delete=models.CASCADE)
     signup = models.ForeignKey('SignUp', on_delete=models.CASCADE)
@@ -161,13 +156,17 @@ class MailAnswer(Answer):
 
 
 class SingleChoiceAnswer(Answer):
-    choice = models.CharField(max_length=254)
+    choice = models.PositiveSmallIntegerField(null=True)
 
     def get_serialized_value(self):
-        return self.choice
+        return str(self.choice)
 
     def set_serialized_value(self, value):
-        self.choice = value
+        i = int(value)
+        if len(self.question.get_choices()) > i >= 0:
+            self.choice = i
+        else:
+            raise ValueError('Invalid choice index')
 
 
 class MultiChoiceAnswer(Answer):
@@ -177,7 +176,18 @@ class MultiChoiceAnswer(Answer):
         return self.choices
 
     def set_serialized_value(self, value):
-        self.choices = value
+        max_i = len(self.question.get_choices())
+        valid_choices = []
+
+        for index in value.split(Question.CHOICE_SEPARATOR):
+            i = int(index)
+
+            if max_i > i >= 0:
+                valid_choices.append(str(i))
+            else:
+                raise ValueError('Invalid choice index')
+
+        self.choices = Question.CHOICE_SEPARATOR.join(valid_choices)
 
 
 class Question(models.Model):
@@ -215,9 +225,16 @@ class Question(models.Model):
 
     type = models.CharField(max_length=8, choices=ANSWER_TYPES)
 
+    # Only necessary for Choice and MultipleChoice
+    CHOICE_SEPARATOR = ','
+    choices = models.TextField(blank=True)
+
     @classmethod
     def get_answer_field(cls, field_code):
         return cls.FIELD_MAPPING.get(field_code, None)
+
+    def get_choices(self):
+        return self.choices.split(self.CHOICE_SEPARATOR)
 
 
 
