@@ -124,6 +124,23 @@ class EventViewSet(mixins.RetrieveModelMixin,
                             return concrete_answer.get_serialized_value()
                         else:
                             return None
+                else:
+                    # the user signups for this event for the first time
+                    # but maybe we want to fill in data from other events
+
+                    all_old_signups = user.signup_set.all()
+
+                    if all_old_signups.exists():
+                        old_answers = Answer.objects.filter(signup__in=all_old_signups)
+
+                        def get_prefilled_value(question_pk):
+                            answers = old_answers.filter(question__pk=question_pk).order_by('-signup__timestamp')
+                            if answers.exists():
+                                answer = answers.first()
+                                concrete_answer = answer.get_child_class()
+                                return concrete_answer.get_serialized_value()
+                            else:
+                                return None
 
             data = dict()
             data['event'] = event.id
