@@ -13,6 +13,11 @@ class Event(models.Model):
     signup_to = models.DateTimeField(null=True)
     slug = models.SlugField(unique=True)
 
+    creator = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE
+    )
+
     SIGNUP_TYPE_PUBLIC = 'pub'
     SIGNUP_TYPE_AUTH = 'aut'
 

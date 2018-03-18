@@ -61,27 +61,11 @@ class EventSerializer(serializers.ModelSerializer):
                   'slug', 'question_sets', 'signup_set')
 
 
-
-
 class SmallEventSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Event
         fields = ('label', )
-
-
-def valid_dynamic_field(json_field, value):
-    # if json_field.required and (value is None or len(value) == 0):
-    #     return False
-    # elif json_field.type in 'CHR' and (type(value) is not type("") or len(value) >= CharAnswer.MAX_LENGTH):
-    #     return False
-    # elif json_field.type == 'TXT' and (type(value) is not type("") or len(value) >= TextAnswer.MAX_LENGTH):
-    #     return False
-    # elif json_field.type == 'DAT' and (type(value) is not type("") or len(value) >= TextAnswer.MAX_LENGTH):
-    #     return False
-    # ToDo: this code is damn stupid
-    # ToDo: use the validation methods (or you will get injected)
-    return True
 
 
 class EventViewSet(mixins.RetrieveModelMixin,
@@ -192,9 +176,6 @@ class EventViewSet(mixins.RetrieveModelMixin,
                     for ii, question in enumerate(question_set.question_set.questions.all()):
                         new_value = request.data['question_sets'][i]['questions'][ii]['value']
 
-                        if not valid_dynamic_field(question, new_value):
-                            return Response({'error': 'validation error {}'.format(question)})
-
                         AnswerClass = Question.get_answer_field(question.type)
                         answer = AnswerClass()
                         answer.question = question
@@ -253,6 +234,7 @@ class EventViewSet(mixins.RetrieveModelMixin,
                 event.signup_type = request.data.get('signup_type')
                 event.change_signup_after_submit = request.data.get('change_signup_after_submit')
                 event.multiple_signups_per_person = request.data.get('multiple_signups_per_person')
+                event.creator = request.user
                 event.save()
 
                 for i, question_set in enumerate(request.data['question_sets']):

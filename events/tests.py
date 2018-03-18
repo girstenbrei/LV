@@ -1,15 +1,11 @@
 # Create your tests here.
+from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
-from django.urls import resolve
-
 from events.api import EventViewSet
-from participants.models import Participant
 from .models import Event, QuestionSet, Question, SignUp, TextAnswer, CharAnswer
-
 from django.test import TestCase
-
 from datetime import datetime
-from rest_framework.test import APIRequestFactory
+from rest_framework.test import APIRequestFactory, force_authenticate
 
 create_event_json = {
     "question_sets": [
@@ -71,12 +67,16 @@ create_event_json_2 = {
 
 class AnimalTestCase(TestCase):
     def setUp(self):
+        User.objects.create_superuser('tester', email="test@test.de", password='test')
+        self.user = User.objects.get_by_natural_key('tester')
+
         self.e = Event.objects.create(name="Frühjahrsklausur",
-                             start_datetime=datetime.now(),
-                             end_datetime=datetime.now(),
-                             signup_from=datetime.now(),
-                             signup_to=datetime.now()
-                             )
+                                      start_datetime=datetime.now(),
+                                      end_datetime=datetime.now(),
+                                      signup_from=datetime.now(),
+                                      signup_to=datetime.now(),
+                                      creator=self.user
+                                      )
 
         que_set = QuestionSet.objects.create(
             label="Adressblock",
@@ -155,6 +155,7 @@ class AnimalTestCase(TestCase):
 
         url = '/api/event/new'
         request = APIRequestFactory().post(url, create_event_json_2, format='json')
+        force_authenticate(request, user=self.user)
         view = EventViewSet.as_view({'post': 'new'})
         response = view(request)
         self.assertEqual(response.status_code, 200)
@@ -179,6 +180,7 @@ class AnimalTestCase(TestCase):
 
         url = '/api/event/{}/signup'.format(event.pk)
         request = APIRequestFactory().post(url, payload, format='json')
+        force_authenticate(request, user=self.user)
         view = EventViewSet.as_view({'post': 'signup'})
         response = view(request, pk=event.pk)
         self.assertEqual(response.status_code, 200)
@@ -190,6 +192,7 @@ class AnimalTestCase(TestCase):
 
         url = '/api/event/new'
         request = APIRequestFactory().post(url, create_event_json_2, format='json')
+        force_authenticate(request, user=self.user)
         view = EventViewSet.as_view({'post': 'new'})
         response = view(request)
         self.assertEqual(response.status_code, 200)
@@ -202,6 +205,7 @@ class AnimalTestCase(TestCase):
 
         url = '/api/event/{}/signup'.format(event.pk)
         request = APIRequestFactory().get(url, format='json')
+        force_authenticate(request, user=self.user)
         view = EventViewSet.as_view({'get': 'signup'})
         response = view(request, pk=event.pk)
         self.assertEqual(response.status_code, 200)
@@ -212,8 +216,11 @@ class AnimalTestCase(TestCase):
         payload['question_sets'][0]['questions'][2]['value'] = "Stammesführung"
         payload['question_sets'][0]['questions'][3]['value'] = "test@"
 
+        print(payload)
+
         url = '/api/event/{}/signup'.format(event.pk)
         request = APIRequestFactory().post(url, payload, format='json')
+        force_authenticate(request, user=self.user)
         view = EventViewSet.as_view({'post': 'signup'})
 
         with self.assertRaises(ValidationError):
@@ -227,6 +234,7 @@ class AnimalTestCase(TestCase):
 
         url = '/api/event/new'
         request = APIRequestFactory().post(url, create_event_json_2, format='json')
+        force_authenticate(request, user=self.user)
         view = EventViewSet.as_view({'post': 'new'})
         response = view(request)
         self.assertEqual(response.status_code, 200)
@@ -264,6 +272,7 @@ class AnimalTestCase(TestCase):
 
         url = '/api/event/new'
         request = APIRequestFactory().post(url, create_event_json_2, format='json')
+        force_authenticate(request, user=self.user)
         view = EventViewSet.as_view({'post': 'new'})
         response = view(request)
         self.assertEqual(response.status_code, 200)
@@ -295,19 +304,14 @@ class AnimalTestCase(TestCase):
 
         self.assertEqual(old_count, SignUp.objects.count())
 
-
-
     def test_create_new_event(self):
         event_count = Event.objects.count()
 
         url = '/api/event/new'
         request = APIRequestFactory().post(url, create_event_json_2, format='json')
+        force_authenticate(request, user=self.user)
         view = EventViewSet.as_view({'post': 'new'})
         response = view(request)
         self.assertEqual(response.status_code, 200)
 
         self.assertEqual(Event.objects.count()-1, event_count)
-
-
-
-
