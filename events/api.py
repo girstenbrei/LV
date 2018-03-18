@@ -1,10 +1,12 @@
 from django.db import transaction
+from django.http import HttpResponse
 from rest_framework import serializers, viewsets, mixins
 from rest_framework.decorators import list_route, detail_route, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
+from events.export import event_to_xlsx_buffer
 from .models import SignUp, Event, CharAnswer, TextAnswer, Question, Answer, QuestionSet, EventQuestionsSetRelation
 
 
@@ -273,3 +275,24 @@ class EventViewSet(mixins.RetrieveModelMixin,
             return Response({'state': 'ok'})
 
         return Response({'state': 'unsupported method'}, status=405)
+
+    @detail_route(methods=['GET'])
+    @permission_classes((IsAuthenticated,))
+    def download(self, request, pk):
+
+        event = self.get_object()
+
+        if request.user.pk != event.creator.pk or not request.user.is_superuser:
+            return Response({'state': 'Only creator and superuser can access this'}, status=403)
+
+        output = event_to_xlsx_buffer(event)
+
+        output.seek(0)
+        response = HttpResponse(output.read(),
+                                content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+        response['Content-Disposition'] = "attachment; filename={}.xlsx".format(event.pk)
+
+        return response
+
+
+
