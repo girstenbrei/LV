@@ -7,6 +7,7 @@ import dateutil.parser
 class Event(models.Model):
     name = models.CharField(max_length=256)
     description = models.TextField(blank=True)
+    post_address = models.TextField(blank=True)
     start_datetime = models.DateTimeField()
     end_datetime = models.DateTimeField()
     signup_from = models.DateTimeField()
@@ -15,7 +16,13 @@ class Event(models.Model):
 
     creator = models.ForeignKey(
         settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        related_name='created_events'
+    )
+
+    staff = models.ManyToManyField(
+        settings.AUTH_USER_MODEL,
+        'staff_events'
     )
 
     SIGNUP_TYPE_PUBLIC = 'pub'
@@ -59,6 +66,7 @@ class Event(models.Model):
 class SignUp(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
+    email = models.EmailField()
 
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,

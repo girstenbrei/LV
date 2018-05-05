@@ -1,10 +1,17 @@
+from django.conf import settings
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
+from django.core.validators import validate_email
 from django.db import transaction
 from django.http import HttpResponse
-from rest_framework import serializers, viewsets, mixins
+from rest_framework import serializers, viewsets, mixins, filters, status
 from rest_framework.decorators import list_route, detail_route, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from rest_framework.views import APIView
 from rest_framework.viewsets import GenericViewSet
+
 
 from events.export import event_to_xlsx_buffer
 from .models import SignUp, Event, CharAnswer, TextAnswer, Question, Answer, QuestionSet, EventQuestionsSetRelation
@@ -29,6 +36,7 @@ class QuestionSerializer(serializers.ModelSerializer):
         depth = 1
         fields = '__all__'
 
+
 class QuestionSetSerializer(serializers.ModelSerializer):
     questions = QuestionSerializer(many=True, read_only=True)
 
@@ -42,7 +50,7 @@ class SignUpSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = SignUp
-        fields = ('id', 'timestamp', 'event', 'user', 'answer_set', )
+        fields = ('id', 'timestamp', 'event', 'user', 'answer_set', 'email')
 
 
 class SignUpViewSet(viewsets.ModelViewSet):
@@ -59,7 +67,7 @@ class EventSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
         depth = 1
-        fields = ('id', 'name', 'description', 'start_datetime', 'end_datetime', 'signup_from', 'signup_to',
+        fields = ('id', 'name', 'description', 'post_address', 'start_datetime', 'end_datetime', 'signup_from', 'signup_to',
                   'slug', 'question_sets', 'signup_set')
 
 
@@ -68,6 +76,16 @@ class SmallEventSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
         fields = ('label', )
+
+
+class QuestionSetViewSet(mixins.RetrieveModelMixin,
+                         mixins.ListModelMixin,
+                         GenericViewSet):
+    serializer_class = QuestionSetSerializer
+    queryset = QuestionSet.objects.all()
+
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ('label', 'description')
 
 
 class EventViewSet(mixins.RetrieveModelMixin,
@@ -132,7 +150,31 @@ class EventViewSet(mixins.RetrieveModelMixin,
             data['event'] = event.id
             data['change_signup_after_submit'] = event.change_signup_after_submit
             data['multiple_signups_per_person'] = event.multiple_signups_per_person
-            data['question_sets'] = []
+            # Every survey contains of e-mail field and terms of use
+            data['question_sets'] = [
+                {
+                    'label': 'Generell',
+                    'description': 'Die obligatorischen Angaben zu jedem Formular.',
+                    'order': -1,
+                    'questions': [
+                        {
+                            "text": 'Wir benötigen deine E-Mail-Adresse, um dir die Pdf-Anmeldung und die postalische Empfangsbestätigung zuzusenden.',
+                            "type": Question.MAILANSWER,
+                            "required": True,
+                            "choices": '',
+                            'value': ''  # ToDo: Add the e-mail from the last signups
+                        },
+                        {
+                            "text": 'Stimmst du den AGBs dieses Dienstes zu?',  # ToDo: Write AGBs
+                            "type": Question.SINGLECHOICEANSWER,
+                            "required": True,
+                            "choices": 'Ja, Nein',
+                            'value': ''
+                        }
+
+                    ]
+                }
+            ]
 
             for question_set in event.eventquestionssetrelation_set.all():
                 data['question_sets'].append({
@@ -155,7 +197,17 @@ class EventViewSet(mixins.RetrieveModelMixin,
         elif request.method == 'POST':
 
             with transaction.atomic():
-                # ToDo: add the participant logic
+                # check whether terms of use and email are checked
+                general_questions = request.data['question_sets'].pop(0)
+                e_mail_question = general_questions['questions'][0]
+                terms_of_use_question = general_questions['questions'][1]
+                try:
+                    validate_email(e_mail_question['value'])
+                except ValidationError:
+                    return Response({'state': 'E-Mail not valid'}, status=403)
+
+                if terms_of_use_question['value'] not in (True, '0'):
+                    return Response({'state': 'You have to accept the terms of use.'}, status=403)
 
                 if user:
                     # get the last signup of the user for this event
@@ -174,6 +226,9 @@ class EventViewSet(mixins.RetrieveModelMixin,
                 else:
                     signup = SignUp.objects.create(event=event, user=user)
 
+                # store the signup mail or overwrite the old one
+                signup.email = e_mail_question['value']
+
                 for i, question_set in enumerate(event.eventquestionssetrelation_set.all()):
                     for ii, question in enumerate(question_set.question_set.questions.all()):
                         new_value = request.data['question_sets'][i]['questions'][ii]['value']
@@ -185,6 +240,8 @@ class EventViewSet(mixins.RetrieveModelMixin,
                         answer.set_serialized_value(new_value)
                         answer.full_clean()
                         answer.save()
+
+                signup.save()
 
             return Response({'state': 'ok'})
 
@@ -198,13 +255,17 @@ class EventViewSet(mixins.RetrieveModelMixin,
             data = dict()
             data['name'] = ''
             data['description'] = ''
+            data['post_address'] = ''
             data['start_datetime'] = ''
             data['end_datetime'] = ''
             data['signup_from'] = ''
             data['signup_to'] = ''
             data['signup_to'] = ''
             data['question_sets'] = []
+            data['staff_users'] = []
             data['available_question_sets'] = []
+            data['available_staff_users'] = [(user.username, user.pk)
+                                             for user in User.objects.all().exclude(pk=request.user.pk)]
 
             for question_set in QuestionSet.objects.all():
                 data['available_question_sets'].append({
@@ -229,6 +290,7 @@ class EventViewSet(mixins.RetrieveModelMixin,
                 event = Event()
                 event.name = request.data.get('name')
                 event.description = request.data.get('description')
+                event.post_address = request.data.get('post_address')
                 event.start_datetime = request.data.get('start_datetime')
                 event.end_datetime = request.data.get('end_datetime')
                 event.signup_from = request.data.get('signup_from')
@@ -238,6 +300,10 @@ class EventViewSet(mixins.RetrieveModelMixin,
                 event.multiple_signups_per_person = request.data.get('multiple_signups_per_person')
                 event.creator = request.user
                 event.save()
+
+                # Add the staff users (ToDo: Make removal possible)
+                for user_pk in request.data.get('staff_users', list()):
+                    event.staff.add(User.objects.get(pk=user_pk))
 
                 for i, question_set in enumerate(request.data['question_sets']):
                     if question_set.get('id', None):
@@ -293,6 +359,39 @@ class EventViewSet(mixins.RetrieveModelMixin,
         response['Content-Disposition'] = "attachment; filename={}.xlsx".format(event.pk)
 
         return response
+
+
+class LoginView(APIView):
+    allowed_methods = ['POST']
+
+    def post(self, request, format=None):
+        data = request.data
+
+        username = data.get('username', None)
+        password = data.get('password', None)
+
+        user = authenticate(username=username, password=password)
+
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+
+                return Response(status=status.HTTP_200_OK)
+            else:
+                return Response(status=status.HTTP_404_NOT_FOUND)
+        else:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+
+class LogoutView(APIView):
+    allowed_methods = ['GET']
+
+    def get(self, request, format=None):
+        # simply delete the token to force a login
+        if not request.user.is_anonymous:
+            logout(request)
+            return Response(status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_404_NOT_FOUND)
 
 
 

@@ -10,11 +10,15 @@ from rest_framework.test import APIRequestFactory, force_authenticate
 create_event_json = {
     "question_sets": [
         {"id": 1},
-        {"id": 2},
+        {"id": 2}
     ],
     "signup_from": "2018-01-01 10:10",
     "signup_to": "2018-01-01 10:10",
     "end_datetime": "2018-01-01 10:10",
+    "signup_type": "pub",
+    "post_address": "Severinstraße 5 RGB",
+    "change_signup_after_submit": False,
+    "multiple_signups_per_person": False,
     "name": "API Event 1",
     "start_datetime": "2018-01-01 10:10",
     "description": "Test 1"
@@ -24,7 +28,7 @@ create_event_json_2 = {
     "name": "API Event 2",
     "signup_to": "2018-01-01 10:10",
     "signup_type": "pub",
-    "change_signup_after_submit": True,
+    "change_signup_after_submit": False,
     "multiple_signups_per_person": False,
     "question_sets": [
 
