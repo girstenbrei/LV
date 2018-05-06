@@ -376,22 +376,32 @@ class LoginView(APIView):
             if user.is_active:
                 login(request, user)
 
-                return Response(status=status.HTTP_200_OK)
+                return Response(data={'status': 'hello'}, status=status.HTTP_200_OK)
             else:
-                return Response(status=status.HTTP_404_NOT_FOUND)
+                return Response(data={'status': 'user not active'}, status=status.HTTP_403_FORBIDDEN)
         else:
-            return Response(status=status.HTTP_404_NOT_FOUND)
+            return Response(data={'status': 'now found'}, status=status.HTTP_403_FORBIDDEN)
 
 
 class LogoutView(APIView):
+    allowed_methods = ['POST']
+
+    def post(self, request, format=None):
+        # simply delete the token to force a login
+        if not request.user.is_anonymous:
+            logout(request)
+            return Response(status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_403_FORBIDDEN)
+
+
+class CheckLoginView(APIView):
     allowed_methods = ['GET']
 
     def get(self, request, format=None):
         # simply delete the token to force a login
         if not request.user.is_anonymous:
-            logout(request)
-            return Response(status=status.HTTP_200_OK)
-        return Response(status=status.HTTP_404_NOT_FOUND)
+            return Response(data={}, status=status.HTTP_200_OK)
+        return Response(data={}, status=status.HTTP_403_FORBIDDEN)
 
 
 

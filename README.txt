@@ -41,7 +41,7 @@ It has django backend with a Vue.JS front end loosely coupled through the django
 - Readthedocs + Api documentation setup: CHRISTOPH
 - Dockerfile: CHRISTOPH
 - E-Mailing, Consent PDF and Excel: DANIEL
-- Survey creation API
+- Survey creation API: DANIEL
 - Staff API: CHRISTOPH
 - Vue.JS setup: CHRISTOPH
 - User UI: DANIEL
