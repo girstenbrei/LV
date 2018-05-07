@@ -2,7 +2,8 @@ from django.conf.urls import url
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 #from rest_framework_jwt.views import verify_jwt_token
 
-from .api import SignUpViewSet, EventViewSet, QuestionSetViewSet, LoginView, LogoutView, CheckLoginView
+from .api import SignUpViewSet, EventViewSet, QuestionSetViewSet, LoginView, LogoutView, CheckLoginView, \
+    SignedUpEventList, AdministeredEventList
 
 from rest_framework import routers
 
@@ -17,6 +18,8 @@ urlpatterns += [
     url(r'^api/logout/', LogoutView.as_view(), name='api_logout'),
     url(r'^api/login/', LoginView.as_view(), name='api_login'),
     url(r'^api/check_login/', CheckLoginView.as_view(), name='api_check_login'),
+    url(r'^api/signed_up_events', SignedUpEventList.as_view(), name='signed_up_events'),
+    url(r'^api/administered_events', AdministeredEventList.as_view(), name='administered_events'),
 
     url(r'^api/auth/token/obtain/$', TokenObtainPairView.as_view()),
     url(r'^api/auth/token/refresh/$', TokenRefreshView.as_view()),

@@ -5,7 +5,7 @@ from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 from django.db import transaction
 from django.http import HttpResponse
-from rest_framework import serializers, viewsets, mixins, filters, status
+from rest_framework import serializers, viewsets, mixins, filters, status, generics
 from rest_framework.decorators import list_route, detail_route, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -53,6 +53,56 @@ class SignUpSerializer(serializers.ModelSerializer):
         fields = ('id', 'timestamp', 'event', 'user', 'answer_set', 'email')
 
 
+class EventSerializer(serializers.ModelSerializer):
+    question_sets = QuestionSetSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Event
+        depth = 1
+        fields = ('id', 'name', 'description', 'post_address', 'start_datetime', 'end_datetime', 'signup_from', 'signup_to',
+                  'slug', 'question_sets', )  # 'signup_set'
+
+
+class SmallEventSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Event
+        fields = ('name', 'description', 'post_address', 'start_datetime', 'end_datetime',
+                  'signup_from', 'signup_to', 'signup_type', )
+
+
+
+class SignedUpEventList(generics.ListAPIView):
+    serializer_class = SignUpSerializer
+    # model = SignUp
+
+    def get_queryset(self):
+        """
+        This view should return a list of all the signups
+        for the currently authenticated user.
+        """
+        if self.request.user.is_anonymous:
+            return SignUp.objects.none()
+
+        return SignUp.objects.filter(user=self.request.user)
+
+
+class AdministeredEventList(generics.ListAPIView):
+    serializer_class = EventSerializer
+
+    def get_queryset(self):
+        """
+        This view should return a list of all the signups
+        for the currently authenticated user.
+        """
+        if self.request.user.is_anonymous:
+            return Event.objects.none()
+
+        return (Event.objects.filter(
+            creator=self.request.user) | self.request.user.staff_events.all()
+        ).distinct()
+
+
 class SignUpViewSet(viewsets.ModelViewSet):
     """
     A viewset for viewing and editing signups
@@ -61,21 +111,6 @@ class SignUpViewSet(viewsets.ModelViewSet):
     queryset = SignUp.objects.all()
 
 
-class EventSerializer(serializers.ModelSerializer):
-    question_sets = QuestionSetSerializer(many=True, read_only=True)
-
-    class Meta:
-        model = Event
-        depth = 1
-        fields = ('id', 'name', 'description', 'post_address', 'start_datetime', 'end_datetime', 'signup_from', 'signup_to',
-                  'slug', 'question_sets', 'signup_set')
-
-
-class SmallEventSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Event
-        fields = ('label', )
 
 
 class QuestionSetViewSet(mixins.RetrieveModelMixin,
@@ -100,7 +135,10 @@ class EventViewSet(mixins.RetrieveModelMixin,
     @detail_route(methods=['GET', 'POST'])
     def signup(self, request, pk):
 
-        event = self.get_object()
+        try:
+            event = Event.objects.get(slug=pk)
+        except Event.DoesNotExist:
+            return Response({'state': 'Event with this slug does not exist'}, status=404)
 
         # Check authenticated
         if request.successful_authenticator is None and event.signup_type == Event.SIGNUP_TYPE_AUTH:
@@ -147,7 +185,7 @@ class EventViewSet(mixins.RetrieveModelMixin,
                                 return None
 
             data = dict()
-            data['event'] = event.id
+            data['details'] = SmallEventSerializer(event).data
             data['change_signup_after_submit'] = event.change_signup_after_submit
             data['multiple_signups_per_person'] = event.multiple_signups_per_person
             # Every survey contains of e-mail field and terms of use

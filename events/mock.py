@@ -1,4 +1,6 @@
 # Create your tests here.
+from django.contrib.auth.models import User
+
 from participants.models import Participant
 from .models import Event, QuestionSet, Question, SignUp, TextAnswer, CharAnswer, EventQuestionsSetRelation
 
@@ -92,6 +94,83 @@ def add_dummy_data():
         question_set=que_set_2,
         order=2
     )
+
+
+def add_dummy_data_2():
+    e = Event.objects.create(name="Oktoberfest3",
+                         start_datetime=datetime.now(),
+                         end_datetime=datetime.now(),
+                         signup_from=datetime.now(),
+                         signup_to=datetime.now(),
+                             creator=User.objects.first(),
+                             signup_type=Event.SIGNUP_TYPE_PUBLIC
+                         )
+
+    que_set = QuestionSet.objects.create(
+        label="TestQuestionSet",
+        description="Dieses Set enthält alle Komponenten",
+        target=QuestionSet.DIRECTQ
+    )
+
+    que_1 = Question.objects.create(
+        text="Straße",
+        required=True,
+        type=Question.CHARANSWER,
+        set=que_set
+    )
+
+    que_2 = Question.objects.create(
+        text="E-Mail",
+        required=True,
+        type=Question.MAILANSWER,
+        set=que_set
+    )
+
+    que_3 = Question.objects.create(
+        text="Datum",
+        required=True,
+        type=Question.DATEANSWER,
+        set=que_set
+    )
+
+    que_4 = Question.objects.create(
+        text="Uhrzeit",
+        required=True,
+        type=Question.TIMEANSWER,
+        set=que_set
+    )
+
+    que_5 = Question.objects.create(
+        text="Motivationsschreiben",
+        required=True,
+        type=Question.TEXTANSWER,
+        set=que_set
+    )
+
+    que_6 = Question.objects.create(
+        text="Bundestagswahl",
+        required=True,
+        type=Question.SINGLECHOICEANSWER,
+        set=que_set,
+        choices='SPD,CDU/CSU,Die Grünen,Die Piraten'
+    )
+
+    que_6 = Question.objects.create(
+        text="Einkaufsliste",
+        required=True,
+        type=Question.MULTICHOICEANSWER,
+        set=que_set,
+        choices='Moet,Champagner,Kaviar,Petersilie,Caprisonne'
+    )
+
+
+    EventQuestionsSetRelation.objects.create(
+        event=e,
+        question_set=que_set,
+        order=0
+    )
+
+
 
 
 create_event_json = """
