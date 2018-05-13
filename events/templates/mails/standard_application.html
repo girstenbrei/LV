@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Anmeldung für {{ signup.event.name }}</title>
+</head>
+<body>
+    <h1>Anmeldung für {{ signup.event.name }}</h1>
+    <p>Dieses PDF wurde aus dem System "Digitale Anmeldung LV Bayern" generiert. Die darin eingetragenen Daten sind
+    derzeit nicht ohne offizielle Unterschrift gültig. Daher ist es notwendig dieses PDF auszudrucken und zu unterschreiben.
+    Beziehungsweise im Falle von Minderjährigen durch ein Vormund unterzeichnen zu lassen.</p>
+    <p>Dieses Dokument ist dann an die abgedruckte Adresse zu senden. Eine Empfangsbestätigung wird per E-Mail versendet.</p>
+
+    <h2>Daten der Veranstaltung</h2>
+    <p>Name: {{ signup.event.name }} </p>
+    <p>Veranstaltungszeitraum: {{ signup.event.start_datetime }} - {{ signup.event.end_datetime}} </p>
+    <p>Anmeldezeitraum: {{ signup.event.signup_from }} - {{ signup.event.signup_to }}</p>
+    <p>Kontakt zur Veranstaltungsleitung: {{ signup.event.creator.email }}</p>
+
+    {% for question_set in question_sets %}
+        <div>
+            <h3>Frageblock: {{question_set.label}}</h3>
+            <p>{{question_set.description}}</p>
+            {% with forloop.counter0 as i %}
+                {% for question in questions.i %}
+                    <div>
+                        <h4>Frage: {{question.text}}</h4>
+                        {% if question.required %}
+                            <p>Pflichtfeld</p>
+                        {% endif %}
+                        <h4>Antwort: answers[forloop.parentloop.counter0][forloop.counter0]</h4>
+                    </div>
+                {% endfor %}
+            {% endwith %}
+        </div>
+    {% endfor %}
+
+</body>
+</html>
