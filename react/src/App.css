@@ -1,3 +1,23 @@
 .active {
-    background-color: #860b07;
+}
+
+.btn-primary.disabled{
+    background-color: gray;
+    border: black;
+    color:lightgray;
+}
+
+body {
+    background-image: linear-gradient(to top, #bdd1ed 0%, #a7aec7 100%);
+
+    font-size: 20px;
+}
+
+html {
+    font-size: 20px;
+}
+
+
+label {
+    font-weight: 300
 }

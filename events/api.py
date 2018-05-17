@@ -192,12 +192,12 @@ class EventViewSet(mixins.RetrieveModelMixin,
             # Every survey contains of e-mail field and terms of use
             data['question_sets'] = [
                 {
-                    'label': 'Generell',
-                    'description': 'Die obligatorischen Angaben zu jedem Formular.',
+                    'label': 'Rechtlicher Abschnitt',
+                    'description': 'Wir benötigen deine E-Mail-Adresse, um dir deine PDF-Anmeldung und die postalische Empfangsbestätigung zuzusenden. Die AGBs zu diesem Dienst findest du unter https://anmeldungen.action-online.de/agb/2018-1',
                     'order': -1,
                     'questions': [
                         {
-                            "text": 'Wir benötigen deine E-Mail-Adresse, um dir die Pdf-Anmeldung und die postalische Empfangsbestätigung zuzusenden.',
+                            "text": 'Deine E-Mail-Adresse',
                             "type": Question.MAILANSWER,
                             "required": True,
                             "choices": '',
@@ -388,7 +388,10 @@ class EventViewSet(mixins.RetrieveModelMixin,
     @permission_classes((IsAuthenticated,))
     def download(self, request, pk):
 
-        event = self.get_object()
+        try:
+            event = Event.objects.get(slug=pk)
+        except Event.DoesNotExist:
+            return Response({'state': 'Event with this slug does not exist'}, status=404)
 
         if request.user.pk != event.creator.pk or not request.user.is_superuser:
             return Response({'state': 'Only creator and superuser can access this'}, status=403)

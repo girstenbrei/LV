@@ -24,9 +24,14 @@ class SLQ extends Component {
         this.props.setValidationState(validation_object.valid, this.serializeData(event.target.value))
     }
 
+
+    hasError() {
+        return (!this.state.validation_object.valid && this.state.edited_once);
+    }
+
     renderValidation() {
-        if (!this.state.validation_object.valid && this.state.edited_once) {
-            return <span>{this.state.validation_object.msg}</span>
+        if (this.hasError()) {
+            return <small className="form-element-hint">{this.state.validation_object.msg}</small>;
         } else {
             return <span/>
         }
@@ -36,23 +41,29 @@ class SLQ extends Component {
     renderOptions() {
         const choices = this.props.data.choices.split(",").map((choiceText, i) => {
                 if (i === this.state.value) {
-                    return <div key={'o' + i}>
+                    return <label key={'o' + i}
+                                  className={`form-radio-label`}>
                         <input name={this.props.data.i}
+                               className={`form-radio-field`}
                                type="radio"
                                value={i}
                                onChange={this.handleChange}
                                checked/>
-                        {choiceText}
+                        <i className="form-radio-button"/>
+                        <span>{choiceText}</span>
                         <br/>
-                    </div>
+                    </label>
                 } else {
-                    return <div key={'o' + i}>
+                    return <label key={'o' + i}
+                                  className={`form-radio-label`}>
                         <input name={this.props.data.i}
+                               className={`form-radio-field`}
                                type="radio"
                                value={i}
                                onChange={this.handleChange} />
-                        {choiceText}<br/>
-                    </div>
+                        <i className="form-radio-button"/>
+                        <span>{choiceText}</span>
+                    </label>
                 }
             }
         );
@@ -63,7 +74,8 @@ class SLQ extends Component {
 
     render() {
         return (
-            <div key={this.props.i}>
+            <div key={this.props.i} className={`form-radio form-radio-inline ${this.hasError() ? 'form-has-error' : ''}`}>
+                <div className="form-radio-legend">{this.props.data.text}</div>
                 {this.renderOptions()}
                 {this.renderValidation()}
             </div>

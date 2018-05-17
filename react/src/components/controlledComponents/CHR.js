@@ -3,6 +3,7 @@ import React, { Component } from "react";
 class CHR extends Component {
     constructor(props) {
         super(props);
+
         this.state = {
             value: props.data.value || "",
             edited_once: false,
@@ -28,21 +29,32 @@ class CHR extends Component {
         this.props.setValidationState(validation_object.valid, this.serializeData(event.target.value))
     }
 
+    hasError() {
+        return (!this.state.validation_object.valid && this.state.edited_once);
+    }
+
     renderValidation() {
-        if (!this.state.validation_object.valid && this.state.edited_once) {
-            return <span>{this.state.validation_object.msg}</span>
+        if (this.hasError()) {
+            return <small className="form-element-hint">{this.state.validation_object.msg}</small>;
         } else {
             return <span/>
         }
     }
 
+
     render() {
         return (
-            <div key={this.props.i}>
-                <input name={this.props.i}
+            <div key={this.props.i} className={`form-element form-input ${this.hasError() ? 'form-has-error' : ''}`}>
+                <input name={this.props.data.i}
+                       id={`field-${this.props.data.i}`}
                        type="text"
+                       className="form-element-field"
+                       placeholder=" "
                        value={this.state.value}
                        onChange={this.handleChange}/>
+                <div className="form-element-bar"/>
+                <label className="form-element-label" htmlFor={`field-${this.props.data.i}`}>{this.props.data.text}</label>
+
                 {this.renderValidation()}
             </div>
         );

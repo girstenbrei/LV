@@ -29,22 +29,31 @@ class TME extends Component {
         this.props.setValidationState(validation_object.valid, this.serializeData(event.target.value))
     }
 
+
+    hasError() {
+        return (!this.state.validation_object.valid && this.state.edited_once);
+    }
+
     renderValidation() {
-        if (!this.state.validation_object.valid && this.state.edited_once) {
-            return <span>{this.state.validation_object.msg}</span>
+        if (this.hasError()) {
+            return <small className="form-element-hint">{this.state.validation_object.msg}</small>;
         } else {
             return <span/>
         }
     }
 
 
+
     render() {
         return (
-            <div key={this.props.i}>
+            <div key={this.props.i} className={`form-radio form-radio-inline`}>
                 <input name={this.props.i}
+                       className="form-element-field"
                        type="time"
                        value={this.state.value}
                        onChange={this.handleChange}/>
+                <div className="form-element-bar"/>
+                <label className="form-element-label" htmlFor={`field-${this.props.data.i}`}>{this.props.data.text}</label>
                 {this.renderValidation()}
             </div>
         );

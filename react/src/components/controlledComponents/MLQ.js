@@ -64,35 +64,49 @@ class MLQ extends Component {
         this.props.setValidationState(validation_object.valid, this.serializeData(this.updateValues(event.target.value)))
     }
 
+
+    hasError() {
+        return (!this.state.validation_object.valid && this.state.edited_once);
+    }
+
     renderValidation() {
-        if (!this.state.validation_object.valid && this.state.edited_once) {
-            return <span>{this.state.validation_object.msg}</span>
+        if (this.hasError()) {
+            return <small className="form-element-hint">{this.state.validation_object.msg}</small>;
         } else {
             return <span/>
         }
     }
 
 
+
+
+
     renderOptions() {
-        const renderChoices = this.choices.map((choiceText, i) => {
+        const renderChoices = this.props.data.choices.split(",").map((choiceText, i) => {
                 if (i === this.state.selected_index) {
-                    return <div key={'o' + i}>
+                    return <label key={'o' + i} className="form-checkbox-label">
                                 <input name={this.props.data.i}
+                                       className="form-checkbox-field"
                                    type="checkbox"
                                    value={i}
                                    onChange={this.handleChange}
                                    checked/>
-                                    {choiceText}
-                                <br/>
-                            </div>
+                                    <i className="form-checkbox-button"></i>
+                                    <span>{choiceText}</span>
+                            </label>
                 } else {
-                    return <div key={'o' + i}>
-                                <input name={this.props.data.i}
+                    return (
+                        <label key={'o' + i} className="form-checkbox-label">
+                            <input name={this.props.data.i}
+                                   className="form-checkbox-field"
                                    type="checkbox"
                                    value={i}
-                                   onChange={this.handleChange} />
-                                    {choiceText}<br/>
-                        </div>
+                                   onChange={this.handleChange}
+                                   />
+                            <i className="form-checkbox-button"></i>
+                            <span>{choiceText}</span>
+                        </label>
+                    )
                 }
             }
         );
@@ -103,7 +117,8 @@ class MLQ extends Component {
 
     render() {
         return (
-            <div key={this.props.i}>
+            <div key={this.props.i} className={`form-radio form-radio-inline ${this.hasError() ? 'form-has-error' : ''}`}>
+                <div className="form-checkbox-legend">{this.props.data.text}</div>
                 {this.renderOptions()}
                 {this.renderValidation()}
             </div>

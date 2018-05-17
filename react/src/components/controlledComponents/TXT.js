@@ -28,9 +28,13 @@ class TXT extends Component {
         this.props.setValidationState(validation_object.valid, this.serializeData(event.target.value))
     }
 
+    hasError() {
+        return (!this.state.validation_object.valid && this.state.edited_once);
+    }
+
     renderValidation() {
-        if (!this.state.validation_object.valid && this.state.edited_once) {
-            return <span>{this.state.validation_object.msg}</span>
+        if (this.hasError()) {
+            return <small className="form-element-hint">{this.state.validation_object.msg}</small>;
         } else {
             return <span/>
         }
@@ -39,14 +43,19 @@ class TXT extends Component {
 
     render() {
         return (
-            <div key={this.props.i}>
+            <div key={this.props.i} className={`form-element form-textarea ${this.hasError() ? 'form-has-error' : ''}`}>
 
                 <textarea
                     name={this.props.i}
+                    id={`field-${this.props.data.i}`}
+                    className="form-element-field" placeholder=" "
                     onChange={this.handleChange}
                     value={this.state.value}>
                     {this.props.data.value}
                     </textarea>
+
+                <div className="form-element-bar"/>
+                <label className="form-element-label" htmlFor={`field-${this.props.data.i}`}>{this.props.data.text}</label>
 
                 {this.renderValidation()}
             </div>

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import {Link} from "react-router-dom";
+import EventCardsLayout from "../EventCardsLayout";
 
 class AdministeredEvents extends Component {
     constructor(props) {
@@ -34,8 +35,15 @@ class AdministeredEvents extends Component {
     render() {
         return (
             <div>
-                <h2>AdministeredEvents</h2>
-                {this.renderEvents()}
+                <div className="text-center">
+                    <Link to={"/create/"}
+                          className={`btn btn-primary`}
+                          role="button">Neue Veranstaltung anlegen</Link>
+                </div>
+
+                <EventCardsLayout eventList={this.state.eventList} title={`Veranstaltungen verwalten`}
+                                  hideLoginButton={false} showAdministrateButton={true}
+                />
             </div>
         );
     }

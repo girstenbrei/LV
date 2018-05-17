@@ -58,7 +58,6 @@ class Question extends Component {
     render() {
         return (
             <div key={this.props.i}>
-                <h3>{this.props.data.text}</h3>
                 <p>{this.props.data.required}</p>
                 {this.renderQuestionField()}
 

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import EventCard from "../EventCard";
+
+import EventCardsLayout from "../EventCardsLayout";
 
 class PublicEvents extends Component {
     constructor(props) {
@@ -20,20 +21,10 @@ class PublicEvents extends Component {
             .catch(err => alert(err));
     }
 
-    renderEvents () {
-        const listItems = this.state.eventList.map((event, i) =>
-            <EventCard key={i} data={event}/>
-        );
-        return (
-            <div>{listItems}</div>
-        );
-    }
-
     render() {
         return (
             <div>
-                <h2>PublicEvents</h2>
-                {this.renderEvents()}
+                <EventCardsLayout eventList={this.state.eventList} title={`Öffentliche Veranstaltungen`} />
             </div>
         );
     }

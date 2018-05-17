@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import QuestionSet from "../QuestionSet";
+import EventCard from "../EventCard";
+
+import '../styles/EventDetail.css'
 
 class EventDetail extends Component {
     constructor(props) {
@@ -98,25 +101,28 @@ class EventDetail extends Component {
 
     }
 
+    // The styling of the components comes from: https://codepen.io/jonnitto/pen/OVmvPB
     render() {
         if(this.state.event.details) {
             return (
-                <div>
-                    <h2>{this.state.event.details.name}</h2>
-                    <p>{this.state.event.details.description}</p>
-                    <p>{this.state.event.details.start_datetime}</p>
-                    <p>{this.state.event.details.end_datetime}</p>
-                    <p>{this.state.event.details.signup_from}</p>
-                    <p>{this.state.event.details.signup_to}</p>
-                    <p>Multiple Signups: {this.state.event.details.multiple_signups_per_person}</p>
-                    <p>Change Singup after Submit: {this.state.event.details.change_signup_after_submit}</p>
+                <div className="container">
+                    <div className="row">
+                        <div className="col-xs-12 col-sm-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8">
 
-			<form onSubmit={this.submitForm}>
+                            <EventCard key="1" data={this.state.event.details} hideLoginButton={true}/>
 
-                   	 {this.renderQuestionSets()}
-                    	{(this.state.isValid) ? <button>Anmelden</button> : <button  onClick={this.submitForm} disabled>Anmelden</button>}
+                            <form className="form-card" onSubmit={this.submitForm}>
 
-			</form>
+                                {this.renderQuestionSets()}
+                                {(this.state.isValid) ?
+                                    <button className="btn btn-primary btn-lg pull-right submit-button active">Anmelden</button>
+                                    :
+                                    <button  className="btn btn-primary btn-lg pull-right submit-button disabled" onClick={this.submitForm} disabled>Anmelden</button>}
+
+                            </form>
+
+                        </div>
+                    </div>
                 </div>
             );
         } else {

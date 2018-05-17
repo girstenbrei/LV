@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import Question from "./Question";
+import {Thumbnail} from "react-bootstrap";
+
+import './styles/QuestionSet.css'
 
 
 class QuestionSet extends Component {
@@ -47,13 +50,15 @@ class QuestionSet extends Component {
 
     render() {
         return (
-            <div>
+
+        <Thumbnail className="QuestionSet">
                 <h2>{this.props.data.label}</h2>
                 <p>{this.props.data.description}</p>
+            <br />
 
                 {this.renderQuestions()}
 
-            </div>
+        </Thumbnail>
         );
     }
 }
