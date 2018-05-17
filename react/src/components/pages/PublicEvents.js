@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import EventCard from "./EventCard";
+import EventCard from "../EventCard";
 
 class PublicEvents extends Component {
     constructor(props) {
@@ -13,7 +13,7 @@ class PublicEvents extends Component {
     }
 
     getEvents() {
-        this.props.globalState.auth.fetch(this.props.globalState.url + '/api/signed_up_events')
+        this.props.globalState.auth.fetch(this.props.globalState.url + '/api/event/')
             .then((response) => {
                 this.setState({eventList: response});
             })
@@ -32,7 +32,7 @@ class PublicEvents extends Component {
     render() {
         return (
             <div>
-                <h2>Your Events</h2>
+                <h2>PublicEvents</h2>
                 {this.renderEvents()}
             </div>
         );

@@ -28,8 +28,11 @@ class Login extends Component {
 
     sendLogin() {
         console.log(this.props);
+
         this.props.globalState.auth.login(this.state.email, this.state.password)
             .then((response) => {
+                console.log("Login response");
+                console.log(response)
                 this.props.changeAppState({isLoggedIn: true});
             })
             .catch(err => alert(err));

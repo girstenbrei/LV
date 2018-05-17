@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import './App.css';
 
-import Login from "./components/Login";
+import Login from "./components/pages/Login";
 import AuthService from "./components/AuthService";
 import {Route, Link, BrowserRouter, Redirect} from "react-router-dom";
 
-import PublicEvents from "./components/PublicEvents";
-import AdministeredEvents from "./components/AdministeredEvents";
-import SignedUpEvents from "./components/SignedUpEvents";
-import EventDetail from "./components/EventDetail";
-import AdminEventDetail from "./components/AdminEventDetail";
+import PublicEvents from "./components/pages/PublicEvents";
+import AdministeredEvents from "./components/pages/AdministeredEvents";
+import SignedUpEvents from "./components/pages/SignedUpEvents";
+import EventDetail from "./components/pages/EventDetail";
+import AdminEventDetail from "./components/pages/AdminEventDetail";
+import Navbar from "./components/layoutComponents/Navbar";
 
 class App extends Component {
 
@@ -18,6 +19,8 @@ class App extends Component {
         super(props);
 
         const url = "http://localhost:8080";
+
+        console.log("construct APP")
 
         this.state = {
             isLoggedIn: false,
@@ -36,6 +39,9 @@ class App extends Component {
     }
 
     checkLogin()  {
+
+        console.log("check login")
+
         this.state.auth.refresh()
             .then(() => {
                 this.setState({
@@ -57,6 +63,7 @@ class App extends Component {
     }
 
     logoutHandler(e) {
+        console.log("LOGOUT")
         this.state.auth.logout();
         this.changeAppState({isLoggedIn:false});
     }
@@ -83,57 +90,17 @@ class App extends Component {
 
     }
 
-    renderHeader() {
-        return(
-            <nav className="navbar navbar-light bg-light">
-                <span className="navbar-brand mb-0 h1">Digitale Anmeldung</span>
-            </nav>
-        );
-    }
-
-    renderSideNav() {
-        return <nav id="sidebar">
-
-            <div className="sidebar-header">
-                <h3>Menu</h3>
-            </div>
-
-            {(this.state.isLoggedIn)
-            ?
-            <ul className="list-unstyled components">
-                <li className="active"><Link to="/publicEvents">Public Events</Link></li>
-                <li><Link to="/administeredEvents">Administered Events</Link></li>
-                <li><Link to="/yourEvents">Your Events</Link></li>
-                <li><Link onClick={this.logoutHandler} to="/">Logout</Link></li>
-            </ul>
-            :
-            <ul className="list-unstyled components">
-                <li className="active"><Link to="/publicEvents">Public Events</Link></li>
-                <li><Link to="/login">Login</Link></li>
-            </ul>}
-        </nav>
-    }
-
-    renderWrapper(){
-        return <BrowserRouter>
-            <div className="wrapper">
-                {this.renderSideNav()}
-                {this.renderContent()}
-            </div>
-        </BrowserRouter>
-    }
-
-
-    collectComponents() {
-        return <div>
-            {this.renderHeader()}
-            {this.renderWrapper()}
-        </div>
-    }
-
   render() {
-      return this.collectComponents();
+      return (
+          <BrowserRouter>
+              <div className="wrapper">
+                  <Navbar isLoggedIn={this.state.isLoggedIn} logoutHandler={this.logoutHandler}/>
+                  {this.renderContent()}
+              </div>
+          </BrowserRouter>
+      );
   }
+
 }
 
 export default App;

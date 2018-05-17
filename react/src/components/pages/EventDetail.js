@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import QuestionSet from "./QuestionSet";
+import QuestionSet from "../QuestionSet";
 
 class EventDetail extends Component {
     constructor(props) {
