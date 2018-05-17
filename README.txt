@@ -1,7 +1,11 @@
 # LV Signup Apps
 
 This project is intended to be used by the BdP LV Bayern e.V. to handle signups of their events.
-It has django backend with a Vue.JS front end loosely coupled through the django rest framework.
+It has django backend with a React front end loosely coupled through the django rest framework.
+
+## Dependencies
+
+ - sudo apt-get install xvfb libfontconfig wkhtmltopdf
 
 ## Example process
 1. Create a new event

@@ -14,6 +14,7 @@ from rest_framework.viewsets import GenericViewSet
 
 
 from events.export import event_to_xlsx_buffer
+from events.mail import send_signup_mail
 from .models import SignUp, Event, CharAnswer, TextAnswer, Question, Answer, QuestionSet, EventQuestionsSetRelation
 
 
@@ -280,6 +281,9 @@ class EventViewSet(mixins.RetrieveModelMixin,
                         answer.save()
 
                 signup.save()
+
+                # send the signup mail
+                send_signup_mail(signup)
 
             return Response({'state': 'ok'})
 
