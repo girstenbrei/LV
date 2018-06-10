@@ -1,0 +1,7 @@
+- Checkboxes in EventCreation
+- Checkboxes prefilled for already submitted form
+- Event verwalten
+    - Deadlines Bearbeiten
+    - Teilnehmerliste
+    - Staff
+- serve react with django
