@@ -38,6 +38,7 @@ class Event(models.Model):
     # the two of them could be mutual exclusive?
     change_signup_after_submit = models.BooleanField(default=True)
     multiple_signups_per_person = models.BooleanField(default=False)
+    analog_submission_required = models.BooleanField(default=False)
 
     question_sets = models.ManyToManyField('QuestionSet', through='EventQuestionsSetRelation', )
 

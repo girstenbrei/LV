@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {Button, ButtonGroup, ButtonToolbar, Thumbnail} from "react-bootstrap";
+import {Button, ButtonGroup, ButtonToolbar} from "react-bootstrap";
 import CHR from "./controlledComponents/CHR";
 import MAL from "./controlledComponents/MAL";
 import TME from "./controlledComponents/TME";
@@ -12,22 +12,24 @@ class CreateQuestion extends Component {
     constructor(props) {
         super(props);
 
-        console.log("fsfs")
-
         this.state = {
             text: props.data.text || "",
             type: props.data.type || "CHR",
             choices: props.data.choices || '',
             edited_once: false,
-            validation_object: {valid:false, msg:""}
-
+            validation_object: {valid:false, msg:""},
+            key_id: parseInt(props.key_id),
+            required: props.data.text || false
         };
 
         this.handleChangeText = this.handleChangeText.bind(this);
         this.handleChangeType = this.handleChangeType.bind(this);
+        this.handleChangeRequired = this.handleChangeRequired.bind(this);
         this.handleChangeChoices = this.handleChangeChoices.bind(this);
         this.removeQuestionSet = this.removeQuestionSet.bind(this);
         this.removeQuestion = this.removeQuestion.bind(this);
+        this.moveQuestionDown = this.moveQuestionDown.bind(this);
+        this.moveQuestionUp = this.moveQuestionUp.bind(this);
     }
 
     serializeData(data){
@@ -46,15 +48,23 @@ class CreateQuestion extends Component {
             validation_object = {valid: true, msg:""}
         }
         this.setState({text: event.target.value, edited_once: true, validation_object:validation_object});
-        this.props.setValidationState(validation_object.valid, this.serializeData(event.target.value))
+        this.props.setValidationState(validation_object.valid, this.serializeData(event.target.value));
+        this.props.updateQuestion(this.props.i, {...this.state, text: event.target.value, edited_once: true, validation_object:validation_object});
     }
 
     handleChangeType(event) {
         this.setState({type: event.target.value});
+        this.props.updateQuestion(this.props.i, {...this.state, type: event.target.value});
+    }
+
+    handleChangeRequired(event) {
+        this.setState({required: event.target.checked});
+        this.props.updateQuestion(this.props.i, {...this.state, required: event.target.checked});
     }
 
     handleChangeChoices(event) {
         this.setState({choices: event.target.value});
+        this.props.updateQuestion(this.props.i, {...this.state, choices: event.target.value});
     }
 
     hasError() {
@@ -77,7 +87,7 @@ class CreateQuestion extends Component {
         return {
             'text': this.state.text,
             'value': '',
-            'required': true,
+            'required': this.state.required,
             'i': this.props.i,
             'choices': this.state.choices
         }
@@ -91,10 +101,19 @@ class CreateQuestion extends Component {
         return ['SLQ', 'MLQ'].includes(this.state.type);
     }
 
-    setValidationState() {}
+    setValidationState() {
+    }
 
     removeQuestion() {
+        this.props.removeQuestion(this.state.key_id);
+    }
 
+    moveQuestionUp() {
+        this.props.moveQuestionUp(this.props.i);
+    }
+
+    moveQuestionDown() {
+        this.props.moveQuestionDown(this.props.i);
     }
 
     renderQuestionField() {
@@ -125,8 +144,8 @@ class CreateQuestion extends Component {
             <div style={{borderStyle:'solid', margin: '15px', padding:'5px'}}>
                 <ButtonToolbar>
                     <ButtonGroup bsSize="medium">
-                        <Button><span className="glyphicon glyphicon-chevron-up" aria-hidden="true"/> </Button>
-                        <Button><span className="glyphicon glyphicon-chevron-down" aria-hidden="true"/></Button>
+                        <Button onClick={this.moveQuestionUp}><span className="glyphicon glyphicon-chevron-up" aria-hidden="true"/> </Button>
+                        <Button onClick={this.moveQuestionDown}><span className="glyphicon glyphicon-chevron-down" aria-hidden="true"/></Button>
                         <Button onClick={this.removeQuestion}><span className="glyphicon glyphicon-remove" aria-hidden="true"/></Button>
                     </ButtonGroup>
                 </ButtonToolbar>
@@ -146,6 +165,7 @@ class CreateQuestion extends Component {
                 <div>
                     Frage:  <br/>
                     <input type="text" value={this.state.text} onChange={this.handleChangeText} /> <br/>
+                    Pflichtfeld: <input type="checkbox" value={true} onChange={this.handleChangeRequired} /> <br/>
                     {this.isChoicesType() &&
                         <div>
                             Auswahlmöglichkeiten (Durch Kommas separiert) (z.B.Apfel, Ei, Meer) < br />

@@ -115,7 +115,7 @@ class EventDetail extends Component {
 
                                 {this.renderQuestionSets()}
                                 {(this.state.isValid) ?
-                                    <button className="btn btn-primary btn-lg pull-right submit-button active">Anmelden</button>
+                                    <button className="btn btn-primary btn-lg pull-right submit-button active" onClick={this.submitForm}>Anmelden</button>
                                     :
                                     <button  className="btn btn-primary btn-lg pull-right submit-button disabled" onClick={this.submitForm} disabled>Anmelden</button>}
 

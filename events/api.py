@@ -293,10 +293,14 @@ class EventViewSet(mixins.RetrieveModelMixin,
     @permission_classes((IsAuthenticated,))
     def new(self, request):
 
+        if not request.user or request.user.is_anonymous:
+            return Response({'state': 'You have to be authenticated to create an event'}, status=403)
+
         if request.method == 'GET':
             data = dict()
             data['name'] = ''
             data['description'] = ''
+            data['analog_submission_required'] = ''
             data['post_address'] = ''
             data['start_datetime'] = ''
             data['end_datetime'] = ''
@@ -327,19 +331,21 @@ class EventViewSet(mixins.RetrieveModelMixin,
             return Response(data)
 
         elif request.method == 'POST':
+
             with transaction.atomic():
 
                 event = Event()
                 event.name = request.data.get('name')
                 event.description = request.data.get('description')
                 event.post_address = request.data.get('post_address')
+                event.analog_submission_required = str(request.data.get('analog_submission_required', 'true')).find('true') >= 0
                 event.start_datetime = request.data.get('start_datetime')
                 event.end_datetime = request.data.get('end_datetime')
                 event.signup_from = request.data.get('signup_from')
                 event.signup_to = request.data.get('signup_to')
-                event.signup_type = request.data.get('signup_type')
-                event.change_signup_after_submit = request.data.get('change_signup_after_submit')
-                event.multiple_signups_per_person = request.data.get('multiple_signups_per_person')
+                event.signup_type = request.data.get('signup_type', Event.SIGNUP_TYPE_AUTH)
+                event.change_signup_after_submit = str(request.data.get('change_signup_after_submit', 'false')).find('true') >= 0
+                event.multiple_signups_per_person = str(request.data.get('multiple_signups_per_person', 'false')).find('true') >= 0
                 event.creator = request.user
                 event.save()
 
